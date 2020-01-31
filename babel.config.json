@@ -1,0 +1,21 @@
+{
+  "moduleId": "thyn",
+  "ignore": ["/node_modules/"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": true
+        },
+        "loose": true
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-function-bind",
+    "@babel/plugin-proposal-throw-expressions"
+  ]
+}
