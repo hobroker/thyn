@@ -11,22 +11,23 @@
     "dist"
   ],
   "scripts": {
-    "build": "babel src -d dist --copy-files --source-maps true",
+    "build": "babel src -d dist --copy-files",
     "build:watch": "npm run build -- --watch",
     "rebuild": "rm -rf dist && npm run build",
-    "start": "DEBUG=app* node dist/index.js",
-    "start:dev": "DEBUG=app* node -r @babel/register src/index.js",
+    "start": "DEBUG=oxium* node dist/index.js",
+    "start:dev": "DEBUG=oxium* node -r @babel/register src/index.js",
     "test": "NODE_ENV=test jest --passWithNoTests",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {
+    "@babel/runtime": "^7.8.4",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "monet": "^0.9.1",
     "mongoose": "^5.8.10",
-    "oxium": "github:hobroker/oxium",
+    "oxium": "github:hobroker/oxium#chore",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.24.0"
   },
@@ -38,6 +39,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.8.3",
     "@babel/plugin-proposal-function-bind": "^7.8.3",
     "@babel/plugin-proposal-throw-expressions": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/register": "^7.8.3",
     "babel-eslint": "^10.0.3",

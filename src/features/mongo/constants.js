@@ -1,5 +1,8 @@
 export const MONGO = 'mongo';
 
+export const MODELS = 'models';
+export const SCHEMA = 'schema';
+
 export const MONGOOSE_CONNECT_OPTIONS = {
   useNewUrlParser: true,
   useUnifiedTopology: true,

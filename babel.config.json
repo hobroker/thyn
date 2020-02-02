@@ -1,14 +1,12 @@
 {
   "moduleId": "thyn",
-  "ignore": ["/node_modules/"],
   "presets": [
     [
       "@babel/preset-env",
       {
         "targets": {
           "node": true
-        },
-        "loose": true
+        }
       }
     ]
   ],

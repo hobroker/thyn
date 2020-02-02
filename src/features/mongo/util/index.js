@@ -1,4 +1,14 @@
-import { compose, curry, defaultTo, flatten, indexBy, map, prop } from 'ramda';
+import {
+  compose,
+  curry,
+  defaultTo,
+  filter,
+  flatten,
+  indexBy,
+  map,
+  prop,
+} from 'ramda';
+import { isFunction } from 'ramda-adjunct';
 import { Schema } from 'mongoose';
 import { MONGOOSE_SCHEMA_OPTIONS } from '../constants';
 import { getSchema, getSharedModels } from '../lens';
@@ -10,6 +20,7 @@ const createSchema = value => new Schema(value, MONGOOSE_SCHEMA_OPTIONS);
 const createSchemaFromModel = compose(createSchema, getSchema);
 
 export const collectModels = compose(
+  filter(isFunction),
   flatten,
   map(compose(defaultTo([]), getSharedModels)),
   getFeatures,

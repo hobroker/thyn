@@ -1,7 +1,7 @@
 # Thyn
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/hobroker/thyn?style=flat-square)
 [![License](https://img.shields.io/github/license/hobroker/thyn)](LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/hobroker/thyn)](https://github.com/hobroker/thyn/projects/1)
+[![GitHub issues](https://img.shields.io/github/issues/hobroker/thyn)](https://github.com/hobroker/thyn/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/hobroker/thyn.svg)](http://isitmaintained.com/project/hobroker/thyn "Average time to resolve an issue")
 ![GitHub top language](https://img.shields.io/github/languages/top/hobroker/thyn)
 

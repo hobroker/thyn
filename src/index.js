@@ -1,21 +1,15 @@
-import { compose, converge, filter, map, take } from 'ramda';
 import oxium from 'oxium';
-import { getFeatures, resetMetaToFeature } from './lens/app';
-import { areAllFeaturesLoaded } from './lens/features';
-import { getMeta, getWeave, isFeatureUnloaded } from './lens/feature';
+import { compose, filter, otherwise, take, then } from 'ramda';
+import { areAppFeaturesLoaded, resetMetaToFeatures } from './lens/app';
+import { isFeatureUnloaded } from './lens/feature';
+import afterRun from './util/afterRun';
+import { debugIt } from './util/debug';
 import config from './config';
-import Demo from './features/demo';
-import Second from './features/second';
-import Mongo from './features/mongo';
-import { debugIt, debugItFp } from './util/debug';
+import * as features from './features';
 
-const features = [Demo, Mongo, Second];
-const app = resetMetaToFeature(features, { config });
+const app = resetMetaToFeatures(features, { config });
 
 const filterFn = compose(take(2), filter(isFeatureUnloaded));
-const isDoneFn = compose(areAllFeaturesLoaded, getFeatures);
-const run = oxium(filterFn, isDoneFn);
+const run = oxium(filterFn, areAppFeaturesLoaded);
 
-run(app)
-  .then(compose(map(converge(debugItFp, [getMeta, getWeave])), getFeatures))
-  .catch(debugIt);
+compose(otherwise(debugIt), then(afterRun), run)(app);

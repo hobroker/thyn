@@ -1,5 +1,5 @@
-import { compose } from 'ramda';
 import { deferHandler } from 'oxium';
+import { compose } from 'ramda';
 import {
   getDefaultMongoWeave,
   isMongoLoaded,
