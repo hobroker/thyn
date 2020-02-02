@@ -1,7 +1,7 @@
 import { identity } from 'ramda';
+import { debugIt } from '../../util/debug';
 import { shareMongoModels } from '../mongo/lens';
 import * as models from './models';
-import { debugIt } from '../../util/debug';
 
 const SECOND = 'second';
 

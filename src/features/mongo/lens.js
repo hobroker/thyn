@@ -7,34 +7,52 @@ import {
   prop,
   set,
   useWith,
-  values,
   view,
 } from 'ramda';
+import esModuleValues from '../../util/esModuleValues';
 import { featureByIdIsLoadedLens, featureByIdLens } from '../../lens/app';
 import { configFeaturesLens } from '../../lens/config';
 import { defaultWeaveLens, sharedLens } from '../../lens/feature';
-import { MONGO } from './constants';
+import { MODELS, MONGO, SCHEMA } from './constants';
 
-export const modelsLens = lens(
-  prop('models'),
-  useWith(assoc('models'), [values, identity]),
+const mongoLens = lensProp(MONGO);
+const configFeaturesMongoLens = compose(configFeaturesLens, mongoLens);
+const featuresMongoLens = featureByIdLens(MONGO);
+const defaultMongoLens = compose(featuresMongoLens, defaultWeaveLens);
+const isMongoLoadedLens = featureByIdIsLoadedLens(MONGO);
+
+const modelsLens = lens(
+  prop(MODELS),
+  useWith(assoc(MODELS), [esModuleValues, identity]),
 );
-export const mongoLens = lensProp(MONGO);
-export const configFeaturesMongoLens = compose(configFeaturesLens, mongoLens);
-export const featuresMongoLens = featureByIdLens(MONGO);
-export const isMongoLoadedLens = featureByIdIsLoadedLens(MONGO);
-export const metaModelsLens = compose(sharedLens, modelsLens);
-export const defaultMongoLens = compose(featuresMongoLens, defaultWeaveLens);
+const metaModelsLens = compose(sharedLens, modelsLens);
 
-export const getMongoConfig = view(configFeaturesMongoLens);
+const getMongoConfig = view(configFeaturesMongoLens);
 
-export const getMongo = view(featuresMongoLens);
+const isMongoLoaded = view(isMongoLoadedLens);
 
-export const isMongoLoaded = view(isMongoLoadedLens);
+const shareMongoModels = set(metaModelsLens);
+const getSharedModels = view(metaModelsLens);
 
-export const shareMongoModels = set(metaModelsLens);
-export const getSharedModels = view(metaModelsLens);
+const getDefaultMongoWeave = view(defaultMongoLens);
 
-export const getDefaultMongoWeave = view(defaultMongoLens);
+const getSchema = prop(SCHEMA);
 
-export const getSchema = prop('schema');
+export {
+  mongoLens,
+  configFeaturesMongoLens,
+  featuresMongoLens,
+  defaultMongoLens,
+  isMongoLoadedLens,
+  modelsLens,
+  metaModelsLens,
+};
+
+export {
+  getMongoConfig,
+  isMongoLoaded,
+  shareMongoModels,
+  getSharedModels,
+  getDefaultMongoWeave,
+  getSchema,
+};

@@ -10,7 +10,9 @@ import {
   view,
 } from 'ramda';
 import { metaIsLoadedLens, setDefaultMeta } from './feature';
-import { byIdLens } from '.';
+import esModuleValues from '../util/esModuleValues';
+import { areAllFeaturesLoaded } from './features';
+import { byIdLens } from '../util/lens';
 
 const featuresLens = lensProp('features');
 
@@ -27,11 +29,13 @@ const featureByIdIsLoadedLens = converge(compose, [
 const getFeatures = view(featuresLens);
 const setFeatures = set(featuresLens);
 
-const resetMetaToFeature = useWith(setFeatures, [
-  map(setDefaultMeta),
+const areAppFeaturesLoaded = compose(areAllFeaturesLoaded, getFeatures);
+
+const resetMetaToFeatures = useWith(setFeatures, [
+  compose(map(setDefaultMeta), esModuleValues),
   identity,
 ]);
 
 export { featuresLens, featureByIdLens, featureByIdIsLoadedLens };
 
-export { getFeatures, setFeatures, resetMetaToFeature };
+export { getFeatures, setFeatures, resetMetaToFeatures, areAppFeaturesLoaded };

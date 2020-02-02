@@ -1,40 +1,41 @@
 import mongoose from 'mongoose';
 import { compose, converge } from 'ramda';
 import { weave } from 'ramda-adjunct';
+import { createDebug } from '../../util/debug';
 import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
 import { callReader } from '../../util/reader';
-import { getMongoConfig } from './lens';
 import { MONGO, MONGOOSE_CONNECT_OPTIONS } from './constants';
-import { collectModels, loadModels } from './util';
-import { createDebug } from '../../util/debug';
+import { collectAppModels, loadModels } from './util';
+import { getMongoConfig } from './lens';
+
+mongoose.Promise = Promise;
 
 const debug = createDebug(MONGO);
 
+const connectMongo = async connectionString => {
+  debug('connecting to %s', connectionString);
+
+  const mongo = await mongoose.connect(
+    connectionString,
+    MONGOOSE_CONNECT_OPTIONS,
+  );
+
+  debug('connected');
+
+  return mongo;
+};
+
 const handler = converge(
   async (config, models) => {
-    mongoose.Promise = Promise;
     const { connectionString } = config;
 
-    debug('connecting to %s', connectionString);
-
-    const mongo = await mongoose.connect(
-      connectionString,
-      MONGOOSE_CONNECT_OPTIONS,
-    );
-
-    debug('connected');
-
+    const mongo = await connectMongo(connectionString);
     const loadedModels = loadModels(mongo, models);
-
-    debug('loaded models');
-
     const wMongo = weave(callReader, loadedModels);
-
-    // console.log(await wMongo(getAllDemoDocs()));
 
     return compose(setDefaultWeave(wMongo), setHandlerResult(mongo));
   },
-  [getMongoConfig, collectModels],
+  [getMongoConfig, collectAppModels],
 );
 
 const Mongo = {

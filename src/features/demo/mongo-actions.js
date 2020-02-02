@@ -1,1 +1,3 @@
-export const getAllDemoDocs = () => ({ Demo }) => Demo.find();
+const getAllDemoDocs = () => ({ Demo }) => Demo.find();
+
+export { getAllDemoDocs };
