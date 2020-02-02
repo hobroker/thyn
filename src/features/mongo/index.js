@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import { compose, converge } from 'ramda';
 import { weave } from 'ramda-adjunct';
+import { createDebug } from '../../util/debug';
 import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
 import { callReader } from '../../util/reader';
-import { getMongoConfig } from './lens';
 import { MONGO, MONGOOSE_CONNECT_OPTIONS } from './constants';
-import { collectModels, loadModels } from './util';
-import { createDebug } from '../../util/debug';
+import { collectAppModels, loadModels } from './util';
+import { getMongoConfig } from './lens';
 
 mongoose.Promise = Promise;
 
@@ -35,7 +35,7 @@ const handler = converge(
 
     return compose(setDefaultWeave(wMongo), setHandlerResult(mongo));
   },
-  [getMongoConfig, collectModels],
+  [getMongoConfig, collectAppModels],
 );
 
 const Mongo = {

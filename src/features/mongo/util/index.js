@@ -1,26 +1,15 @@
-import {
-  compose,
-  curry,
-  defaultTo,
-  filter,
-  flatten,
-  indexBy,
-  map,
-  prop,
-} from 'ramda';
-import { isFunction } from 'ramda-adjunct';
+import { compose, curry, defaultTo, flatten, indexBy, map, prop } from 'ramda';
 import { Schema } from 'mongoose';
+import { getFeatures } from '../../../lens/app';
 import { MONGOOSE_SCHEMA_OPTIONS } from '../constants';
 import { getSchema, getSharedModels } from '../lens';
-import { getFeatures } from '../../../lens/app';
 import { debugMongo } from '..';
 
 const createSchema = value => new Schema(value, MONGOOSE_SCHEMA_OPTIONS);
 
 const createSchemaFromModel = compose(createSchema, getSchema);
 
-export const collectModels = compose(
-  filter(isFunction),
+export const collectAppModels = compose(
   flatten,
   map(compose(defaultTo([]), getSharedModels)),
   getFeatures,

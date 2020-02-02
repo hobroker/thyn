@@ -1,9 +1,9 @@
 import oxium from 'oxium';
 import { compose, filter, otherwise, take, then } from 'ramda';
+import { debugIt } from './util/debug';
 import { areAppFeaturesLoaded, resetMetaToFeatures } from './lens/app';
 import { isFeatureUnloaded } from './lens/feature';
-import afterRun from './util/afterRun';
-import { debugIt } from './util/debug';
+import afterRun from './afterRun';
 import config from './config';
 import * as features from './features';
 

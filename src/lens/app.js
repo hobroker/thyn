@@ -11,8 +11,8 @@ import {
 } from 'ramda';
 import { metaIsLoadedLens, setDefaultMeta } from './feature';
 import esModuleValues from '../util/esModuleValues';
-import { byIdLens } from '.';
 import { areAllFeaturesLoaded } from './features';
+import { byIdLens } from '../util/lens';
 
 const featuresLens = lensProp('features');
 

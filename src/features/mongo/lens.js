@@ -9,11 +9,11 @@ import {
   useWith,
   view,
 } from 'ramda';
+import esModuleValues from '../../util/esModuleValues';
 import { featureByIdIsLoadedLens, featureByIdLens } from '../../lens/app';
 import { configFeaturesLens } from '../../lens/config';
 import { defaultWeaveLens, sharedLens } from '../../lens/feature';
 import { MODELS, MONGO, SCHEMA } from './constants';
-import esModuleValues from '../../util/esModuleValues';
 
 const mongoLens = lensProp(MONGO);
 const configFeaturesMongoLens = compose(configFeaturesLens, mongoLens);

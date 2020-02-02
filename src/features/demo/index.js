@@ -1,13 +1,13 @@
 import { deferHandler } from 'oxium';
 import { compose } from 'ramda';
+import { debugIt } from '../../util/debug';
 import {
   getDefaultMongoWeave,
   isMongoLoaded,
   shareMongoModels,
 } from '../mongo/lens';
-import * as models from './models';
 import { getAllDemoDocs } from './mongo-actions';
-import { debugIt } from '../../util/debug';
+import * as models from './models';
 
 export const DEMO = 'demo';
 
