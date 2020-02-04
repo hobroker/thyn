@@ -5,7 +5,7 @@ import { createDebug } from '../../util/debug';
 import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
 import { callReader } from '../../util/reader';
 import { MONGO, MONGOOSE_CONNECT_OPTIONS } from './constants';
-import { collectAppModels, loadModels } from './util';
+import { collectAppModels } from './util';
 import { getMongoConfig } from './lens';
 
 mongoose.Promise = Promise;
@@ -26,11 +26,11 @@ const connectMongo = async connectionString => {
 };
 
 const handler = converge(
-  async (config, models) => {
+  async config => {
     const { connectionString } = config;
 
     const mongo = await connectMongo(connectionString);
-    const loadedModels = loadModels(mongo, models);
+    const loadedModels = 1; // loadModels(mongo, models);
     const wMongo = weave(callReader, loadedModels);
 
     return compose(setDefaultWeave(wMongo), setHandlerResult(mongo));
@@ -42,8 +42,6 @@ const Mongo = {
   id: MONGO,
   handler,
 };
-
-export AbstractModel from './AbstractModel';
 
 export { debug as debugMongo };
 

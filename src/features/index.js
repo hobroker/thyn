@@ -1,3 +1,3 @@
-export Demo from './demo';
-export Second from './second';
-export Mongo from './mongo';
+export { default as Demo } from './demo';
+export { default as Second } from './second';
+export { default as Mongo } from './mongo';
