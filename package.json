@@ -10,13 +10,14 @@
   "scripts": {
     "start": "DEBUG=oxium* node src/index.js",
     "test": "jest --passWithNoTests",
-    "test:coverage": "npm test -- --coverage",
+    "test:coverage": "npm test -- --coverage --esModuleInterop",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
+    "jest-esm-transformer": "^1.0.0",
     "lodash": "^4.17.15",
     "monet": "^0.9.1",
     "mongoose": "^5.8.11",
@@ -52,6 +53,9 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "transform": {
+      ".js": "jest-esm-transformer"
+    }
   }
 }
