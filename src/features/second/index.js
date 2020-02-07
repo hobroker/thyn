@@ -10,6 +10,6 @@ const handler = app => {
   return identity;
 };
 
-const Second = compose(shareModels(models), setId(SECOND), setHandler(handler));
+const Second = compose(setId(SECOND), setHandler(handler), shareModels(models));
 
 export default Second;

@@ -13,10 +13,10 @@ const handler = async app => {
 };
 
 const Demo = compose(
-  deferHandler(isMongoLoaded),
-  shareModels(models),
   setId(DEMO),
   setHandler(handler),
+  deferHandler(isMongoLoaded),
+  shareModels(models),
 );
 
 export default Demo;
