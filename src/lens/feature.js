@@ -1,4 +1,17 @@
-import { compose, lensProp, not, set, view } from 'ramda';
+import {
+  assoc,
+  clone,
+  compose,
+  defaultTo,
+  identity,
+  lens,
+  lensProp,
+  not,
+  prop,
+  set,
+  useWith,
+  view,
+} from 'ramda';
 import { IS_LOADED, META } from 'oxium/src/constants';
 import { handlerLens, idLens } from 'oxium/src/lens/feature';
 import { DEFAULT, MODELS, RESULT, SHARED, WEAVE } from '../constants';
@@ -8,7 +21,10 @@ export const weaveLens = lensProp(WEAVE);
 export const metaLens = lensProp(META);
 export const isLoadedLens = lensProp(IS_LOADED);
 export const resultLens = lensProp(RESULT);
-export const modelsLens = lensProp(MODELS);
+export const modelsLens = lens(
+  compose(defaultTo({}), prop(MODELS)),
+  useWith(assoc(MODELS), [v => clone(v), identity]),
+);
 export const sharedLens = lensProp(SHARED);
 
 export const defaultWeaveLens = compose(weaveLens, defaultLens);

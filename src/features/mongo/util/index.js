@@ -1,24 +1,32 @@
-import { compose, curry, defaultTo, map, mapObjIndexed, mergeAll } from 'ramda';
-import { Schema } from 'mongoose';
-import { getFeatures } from '../../../lens/app';
-import { getSharedModels } from '../../../lens/feature';
-import { MONGOOSE_SCHEMA_OPTIONS } from '../constants';
+import { curry, mapObjIndexed } from 'ramda';
+import mongoose, { Schema } from 'mongoose';
+import {
+  MONGOOSE_CONNECT_OPTIONS,
+  MONGOOSE_SCHEMA_OPTIONS,
+} from '../constants';
 import { getSchema } from '../lens';
 import { debugMongo } from '..';
 
 const createSchema = value => new Schema(value, MONGOOSE_SCHEMA_OPTIONS);
 
-export const collectAppModels = compose(
-  mergeAll,
-  map(compose(defaultTo({}), getSharedModels)),
-  getFeatures,
-);
-
 export const loadModels = curry((mongo, models) =>
-  mapObjIndexed((model, key) => {
+  mapObjIndexed((model, name) => {
     const schema = createSchema(getSchema(model));
-    debugMongo('load model', key);
+    debugMongo('load model', name);
 
-    return mongo.model(key, schema);
+    return mongo.model(name, schema);
   }, models),
 );
+
+export const connectMongo = async connectionString => {
+  debugMongo('connecting to %s', connectionString);
+
+  const mongo = await mongoose.connect(
+    connectionString,
+    MONGOOSE_CONNECT_OPTIONS,
+  );
+
+  debugMongo('connected');
+
+  return mongo;
+};
