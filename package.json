@@ -9,7 +9,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "DEBUG=oxium* node src/index.js",
-    "test": "NODE_ENV=test jest --passWithNoTests",
+    "test": "jest --passWithNoTests",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
@@ -21,7 +21,7 @@
     "monet": "^0.9.1",
     "mongoose": "^5.8.11",
     "oxium": "github:hobroker/oxium",
-    "ramda": "^0.27.0",
+    "ramda": "^0.26.1",
     "ramda-adjunct": "^2.24.0"
   },
   "devDependencies": {
@@ -51,9 +51,6 @@
     "coverageDirectory": "./coverage/",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ],
-    "modulePathIgnorePatterns": [
-      "/dist"
     ],
     "testEnvironment": "node"
   }

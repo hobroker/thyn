@@ -1,4 +1,4 @@
-const Demo = {
+export const schema = {
   name: {
     type: String,
     required: true,
@@ -8,5 +8,3 @@ const Demo = {
     required: false,
   },
 };
-
-export default Demo;

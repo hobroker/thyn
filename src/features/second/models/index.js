@@ -1,1 +1,1 @@
-export { default as Second } from './Second';
+export * as Second from './Second';
