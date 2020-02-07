@@ -10,7 +10,7 @@
   "scripts": {
     "start": "DEBUG=oxium* node src/index.js",
     "test": "jest --passWithNoTests",
-    "test:coverage": "npm test -- --coverage --esModuleInterop",
+    "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {
