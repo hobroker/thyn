@@ -1,9 +1,8 @@
-import { identity } from 'ramda';
+import { compose, identity } from 'ramda';
 import { debugIt } from '../../util/debug';
-import { shareMongoModels } from '../mongo/lens';
 import * as models from './models';
-
-const SECOND = 'second';
+import { setHandler, setId, shareModels } from '../../lens/feature';
+import { SECOND } from './constants';
 
 const handler = app => {
   debugIt('SECOND start', typeof app);
@@ -11,10 +10,6 @@ const handler = app => {
   return identity;
 };
 
-const Second = shareMongoModels(models)({
-  id: SECOND,
-  handler,
-});
+const Second = compose(setId(SECOND), setHandler(handler), shareModels(models));
 
-export { SECOND };
 export default Second;

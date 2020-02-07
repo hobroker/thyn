@@ -1,47 +1,49 @@
-import { compose, lensProp, not, set, view } from 'ramda';
+import {
+  assoc,
+  clone,
+  compose,
+  defaultTo,
+  identity,
+  lens,
+  lensProp,
+  not,
+  prop,
+  set,
+  useWith,
+  view,
+} from 'ramda';
+import { IS_LOADED, META } from 'oxium/src/constants';
+import { handlerLens, idLens } from 'oxium/src/lens/feature';
+import { DEFAULT, MODELS, RESULT, SHARED, WEAVE } from '../constants';
 
-const defaultLens = lensProp('default');
+export const defaultLens = lensProp(DEFAULT);
+export const weaveLens = lensProp(WEAVE);
+export const metaLens = lensProp(META);
+export const isLoadedLens = lensProp(IS_LOADED);
+export const resultLens = lensProp(RESULT);
+export const modelsLens = lens(
+  compose(defaultTo({}), prop(MODELS)),
+  useWith(assoc(MODELS), [v => clone(v), identity]),
+);
+export const sharedLens = lensProp(SHARED);
 
-const weaveLens = lensProp('weave');
-const defaultWeaveLens = compose(weaveLens, defaultLens);
+export const defaultWeaveLens = compose(weaveLens, defaultLens);
+export const metaIsLoadedLens = compose(metaLens, isLoadedLens);
+export const metaResultLens = compose(metaLens, resultLens);
+export const metaModelsLens = compose(sharedLens, modelsLens);
 
-const metaLens = lensProp('_');
-const isLoadedLens = lensProp('isLoaded');
-const resultLens = lensProp('result');
-const metaIsLoadedLens = compose(metaLens, isLoadedLens);
-const metaResultLens = compose(metaLens, resultLens);
+export const getWeave = view(weaveLens);
+export const setDefaultWeave = set(defaultWeaveLens);
 
-const sharedLens = lensProp('shared');
+export const getMeta = view(metaLens);
+export const isFeatureLoaded = view(metaIsLoadedLens);
+export const isFeatureUnloaded = compose(not, isFeatureLoaded);
+export const setFeatureIsLoaded = set(metaIsLoadedLens);
+export const setHandlerResult = set(metaResultLens);
+export const setDefaultMeta = setFeatureIsLoaded(false);
 
-const getWeave = view(weaveLens);
-const setDefaultWeave = set(defaultWeaveLens);
+export const shareModels = set(metaModelsLens);
+export const getSharedModels = view(metaModelsLens);
 
-const getMeta = view(metaLens);
-const isFeatureLoaded = view(metaIsLoadedLens);
-const isFeatureUnloaded = compose(not, isFeatureLoaded);
-const setFeatureIsLoaded = set(metaIsLoadedLens);
-const setHandlerResult = set(metaResultLens);
-const setDefaultMeta = setFeatureIsLoaded(false);
-
-export {
-  defaultLens,
-  weaveLens,
-  defaultWeaveLens,
-  metaLens,
-  isLoadedLens,
-  resultLens,
-  metaIsLoadedLens,
-  metaResultLens,
-  sharedLens,
-};
-
-export {
-  getWeave,
-  setDefaultWeave,
-  getMeta,
-  isFeatureLoaded,
-  isFeatureUnloaded,
-  setFeatureIsLoaded,
-  setHandlerResult,
-  setDefaultMeta,
-};
+export const setId = set(idLens);
+export const setHandler = set(handlerLens);

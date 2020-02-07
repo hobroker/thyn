@@ -27,10 +27,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           yml: ./codecov.yml
           fail_ci_if_error: true
-      - name: Build
-        run: npm run build
-      - name: Upload Build
-        uses: actions/upload-artifact@v1
-        with:
-          name: dist
-          path: dist

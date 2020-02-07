@@ -5,7 +5,7 @@ const baseDebug = debug('oxium');
 
 const debugIt = baseDebug;
 
-const createDebug = compose(unapply, apply, ::debugIt.extend);
+const createDebug = compose(unapply, apply, debugIt.extend.bind(debugIt));
 
 const debugItFp = tap(createDebug('fp'));
 

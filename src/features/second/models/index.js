@@ -1,1 +1,1 @@
-export Second from './Second';
+export * as Second from './Second';

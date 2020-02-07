@@ -1,1 +1,1 @@
-export Demo from './Demo';
+export * as Demo from './Demo';
