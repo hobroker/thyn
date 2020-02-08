@@ -14,6 +14,7 @@
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
@@ -27,7 +28,10 @@
     "ramda-adjunct": "^2.24.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.10.0",
@@ -55,8 +59,16 @@
       "/node_modules/"
     ],
     "testEnvironment": "node",
+    "transformIgnorePatterns": [
+      "/node_modules\\/(?!oxium)(.*)"
+    ],
     "transform": {
-      ".js": "jest-esm-transformer"
+      "\\.js$": [
+        "babel-jest",
+        {
+          "rootMode": "upward"
+        }
+      ]
     }
   }
 }

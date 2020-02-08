@@ -46,7 +46,7 @@ export const resetMetaToFeatures = useWith(setFeatures, [
   identity,
 ]);
 
-export const geAlltModels = compose(
+export const geAllModels = compose(
   deepDestruct,
   mergeAll,
   map(getSharedModels),
