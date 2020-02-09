@@ -1,1 +1,3 @@
-export * as Demo from './Demo';
+import * as Demo from './Demo';
+
+export { Demo };

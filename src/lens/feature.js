@@ -1,6 +1,5 @@
 import {
   assoc,
-  clone,
   compose,
   defaultTo,
   identity,
@@ -14,6 +13,7 @@ import {
 } from 'ramda';
 import { IS_LOADED, META } from 'oxium/src/constants';
 import { handlerLens, idLens } from 'oxium/src/lens/feature';
+import deepDestruct from '../util/deepDestruct';
 import { DEFAULT, MODELS, RESULT, SHARED, WEAVE } from '../constants';
 
 export const defaultLens = lensProp(DEFAULT);
@@ -23,7 +23,7 @@ export const isLoadedLens = lensProp(IS_LOADED);
 export const resultLens = lensProp(RESULT);
 export const modelsLens = lens(
   compose(defaultTo({}), prop(MODELS)),
-  useWith(assoc(MODELS), [v => clone(v), identity]),
+  useWith(assoc(MODELS), [deepDestruct, identity]),
 );
 export const sharedLens = lensProp(SHARED);
 

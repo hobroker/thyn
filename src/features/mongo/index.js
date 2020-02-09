@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { compose, converge } from 'ramda';
+import { compose, converge, mapObjIndexed } from 'ramda';
 import { weave } from 'ramda-adjunct';
 import { createDebug } from '../../util/debug';
 import {
@@ -8,11 +8,13 @@ import {
   setHandlerResult,
   setId,
 } from '../../lens/feature';
-import { geAlltModels } from '../../lens/app';
+import { geAllModels } from '../../lens/app';
 import { callReader } from '../../util/reader';
 import { MONGO } from './constants';
-import { connectMongo, loadModels } from './util';
-import { getMongoConfig } from './lens';
+import { getMongoConfig, getSchema } from './lens';
+import connectMongo from './util/connectMongo';
+import loadModels from './util/loadModels';
+import createSchema from './util/createSchema';
 
 mongoose.Promise = Promise;
 
@@ -28,7 +30,10 @@ const handler = converge(
 
     return compose(setDefaultWeave(wMongo), setHandlerResult(mongo));
   },
-  [getMongoConfig, geAlltModels],
+  [
+    getMongoConfig,
+    compose(mapObjIndexed(compose(createSchema, getSchema)), geAllModels),
+  ],
 );
 
 const Mongo = compose(setId(MONGO), setHandler(handler));

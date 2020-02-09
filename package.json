@@ -9,24 +9,30 @@
   "main": "src/index.js",
   "scripts": {
     "start": "DEBUG=oxium* node src/index.js",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "http-status-codes": "^1.4.0",
     "jest-esm-transformer": "^1.0.0",
     "lodash": "^4.17.15",
     "monet": "^0.9.1",
     "mongoose": "^5.8.11",
     "oxium": "github:hobroker/oxium",
-    "ramda": "^0.26.1",
-    "ramda-adjunct": "^2.24.0"
+    "ramda": "^0.27.0",
+    "ramda-adjunct": "^2.25.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.10.0",
@@ -34,6 +40,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.2.1",
     "jest": "^25.1.0",
+    "jest-each": "^25.1.0",
     "lint-staged": "^10.0.7",
     "prettier": "1.19.1"
   },
@@ -53,9 +60,21 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/node_modules/**"
+    ],
     "testEnvironment": "node",
+    "transformIgnorePatterns": [
+      "/node_modules\\/(?!oxium)(.*)"
+    ],
     "transform": {
-      ".js": "jest-esm-transformer"
+      "\\.js$": [
+        "babel-jest",
+        {
+          "rootMode": "upward"
+        }
+      ]
     }
   }
 }

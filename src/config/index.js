@@ -8,6 +8,10 @@ const config = {
     mongo: {
       connectionString: env.MONGO_CONNECTION_STRING,
     },
+    express: {
+      port: env.PORT,
+      prefix: '/api',
+    },
   },
 };
 
