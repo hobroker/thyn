@@ -1,11 +1,19 @@
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import { apply, map, pipe } from 'ramda';
+import { debugIt } from '..';
 
-const defaultMiddlewares = [bodyParser.json()];
+const morganMiddleware = morgan((tokens, req, res) =>
+  pipe(
+    map(key => tokens[key](req, res)),
+    apply(debugIt),
+  )(['method', 'url', 'status']),
+);
+
+const defaultMiddlewares = [bodyParser.json(), morganMiddleware];
 
 const useMiddlewares = app => {
-  const middlewares = defaultMiddlewares;
-
-  middlewares.forEach(middleware => app.use(middleware));
+  defaultMiddlewares.forEach(middleware => app.use(middleware));
 
   return app;
 };
