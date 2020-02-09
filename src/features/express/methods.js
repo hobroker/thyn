@@ -1,7 +1,7 @@
-const createMethod = method => (path, ...resolvers) => ({
+const createMethod = method => (path, resolver) => ({
   method,
   path,
-  resolvers,
+  resolver,
 });
 
 export const get = createMethod('get');
