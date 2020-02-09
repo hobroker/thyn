@@ -5,6 +5,7 @@
 ![GitHub top language][top-lang-badge]
 [![GitHub issues][github-issues-badge]][github-issues-link]
 
+[![Coverage on Codecov][codecov-badge]][codecov-link]
 [![Snyk Vulnerabilities][snyk-badge]][snyk-link]
 [![LGTM][lgtm-badge]][lgtm-link]
 
@@ -36,3 +37,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 [snyk-link]: https://snyk.io/test/github/hobroker/thyn
 [lgtm-badge]: https://img.shields.io/lgtm/alerts/g/hobroker/thyn.svg?logo=lgtm&logoWidth=18
 [lgtm-link]: https://lgtm.com/projects/g/hobroker/thyn/context:javascript
+[codecov-badge]: https://codecov.io/gh/hobroker/thyn/branch/master/graph/badge.svg
+[codecov-link]: https://codecov.io/gh/hobroker/thyn
