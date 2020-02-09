@@ -1,1 +1,3 @@
-export * as Second from './Second';
+import * as Second from './Second';
+
+export { Second };

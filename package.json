@@ -9,7 +9,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "DEBUG=oxium* node src/index.js",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
@@ -58,6 +58,10 @@
     "coverageDirectory": "./coverage/",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/node_modules/**"
     ],
     "testEnvironment": "node",
     "transformIgnorePatterns": [

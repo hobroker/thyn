@@ -1,4 +1,6 @@
-export { default as Demo } from './demo';
-export { default as Second } from './second';
-export { default as Mongo } from './mongo';
-export { default as Express } from './express';
+import Demo from './demo';
+import Second from './second';
+import Mongo from './mongo';
+import Express from './express';
+
+export { Demo, Second, Mongo, Express };
