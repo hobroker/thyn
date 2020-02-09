@@ -1,7 +1,10 @@
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import { apply, map, pipe } from 'ramda';
-import { debugIt } from '..';
+import { createDebug } from '../../../util/debug';
+import { EXPRESS } from '../constants';
+
+const debugIt = createDebug(EXPRESS);
 
 const morganMiddleware = morgan((tokens, req, res) =>
   pipe(

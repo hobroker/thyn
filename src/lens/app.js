@@ -17,7 +17,7 @@ import { FEATURES } from 'oxium/src/constants';
 import { getSharedModels, metaIsLoadedLens, setDefaultMeta } from './feature';
 import esModuleValues from '../util/esModuleValues';
 import { areAllFeaturesLoaded } from './features';
-import { byIdLens } from '../util/lens';
+import byIdLens from '../util/byIdLens';
 import deepDestruct from '../util/deepDestruct';
 
 export const featuresLens = lensProp(FEATURES);

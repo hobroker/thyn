@@ -6,16 +6,8 @@
     "es6": true
   },
   "rules": {
-    "no-await-in-loop": 0,
-    "no-continue": 0,
-    "no-restricted-syntax": 0,
-    "guard-for-in": 0,
-    "no-prototype-builtins": 0,
-    "no-underscore-dangle": 0,
-    "class-methods-use-this": 0,
-    "no-param-reassign": 0,
-    "import/no-cycle": 0,
-    "iterators/generators": 0,
+    "newline-before-return": 2,
+    "import/prefer-default-export": 0,
     "import/order": [
       "error",
       {
@@ -27,9 +19,7 @@
           "index"
         ]
       }
-    ],
-    "newline-before-return": "error",
-    "import/prefer-default-export": 0
+    ]
   },
   "parser": "babel-eslint",
   "parserOptions": {
