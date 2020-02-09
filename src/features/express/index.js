@@ -2,12 +2,18 @@ import http from 'http';
 import express from 'express';
 import { call, compose, pipe } from 'ramda';
 import { createDebug } from '../../util/debug';
-import { setHandler, setHandlerResult, setId } from '../../lens/feature';
-import { EXPRESS } from './constants';
-import { getAllRoutes, getExpressConfig } from './lens';
+import {
+  setHandler,
+  setHandlerResult,
+  setId,
+  shareModels,
+} from '../../lens/feature';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
 import startServer from './util/startServer';
+import { EXPRESS } from './constants';
+import { getAllRoutes, getExpressConfig } from './lens';
+import * as models from './models';
 
 export const debugIt = createDebug(EXPRESS);
 
@@ -22,6 +28,10 @@ const handler = async app => {
   return setHandlerResult(api);
 };
 
-const Express = compose(setId(EXPRESS), setHandler(handler));
+const Express = compose(
+  setId(EXPRESS),
+  setHandler(handler),
+  shareModels(models),
+);
 
 export default Express;

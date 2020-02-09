@@ -3,17 +3,20 @@ import morgan from 'morgan';
 import { apply, map, pipe } from 'ramda';
 import { debugIt } from '..';
 
-const morganMiddleware = morgan((tokens, req, res) =>
-  pipe(
-    map(key => tokens[key](req, res)),
-    apply(debugIt),
-  )(['method', 'url', 'status']),
-);
+const createMorganMiddleware = () =>
+  morgan((tokens, req, res) =>
+    pipe(
+      map(key => tokens[key](req, res)),
+      apply(debugIt),
+    )(['method', 'url', 'status']),
+  );
 
-const defaultMiddlewares = [bodyParser.json(), morganMiddleware];
+const defaultMiddlewares = [bodyParser.json()];
 
 const useMiddlewares = app => {
-  defaultMiddlewares.forEach(middleware => app.use(middleware));
+  const middlewares = [...defaultMiddlewares, createMorganMiddleware(app)];
+
+  middlewares.forEach(middleware => app.use(middleware));
 
   return app;
 };
