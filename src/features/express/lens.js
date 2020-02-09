@@ -2,16 +2,18 @@ import {
   assoc,
   compose,
   defaultTo,
+  filter,
   identity,
   lens,
   lensProp,
   map,
-  mergeAll,
+  not,
   prop,
   set,
   useWith,
   view,
 } from 'ramda';
+import { isNilOrEmpty } from 'ramda-adjunct';
 import {
   featureByIdIsLoadedLens,
   featureByIdLens,
@@ -41,10 +43,10 @@ export const metaRoutesLens = compose(sharedLens, routesLens);
 export const isExpressLoaded = view(isExpressLoadedLens);
 
 export const getSharedRoutes = view(metaRoutesLens);
-export const setRoutes = set(metaRoutesLens);
+export const shareRoutes = set(metaRoutesLens);
 
 export const getAllRoutes = compose(
-  mergeAll,
+  filter(compose(not, isNilOrEmpty)),
   map(getSharedRoutes),
   getFeatures,
 );

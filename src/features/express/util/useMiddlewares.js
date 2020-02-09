@@ -2,7 +2,7 @@ import bodyParser from 'body-parser';
 
 const defaultMiddlewares = [bodyParser.json()];
 
-const applyMiddlewares = app => {
+const useMiddlewares = app => {
   const middlewares = defaultMiddlewares;
 
   middlewares.forEach(middleware => app.use(middleware));
@@ -10,4 +10,4 @@ const applyMiddlewares = app => {
   return app;
 };
 
-export default applyMiddlewares;
+export default useMiddlewares;

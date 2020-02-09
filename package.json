@@ -24,8 +24,8 @@
     "monet": "^0.9.1",
     "mongoose": "^5.8.11",
     "oxium": "github:hobroker/oxium",
-    "ramda": "^0.26.1",
-    "ramda-adjunct": "^2.24.0"
+    "ramda": "^0.27.0",
+    "ramda-adjunct": "^2.25.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -39,6 +39,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.2.1",
     "jest": "^25.1.0",
+    "jest-each": "^25.1.0",
     "lint-staged": "^10.0.7",
     "prettier": "1.19.1"
   },
