@@ -1,9 +1,12 @@
 import { curry, mapObjIndexed } from 'ramda';
-import { debugMongo } from '..';
+import { createDebug } from '../../../util/debug';
+import { MONGO } from '../constants';
+
+const debugIt = createDebug(`${MONGO}:models`);
 
 const loadModels = curry((mongo, models) =>
   mapObjIndexed((schema, name) => {
-    debugMongo('load model', name);
+    debugIt('add', name);
 
     return mongo.model(name, schema);
   }, models),
