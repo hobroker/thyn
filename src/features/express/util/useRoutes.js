@@ -2,7 +2,10 @@ import { chain, compose, curry, evolve, map } from 'ramda';
 import { appendFlipped } from 'ramda-adjunct';
 import concatPaths from './concatPaths';
 import wrapResolver from './wrapResolver';
-import { debugIt } from '..';
+import { createDebug } from '../../../util/debug';
+import { EXPRESS } from '../constants';
+
+const debugIt = createDebug(`${EXPRESS}:morgan`);
 
 const prepareRoutes = globalPrefix =>
   compose(

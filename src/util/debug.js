@@ -3,10 +3,13 @@ import { apply, compose, tap, unapply } from 'ramda';
 
 const baseDebug = debug('oxium');
 
-const debugIt = baseDebug;
+export const debugIt = baseDebug;
+export const debugIt2 = key => (...args) => debugIt(key, ...args);
 
-const createDebug = compose(unapply, apply, debugIt.extend.bind(debugIt));
+export const createDebug = compose(
+  unapply,
+  apply,
+  debugIt.extend.bind(debugIt),
+);
 
-const debugItFp = tap(createDebug('fp'));
-
-export { createDebug, debugIt, debugItFp };
+export const debugItFp = tap(createDebug('fp'));

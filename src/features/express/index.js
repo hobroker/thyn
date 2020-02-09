@@ -1,7 +1,6 @@
 import http from 'http';
 import express from 'express';
 import { call, compose, pipe } from 'ramda';
-import { createDebug } from '../../util/debug';
 import {
   setHandler,
   setHandlerResult,
@@ -14,8 +13,6 @@ import startServer from './util/startServer';
 import { EXPRESS } from './constants';
 import { getAllRoutes, getExpressConfig } from './lens';
 import * as models from './models';
-
-export const debugIt = createDebug(EXPRESS);
 
 const handler = async app => {
   const config = getExpressConfig(app);

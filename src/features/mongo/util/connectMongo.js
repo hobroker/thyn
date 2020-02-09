@@ -1,16 +1,18 @@
 import mongoose from 'mongoose';
-import { MONGOOSE_CONNECT_OPTIONS } from '../constants';
-import { debugMongo } from '..';
+import { MONGO, MONGOOSE_CONNECT_OPTIONS } from '../constants';
+import { createDebug } from '../../../util/debug';
+
+const debugIt = createDebug(`${MONGO}:connect`);
 
 const connectMongo = async connectionString => {
-  debugMongo('connecting to %s', connectionString);
+  debugIt('connecting to %s', connectionString);
 
   const mongo = await mongoose.connect(
     connectionString,
     MONGOOSE_CONNECT_OPTIONS,
   );
 
-  debugMongo('connected');
+  debugIt('connected');
 
   return mongo;
 };

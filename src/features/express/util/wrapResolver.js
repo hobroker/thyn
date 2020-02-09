@@ -10,7 +10,10 @@ import {
 } from 'ramda';
 import { isNumber, isString } from 'ramda-adjunct';
 import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OK } from 'http-status-codes';
-import { debugIt } from '..';
+import { createDebug } from '../../../util/debug';
+import { EXPRESS } from '../constants';
+
+const debugIt = createDebug(`${EXPRESS}:resolver`);
 
 const formatOkResponse = cond([
   [anyPass([isString, isNumber]), objOf('data')],
