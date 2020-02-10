@@ -1,12 +1,8 @@
+import { setHandler, setId } from 'oxium/src/lens/feature';
 import mongoose from 'mongoose';
 import { compose, converge, mapObjIndexed } from 'ramda';
 import { weave } from 'ramda-adjunct';
-import {
-  setDefaultWeave,
-  setHandler,
-  setHandlerResult,
-  setId,
-} from '../../lens/feature';
+import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
 import { geAllModels } from '../../lens/app';
 import callReader from '../../util/callReader';
 import { MONGO } from './constants';
