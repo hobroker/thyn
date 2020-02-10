@@ -1,6 +1,5 @@
-import { deferHandler } from 'oxium';
-import { setHandler, setId } from 'oxium/src/lens/feature';
-import { compose } from 'ramda';
+import { deferHandler, setHandler, setId } from 'oxium';
+import { pipe } from 'ramda';
 import { shareModels } from '../../lens/feature';
 import { createDebug } from '../../util/debug';
 import { getDefaultMongoWeave, isMongoLoaded } from '../mongo/lens';
@@ -17,10 +16,10 @@ const handler = async app => {
   debugIt('DEMO start', await wMongo(getAllDemoDocs()));
 };
 
-const Demo = compose(
+const Demo = pipe(
   setId(DEMO),
-  deferHandler(isMongoLoaded),
   setHandler(handler),
+  deferHandler(isMongoLoaded),
   shareModels(models),
   shareRoutes(routes),
 );

@@ -1,5 +1,5 @@
-import { compose, identity } from 'ramda';
-import { setHandler, setId } from 'oxium/src/lens/feature';
+import { identity, pipe } from 'ramda';
+import { setHandler, setId } from 'oxium';
 import { createDebug } from '../../util/debug';
 import { shareModels } from '../../lens/feature';
 import { shareRoutes } from '../express/lens';
@@ -15,7 +15,7 @@ const handler = app => {
   return identity;
 };
 
-const Second = compose(
+const Second = pipe(
   setId(SECOND),
   setHandler(handler),
   shareModels(models),

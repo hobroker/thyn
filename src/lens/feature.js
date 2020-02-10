@@ -11,11 +11,7 @@ import {
   useWith,
   view,
 } from 'ramda';
-import {
-  metaIsLoadedLens,
-  metaLens,
-  setFeatureIsLoaded,
-} from 'oxium/src/lens/feature';
+import { metaIsLoadedLens, metaLens, setFeatureIsLoaded } from 'oxium';
 import deepDestruct from '../util/deepDestruct';
 import { DEFAULT, MODELS, RESULT, SHARED, WEAVE } from '../constants';
 

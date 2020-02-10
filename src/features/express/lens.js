@@ -14,7 +14,7 @@ import {
   view,
 } from 'ramda';
 import { isNilOrEmpty } from 'ramda-adjunct';
-import { getFeatures } from 'oxium/src/lens/app';
+import { getFeatures } from 'oxium';
 import { configFeaturesLens } from '../../lens/config';
 import { sharedLens } from '../../lens/feature';
 import { EXPRESS, ROUTES } from './constants';

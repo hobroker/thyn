@@ -1,4 +1,5 @@
 import {
+  all,
   always,
   applyTo,
   compose,
@@ -12,10 +13,14 @@ import {
   when,
 } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
-import { metaIsLoadedLens } from 'oxium/src/lens/feature';
-import { featuresLens, getFeatures, setFeatures } from 'oxium/src/lens/app';
-import { getSharedModels, setDefaultMeta } from './feature';
-import { areAllFeaturesLoaded } from './features';
+import {
+  metaIsLoadedLens,
+  featuresLens,
+  getFeatures,
+  setFeatures,
+} from 'oxium';
+
+import { getSharedModels, isFeatureLoaded, setDefaultMeta } from './feature';
 import byIdLens from '../util/byIdLens';
 import deepDestruct from '../util/deepDestruct';
 
@@ -29,7 +34,7 @@ export const featureByIdIsLoadedLens = converge(compose, [
   always(metaIsLoadedLens),
 ]);
 
-export const areAppFeaturesLoaded = compose(areAllFeaturesLoaded, getFeatures);
+export const areAppFeaturesLoaded = pipe(getFeatures, all(isFeatureLoaded));
 
 export const resetMetaToFeatures = useWith(setFeatures, [
   pipe(values, map(when(isFunction, applyTo({}))), map(setDefaultMeta)),

@@ -1,6 +1,6 @@
-import { setHandler, setId } from 'oxium/src/lens/feature';
+import { setHandler, setId } from 'oxium';
 import mongoose from 'mongoose';
-import { compose, converge, mapObjIndexed } from 'ramda';
+import { compose, converge, mapObjIndexed, pipe } from 'ramda';
 import { weave } from 'ramda-adjunct';
 import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
 import { geAllModels } from '../../lens/app';
@@ -29,6 +29,6 @@ const handler = converge(
   ],
 );
 
-const Mongo = compose(setId(MONGO), setHandler(handler));
+const Mongo = pipe(setId(MONGO), setHandler(handler));
 
 export default Mongo;

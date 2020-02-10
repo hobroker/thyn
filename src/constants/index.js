@@ -1,3 +1,5 @@
+export const PKG_NAME = 'thyn';
+
 export const MODELS = 'models';
 export const SHARED = 'shared';
 export const RESULT = 'result';
