@@ -11,4 +11,4 @@ const createFindByPropLens = curry((propName, propValue) =>
 
 const byIdLens = createFindByPropLens('id');
 
-export { byIdLens };
+export default byIdLens;

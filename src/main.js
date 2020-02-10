@@ -1,15 +1,7 @@
-import oxium from 'oxium';
-import { compose, filter, otherwise, take, andThen } from 'ramda';
-import { debugIt } from './util/debug';
-import { areAppFeaturesLoaded, resetMetaToFeatures } from './lens/app';
-import { isFeatureUnloaded } from './lens/feature';
-import afterRun from './afterRun';
+import createApp from './createApp';
 import config from './config';
 import * as features from './features';
 
-const app = resetMetaToFeatures(features, { config });
+const app = createApp({ config, features });
 
-const filterFn = compose(take(2), filter(isFeatureUnloaded));
-const run = oxium(filterFn, areAppFeaturesLoaded);
-
-compose(otherwise(debugIt), andThen(afterRun), run)(app);
+app();

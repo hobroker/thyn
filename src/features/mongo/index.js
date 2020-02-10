@@ -1,15 +1,10 @@
+import { setHandler, setId } from 'oxium/src/lens/feature';
 import mongoose from 'mongoose';
 import { compose, converge, mapObjIndexed } from 'ramda';
 import { weave } from 'ramda-adjunct';
-import { createDebug } from '../../util/debug';
-import {
-  setDefaultWeave,
-  setHandler,
-  setHandlerResult,
-  setId,
-} from '../../lens/feature';
+import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
 import { geAllModels } from '../../lens/app';
-import { callReader } from '../../util/reader';
+import callReader from '../../util/callReader';
 import { MONGO } from './constants';
 import { getMongoConfig, getSchema } from './lens';
 import connectMongo from './util/connectMongo';
@@ -17,8 +12,6 @@ import loadModels from './util/loadModels';
 import createSchema from './util/createSchema';
 
 mongoose.Promise = Promise;
-
-const debugIt = createDebug(MONGO);
 
 const handler = converge(
   async (config, models) => {
@@ -37,7 +30,5 @@ const handler = converge(
 );
 
 const Mongo = compose(setId(MONGO), setHandler(handler));
-
-export { debugIt as debugMongo };
 
 export default Mongo;

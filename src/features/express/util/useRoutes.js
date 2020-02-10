@@ -2,17 +2,18 @@ import { chain, compose, curry, evolve, map } from 'ramda';
 import { appendFlipped } from 'ramda-adjunct';
 import concatPaths from './concatPaths';
 import wrapResolver from './wrapResolver';
-import { debugIt } from '..';
+import { createDebug } from '../../../util/debug';
+import { EXPRESS } from '../constants';
+
+const debugIt = createDebug(`${EXPRESS}:morgan`);
 
 const prepareRoutes = globalPrefix =>
-  compose(
-    chain(({ prefix, routes }) =>
-      map(
-        evolve({
-          path: compose(concatPaths, appendFlipped([globalPrefix, prefix])),
-        }),
-        routes,
-      ),
+  chain(({ prefix, routes }) =>
+    map(
+      evolve({
+        path: compose(concatPaths, appendFlipped([globalPrefix, prefix])),
+      }),
+      routes,
     ),
   );
 
