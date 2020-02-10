@@ -8,14 +8,12 @@ import { EXPRESS } from '../constants';
 const debugIt = createDebug(`${EXPRESS}:morgan`);
 
 const prepareRoutes = globalPrefix =>
-  compose(
-    chain(({ prefix, routes }) =>
-      map(
-        evolve({
-          path: compose(concatPaths, appendFlipped([globalPrefix, prefix])),
-        }),
-        routes,
-      ),
+  chain(({ prefix, routes }) =>
+    map(
+      evolve({
+        path: compose(concatPaths, appendFlipped([globalPrefix, prefix])),
+      }),
+      routes,
     ),
   );
 

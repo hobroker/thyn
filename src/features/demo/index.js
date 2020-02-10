@@ -1,6 +1,7 @@
 import { deferHandler } from 'oxium';
+import { setHandler, setId } from 'oxium/src/lens/feature';
 import { compose } from 'ramda';
-import { setHandler, setId, shareModels } from '../../lens/feature';
+import { shareModels } from '../../lens/feature';
 import { createDebug } from '../../util/debug';
 import { getDefaultMongoWeave, isMongoLoaded } from '../mongo/lens';
 import { getAllDemoDocs } from './mongo-actions';

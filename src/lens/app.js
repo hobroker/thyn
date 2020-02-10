@@ -4,23 +4,20 @@ import {
   compose,
   converge,
   identity,
-  lensProp,
   map,
   mergeAll,
-  set,
+  pipe,
   useWith,
-  view,
+  values,
   when,
 } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
-import { FEATURES } from 'oxium/src/constants';
-import { getSharedModels, metaIsLoadedLens, setDefaultMeta } from './feature';
-import esModuleValues from '../util/esModuleValues';
+import { metaIsLoadedLens } from 'oxium/src/lens/feature';
+import { featuresLens, getFeatures, setFeatures } from 'oxium/src/lens/app';
+import { getSharedModels, setDefaultMeta } from './feature';
 import { areAllFeaturesLoaded } from './features';
 import byIdLens from '../util/byIdLens';
 import deepDestruct from '../util/deepDestruct';
-
-export const featuresLens = lensProp(FEATURES);
 
 export const featureByIdLens = converge(compose, [
   always(featuresLens),
@@ -32,17 +29,10 @@ export const featureByIdIsLoadedLens = converge(compose, [
   always(metaIsLoadedLens),
 ]);
 
-export const getFeatures = view(featuresLens);
-export const setFeatures = set(featuresLens);
-
 export const areAppFeaturesLoaded = compose(areAllFeaturesLoaded, getFeatures);
 
 export const resetMetaToFeatures = useWith(setFeatures, [
-  compose(
-    map(setDefaultMeta),
-    map(when(isFunction, applyTo({}))),
-    esModuleValues,
-  ),
+  pipe(values, map(when(isFunction, applyTo({}))), map(setDefaultMeta)),
   identity,
 ]);
 
