@@ -5,13 +5,12 @@ import {
   identity,
   lens,
   lensProp,
-  not,
   prop,
   set,
   useWith,
   view,
 } from 'ramda';
-import { metaIsLoadedLens, metaLens, setFeatureIsLoaded } from 'oxium';
+import { metaLens, setFeatureIsLoaded } from 'oxium';
 import deepDestruct from '../util/deepDestruct';
 import { DEFAULT, MODELS, RESULT, SHARED, WEAVE } from '../constants';
 
@@ -30,8 +29,6 @@ export const metaModelsLens = compose(sharedLens, modelsLens);
 
 export const setDefaultWeave = set(defaultWeaveLens);
 
-export const isFeatureLoaded = view(metaIsLoadedLens);
-export const isFeatureUnloaded = compose(not, isFeatureLoaded);
 export const setHandlerResult = set(metaResultLens);
 export const setDefaultMeta = setFeatureIsLoaded(false);
 

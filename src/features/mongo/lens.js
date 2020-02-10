@@ -1,5 +1,5 @@
+import { featureByIdLens, featureByIdIsLoadedLens } from 'oxium';
 import { compose, lensProp, prop, view } from 'ramda';
-import { featureByIdIsLoadedLens, featureByIdLens } from '../../lens/app';
 import { configFeaturesLens } from '../../lens/config';
 import { defaultWeaveLens } from '../../lens/feature';
 import { MONGO, SCHEMA } from './constants';
