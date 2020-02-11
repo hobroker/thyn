@@ -1,8 +1,7 @@
-import oxium from 'oxium';
+import oxium, { isFeatureUnloaded, areAppFeaturesLoaded } from 'oxium';
 import { always, andThen, filter, otherwise, pipe, take } from 'ramda';
 import { createDebug } from './util/debug';
-import { areAppFeaturesLoaded, resetMetaToFeatures } from './lens/app';
-import { isFeatureUnloaded } from './lens/feature';
+import { resetMetaToFeatures } from './lens/app';
 
 const debugIt = createDebug('app');
 

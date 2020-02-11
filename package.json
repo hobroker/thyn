@@ -8,7 +8,7 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "DEBUG=oxium* node src/index.js",
+    "start": "DEBUG=oxium*,thyn* node src/index.js",
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"

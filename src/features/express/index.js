@@ -1,7 +1,7 @@
 import http from 'http';
-import { setHandler, setId } from 'oxium/src/lens/feature';
+import { setHandler, setId } from 'oxium';
 import express from 'express';
-import { call, compose, pipe } from 'ramda';
+import { call, pipe } from 'ramda';
 import { setHandlerResult } from '../../lens/feature';
 import { EXPRESS } from './constants';
 import { getAllRoutes, getExpressConfig } from './lens';
@@ -20,6 +20,6 @@ const handler = async app => {
   return setHandlerResult(api);
 };
 
-const Express = compose(setId(EXPRESS), setHandler(handler));
+const Express = pipe(setId(EXPRESS), setHandler(handler));
 
 export default Express;

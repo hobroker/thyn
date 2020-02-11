@@ -1,15 +1,12 @@
 import { cond, identity, map, mapObjIndexed, T, when } from 'ramda';
-import { isArray, isObject, isFunction } from 'ramda-adjunct';
+import { isArray, isObjectLike, Y } from 'ramda-adjunct';
 
-const deepDestruct = value => {
-  const destructWhenNeeded = when(isObject, deepDestruct);
-
-  return cond([
-    [isFunction, identity],
-    [isArray, map(destructWhenNeeded)],
-    [isObject, mapObjIndexed(destructWhenNeeded)],
+const deepDestruct = Y(fn =>
+  cond([
+    [isArray, map(when(isObjectLike, fn))],
+    [isObjectLike, mapObjIndexed(when(isObjectLike, fn))],
     [T, identity],
-  ])(value);
-};
+  ]),
+);
 
 export default deepDestruct;
