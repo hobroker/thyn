@@ -15,10 +15,10 @@ import { isOnValidEnv, prepareRawFeature } from './lens/feature';
 
 const debugIt = createDebug('app');
 
-const verifyEnv = compose(filter, isOnValidEnv);
+const filterByEnv = compose(filter, isOnValidEnv);
 
 const prepareFeatures = env =>
-  pipe(values, map(prepareRawFeature), verifyEnv(env));
+  pipe(values, map(prepareRawFeature), filterByEnv(env));
 
 const filterFn = pipe(filter(isFeatureUnloaded), take(2));
 const isDoneFn = areAppFeaturesLoaded;
