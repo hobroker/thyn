@@ -2,7 +2,8 @@ import http from 'http';
 import { setHandler, setId } from 'oxium';
 import express from 'express';
 import { call, pipe } from 'ramda';
-import { setHandlerResult } from '../../lens/feature';
+import { WEB } from '../../constants';
+import { setHandlerResult, setMetaEnv } from '../../lens/feature';
 import { EXPRESS } from './constants';
 import { getAllRoutes, getExpressConfig } from './lens';
 import useMiddlewares from './util/useMiddlewares';
@@ -20,6 +21,6 @@ const handler = async app => {
   return setHandlerResult(api);
 };
 
-const Express = pipe(setId(EXPRESS), setHandler(handler));
+const Express = pipe(setId(EXPRESS), setMetaEnv(WEB), setHandler(handler));
 
 export default Express;

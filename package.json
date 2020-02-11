@@ -8,7 +8,8 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "DEBUG=oxium*,thyn* node src/index.js",
+    "start": "node src/index.js",
+    "start:cli": "node src/index.js --env cli",
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
@@ -27,7 +28,8 @@
     "morgan": "^1.9.1",
     "oxium": "github:hobroker/oxium",
     "ramda": "^0.27.0",
-    "ramda-adjunct": "^2.25.0"
+    "ramda-adjunct": "^2.25.0",
+    "yargs-parser": "^17.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

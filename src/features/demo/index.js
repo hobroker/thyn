@@ -1,6 +1,7 @@
 import { deferHandler, setHandler, setId } from 'oxium';
 import { pipe } from 'ramda';
-import { shareModels } from '../../lens/feature';
+import { WEB } from '../../constants';
+import { setMetaEnv, shareModels } from '../../lens/feature';
 import { createDebug } from '../../util/debug';
 import { getDefaultMongoWeave, isMongoLoaded } from '../mongo/lens';
 import { getAllDemoDocs } from './mongo-actions';
@@ -18,6 +19,7 @@ const handler = async app => {
 
 const Demo = pipe(
   setId(DEMO),
+  setMetaEnv(WEB),
   setHandler(handler),
   deferHandler(isMongoLoaded),
   shareModels(models),

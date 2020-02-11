@@ -1,25 +1,22 @@
-import { identity, pipe } from 'ramda';
+import { pipe } from 'ramda';
 import { setHandler, setId } from 'oxium';
+import { CLI } from '../../constants';
 import { createDebug } from '../../util/debug';
-import { shareModels } from '../../lens/feature';
-import { shareRoutes } from '../express/lens';
+import { setMetaEnv, shareModels } from '../../lens/feature';
 import { SECOND } from './constants';
 import * as models from './models';
-import * as routes from './routes';
 
 const debugIt = createDebug(SECOND);
 
 const handler = app => {
   debugIt('SECOND start', typeof app);
-
-  return identity;
 };
 
 const Second = pipe(
   setId(SECOND),
+  setMetaEnv(CLI),
   setHandler(handler),
   shareModels(models),
-  shareRoutes(routes),
 );
 
 export default Second;

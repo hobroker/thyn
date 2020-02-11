@@ -1,7 +1,8 @@
-import createApp from './createApp';
+import runWith from './runWith';
 import config from './config';
 import * as features from './features';
+import parseEnv from './util/parseEnv';
 
-const app = createApp({ config, features });
+const env = parseEnv(process.argv);
 
-app();
+runWith({ config, features, env });
