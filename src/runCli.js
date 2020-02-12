@@ -1,18 +1,18 @@
 import { propEq } from 'ramda';
+import { isFunction } from 'ramda-adjunct';
+import invariant from 'oxium/src/util/invariant';
 import { CLI, ENV } from './constants';
-import { getAllClis } from './lens/app';
-import { parseArgv } from './util/cli';
+import { findCli, parseArgv } from './util/cli';
 
 const runCli = app => {
-  const { cli } = parseArgv(process.argv);
-  const clis = getAllClis(app);
-  const x = clis[cli];
+  const cli = findCli(parseArgv(process.argv), app);
+  invariant(isFunction(cli), 'cli not found');
 
-  if (!x) {
+  if (!cli) {
     throw new Error('wrong');
   }
 
-  return x(app);
+  return cli(app);
 };
 
 export const shouldRunCli = propEq(ENV, CLI);
