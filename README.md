@@ -1,6 +1,7 @@
 # Thyn
 
-[![GitHub package.json version][package-version-badge]](package.json)
+[![GitHub package.json version][package-version-badge]](package.json)[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhobroker%2Fthyn.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhobroker%2Fthyn?ref=badge_shield)
+
 [![License][package-license-badge]](LICENSE)
 ![GitHub top language][top-lang-badge]
 [![GitHub issues][github-issues-badge]][github-issues-link]
@@ -39,3 +40,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 [lgtm-link]: https://lgtm.com/projects/g/hobroker/thyn/context:javascript
 [codecov-badge]: https://codecov.io/gh/hobroker/thyn/branch/master/graph/badge.svg
 [codecov-link]: https://codecov.io/gh/hobroker/thyn
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhobroker%2Fthyn.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhobroker%2Fthyn?ref=badge_large)
