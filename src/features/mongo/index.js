@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { compose, converge, mapObjIndexed, pipe } from 'ramda';
 import { weave } from 'ramda-adjunct';
 import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
-import { geAllModels } from '../../lens/app';
+import { getAllModels } from '../../lens/app';
 import callReader from '../../util/callReader';
 import { MONGO } from './constants';
 import { getMongoConfig, getSchema } from './lens';
@@ -25,7 +25,7 @@ const handler = converge(
   },
   [
     getMongoConfig,
-    compose(mapObjIndexed(compose(createSchema, getSchema)), geAllModels),
+    compose(mapObjIndexed(compose(createSchema, getSchema)), getAllModels),
   ],
 );
 

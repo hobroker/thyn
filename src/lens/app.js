@@ -1,27 +1,18 @@
-import { getFeatures, setFeatures } from 'oxium';
-import {
-  applyTo,
-  compose,
-  identity,
-  map,
-  mergeAll,
-  pipe,
-  useWith,
-  values,
-  when,
-} from 'ramda';
-import { isFunction } from 'ramda-adjunct';
-import { getSharedModels, setDefaultMeta } from './feature';
+import { getFeatures } from 'oxium';
+import { chain, map, mergeAll, pipe } from 'ramda';
+import { getCli, getSharedModels } from './feature';
 import deepDestruct from '../util/deepDestruct';
 
-export const resetMetaToFeatures = useWith(setFeatures, [
-  pipe(values, map(when(isFunction, applyTo({}))), map(setDefaultMeta)),
-  identity,
-]);
-
-export const geAllModels = compose(
+export const getAllModels = pipe(
+  getFeatures,
+  map(getSharedModels),
   deepDestruct,
   mergeAll,
-  map(getSharedModels),
+);
+
+export const getAllClis = pipe(
   getFeatures,
+  chain(getCli),
+  deepDestruct,
+  mergeAll,
 );

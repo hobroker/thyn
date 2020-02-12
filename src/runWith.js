@@ -8,10 +8,13 @@ import {
   otherwise,
   pipe,
   take,
+  tap,
   values,
+  when,
 } from 'ramda';
 import { createDebug } from './util/debug';
 import { isOnValidEnv, prepareRawFeature } from './lens/feature';
+import runCli, { shouldRunCli } from './runCli';
 
 const debugIt = createDebug('app');
 
@@ -19,6 +22,12 @@ const filterByEnv = compose(filter, isOnValidEnv);
 
 const prepareFeatures = env =>
   pipe(values, map(prepareRawFeature), filterByEnv(env));
+
+const onDone = pipe(
+  tap(() => debugIt('running')),
+  when(shouldRunCli, runCli),
+);
+const onFail = pipe(debugIt);
 
 const filterFn = pipe(filter(isFeatureUnloaded), take(2));
 const isDoneFn = areAppFeaturesLoaded;
@@ -31,8 +40,8 @@ const runWith = ({ env, ...rest }) =>
       features: prepareFeatures(env),
     }),
     runApp,
-    andThen(() => debugIt('running')),
-    otherwise(debugIt),
+    andThen(onDone),
+    otherwise(onFail),
   )({ env, ...rest });
 
 export default runWith;
