@@ -19,13 +19,12 @@ import {
 import { metaLens, setFeatureIsLoaded } from 'oxium';
 import { isFunction } from 'ramda-adjunct';
 import deepDestruct from '../util/deepDestruct';
-import { CLI, DEFAULT, ENV, MODELS, RESULT, SHARED, WEAVE } from '../constants';
+import { DEFAULT, ENV, MODELS, RESULT, SHARED, WEAVE } from '../constants';
 
 export const defaultLens = lensProp(DEFAULT);
 export const weaveLens = lensProp(WEAVE);
 export const resultLens = lensProp(RESULT);
 export const envLens = lensProp(ENV);
-export const cliLens = lensProp(CLI);
 export const modelsLens = lens(
   compose(defaultTo({}), prop(MODELS)),
   useWith(assoc(MODELS), [deepDestruct, identity]),
@@ -44,9 +43,6 @@ export const setDefaultMeta = setFeatureIsLoaded(false);
 
 export const setMetaEnv = set(metaEnvLens);
 export const getMetaEnv = view(metaEnvLens);
-
-export const setCli = set(cliLens);
-export const getCli = view(cliLens);
 
 export const getEnv = view(envLens);
 export const isOnValidEnv = env => pipe(getMetaEnv, either(not, equals(env)));

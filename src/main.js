@@ -1,8 +1,8 @@
-import { parseEnv } from './util/cli';
-import runWith from './runWith';
+import { parseArgv } from './util/argv';
+import run from './run';
 import config from './config';
 import * as features from './features';
 
-const env = parseEnv(process.argv);
+const argv = parseArgv(process.argv);
 
-runWith({ config, features, env });
+run({ config, features, argv });

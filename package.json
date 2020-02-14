@@ -9,7 +9,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:cli": "node src/index.js --env cli",
+    "start:cli": "npm start -- --exec cli",
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"

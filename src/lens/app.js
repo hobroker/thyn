@@ -1,6 +1,6 @@
 import { getFeatures } from 'oxium';
-import { chain, map, mergeAll, pipe } from 'ramda';
-import { getCli, getSharedModels } from './feature';
+import { defaultTo, map, mergeAll, path, pipe } from 'ramda';
+import { getSharedModels } from './feature';
 import deepDestruct from '../util/deepDestruct';
 
 export const getAllModels = pipe(
@@ -10,9 +10,4 @@ export const getAllModels = pipe(
   mergeAll,
 );
 
-export const getAllClis = pipe(
-  getFeatures,
-  chain(getCli),
-  deepDestruct,
-  mergeAll,
-);
+export const getExecArgv = pipe(path(['argv', 'exec']), defaultTo('default'));
