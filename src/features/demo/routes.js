@@ -3,6 +3,6 @@ import { get } from '../express/methods';
 
 export const prefix = DEMO;
 
-const hello = (/* app, { req, res } */) => 'hello';
+const hello = (/* root, { req, res } */) => 'hello';
 
 export const routes = [get('/', hello)];

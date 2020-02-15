@@ -12,6 +12,15 @@ const config = {
       port: env.PORT,
       prefix: '/api',
     },
+    spotify: {
+      api: {
+        clientId: env.SPOTIFY_CLIENT_ID,
+        clientSecret: env.SPOTIFY_CLIENT_SECRET,
+      },
+      auth: {
+        redirectPath: '/api/spotify/auth/callback',
+      },
+    },
   },
 };
 

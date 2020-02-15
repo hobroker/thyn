@@ -1,8 +1,8 @@
 import debug from 'debug';
 import { apply, bind, pipe, tap, unapply } from 'ramda';
-import { PKG_NAME } from '../constants';
+import { THYN } from '../constants';
 
-const baseDebug = debug(PKG_NAME);
+const baseDebug = debug(THYN);
 
 const extend = bind(baseDebug.extend, baseDebug);
 
