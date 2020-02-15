@@ -21,7 +21,6 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "http-status-codes": "^1.4.0",
-    "jest-esm-transformer": "^1.0.0",
     "lodash": "^4.17.15",
     "monet": "^0.9.1",
     "mongoose": "^5.8.11",
