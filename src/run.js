@@ -11,6 +11,7 @@ import {
   values,
 } from 'ramda';
 import { createDebug } from './util/debug';
+import { parseArgv } from './util/argv';
 import { prepareRawFeature } from './lens/feature';
 
 const debugIt = createDebug('run');
@@ -23,6 +24,7 @@ const isDoneFn = areAppFeaturesLoaded;
 
 const prepare = evolve({
   features: pipe(values, map(prepareRawFeature)),
+  argv: parseArgv,
 });
 
 const runApp = oxium(filterFn, isDoneFn);

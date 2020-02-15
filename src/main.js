@@ -1,11 +1,12 @@
-import { andThen, pipe } from 'ramda';
-import { parseArgv } from './util/argv';
+import pipeAsync from 'oxium/src/util/pipeAsync';
 import { execApp } from './util/execApp';
-import run from './run';
+import load from './run';
 import config from './config';
 import * as apps from './apps';
 import * as features from './features';
 
-const argv = parseArgv(process.argv);
+const { argv } = process;
 
-pipe(run, andThen(execApp(apps)))({ config, features, argv });
+const root = { config, features, argv };
+
+pipeAsync(load, execApp(apps))(root);
