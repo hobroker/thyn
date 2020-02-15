@@ -6,7 +6,7 @@ import { createDebug } from './debug';
 
 const debugIt = createDebug('execApp');
 
-export const execApp = curry((items, root) => {
+const execApp = curry((items, root) => {
   const execArgv = getExecArgv(root);
   const execItem = items[execArgv];
   invariant(isFunction(execItem), `execItem ${execArgv} not found`);

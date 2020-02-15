@@ -1,6 +1,7 @@
 import oxium, { areAppFeaturesLoaded, isFeatureUnloaded } from 'oxium';
 import {
   andThen,
+  curry,
   evolve,
   filter,
   map,
@@ -10,6 +11,7 @@ import {
   tap,
   values,
 } from 'ramda';
+import execApp from './util/execApp';
 import { createDebug } from './util/debug';
 import { parseArgv } from './util/argv';
 import { prepareRawFeature } from './lens/feature';
@@ -29,6 +31,13 @@ const prepare = evolve({
 
 const runApp = oxium(filterFn, isDoneFn);
 
-const run = pipe(prepare, runApp, andThen(onDone), otherwise(onFail));
+const run = curry((root, apps) =>
+  pipe(
+    prepare,
+    runApp,
+    andThen(pipe(onDone, execApp(apps))),
+    otherwise(onFail),
+  )(root),
+);
 
 export default run;
