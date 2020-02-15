@@ -7,8 +7,8 @@ import { SECOND } from './constants';
 
 const debugIt = createDebug(SECOND);
 
-const handler = app => {
-  debugIt('SECOND start', typeof app);
+const handler = root => {
+  debugIt('SECOND start', typeof root);
 };
 
 const Second = pipe(setId(SECOND), setMetaEnv(CLI), setHandler(handler));

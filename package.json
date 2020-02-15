@@ -11,7 +11,7 @@
     "start": "node src/index.js",
     "start:cli": "npm start -- --exec cli",
     "test": "jest",
-    "test:coverage": "npm test -- --coverage",
+    "test:coverage": "jest --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {

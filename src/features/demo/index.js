@@ -12,8 +12,8 @@ import * as routes from './routes';
 
 const debugIt = createDebug(DEMO);
 
-const handler = async app => {
-  const wMongo = getDefaultMongoWeave(app);
+const handler = async root => {
+  const wMongo = getDefaultMongoWeave(root);
   debugIt('DEMO start', await wMongo(getAllDemoDocs()));
 };
 
