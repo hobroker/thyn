@@ -1,10 +1,6 @@
 import run from './run';
 import config from './config';
 import * as apps from './apps';
-import * as features from './features';
+import features from './features';
 
-const { argv } = process;
-
-const root = { config, features, argv };
-
-run(root, apps);
+run(features, { config }, apps);

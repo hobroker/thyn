@@ -2,5 +2,6 @@ import Demo from './demo';
 import Second from './second';
 import Mongo from './mongo';
 import Express from './express';
+import Spotify from './spotify';
 
-export { Demo, Second, Mongo, Express };
+export default [Mongo, Express, Demo, Second, Spotify];

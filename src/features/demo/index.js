@@ -1,29 +1,18 @@
-import { deferHandler, setHandler, setId } from 'oxium';
 import { pipe } from 'ramda';
 import { WEB } from '../../constants';
-import { setMetaEnv, shareModels } from '../../lens/feature';
 import { createDebug } from '../../util/debug';
-import { getDefaultMongoWeave, isMongoLoaded } from '../mongo/lens';
-import { getAllDemoDocs } from './mongo-actions';
-import { shareRoutes } from '../express/lens';
 import { DEMO } from './constants';
 import * as models from './models';
 import * as routes from './routes';
+import { setEnv, setModels } from '../../accessors/feature';
+import { setRoutes } from '../express/accessors';
 
 const debugIt = createDebug(DEMO);
 
-const handler = async root => {
-  const wMongo = getDefaultMongoWeave(root);
-  debugIt('DEMO start', await wMongo(getAllDemoDocs()));
+const Demo = async () => {
+  debugIt('Demo start');
+  // const wMongo = getDefaultMongoWeave(root);
+  // debugIt('DEMO start', await wMongo(getAllDemoDocs()));
 };
 
-const Demo = pipe(
-  setId(DEMO),
-  setMetaEnv(WEB),
-  setHandler(handler),
-  deferHandler(isMongoLoaded),
-  shareModels(models),
-  shareRoutes(routes),
-);
-
-export default Demo;
+export default pipe(setEnv(WEB), setModels(models), setRoutes(routes))(Demo);

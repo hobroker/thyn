@@ -1,13 +1,13 @@
 import invariant from 'oxium/src/util/invariant';
 import { curry } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
-import { getExecArgv } from '../lens/root';
 import { createDebug } from './debug';
 
 const debugIt = createDebug('execApp');
 
 const execApp = curry((items, root) => {
-  const execArgv = getExecArgv(root);
+  debugIt('hello');
+  const execArgv = 'default'; // TODO change this
   const execItem = items[execArgv];
   invariant(isFunction(execItem), `execItem ${execArgv} not found`);
 
