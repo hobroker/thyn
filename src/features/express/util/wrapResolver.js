@@ -30,10 +30,10 @@ const onError = (error, { res }) => {
   return res.status(code).send(error);
 };
 
-const wrapResolver = curry(async (app, fn, req, res) => {
+const wrapResolver = curry(async (arg, fn, req, res) => {
   const params = { req, res };
   try {
-    const response = await fn(app, params);
+    const response = await fn(arg, params);
 
     if (res.headersSent) {
       return null;

@@ -1,9 +1,9 @@
 import { lensPathM } from 'oxium';
 import { compose, filter, map, not, pipe, prop, set, view } from 'ramda';
 import { isNilOrEmpty } from 'ramda-adjunct';
-import { EXPRESS, ROUTES } from './constants';
 import { getConfigFeatures } from '../../accessors/config';
 import { getFeatures } from '../../accessors/root';
+import { EXPRESS, ROUTES } from './constants';
 
 export const routesLens = lensPathM([ROUTES]);
 export const setRoutes = set(routesLens);

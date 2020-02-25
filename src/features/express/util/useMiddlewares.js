@@ -1,12 +1,12 @@
 import bodyParser from 'body-parser';
-import { apply, map, pipe } from 'ramda';
+import { apply, curry, map, pipe } from 'ramda';
 import { createDebug } from '../../../util/debug';
 import { EXPRESS } from '../constants';
 
 // issue: https://github.com/expressjs/morgan/issues/190
 const morgan = require('morgan');
 
-const debugIt = createDebug(EXPRESS);
+const debugIt = createDebug(`${EXPRESS}:useMiddlewares`);
 
 const morganMiddleware = morgan((tokens, req, res) =>
   pipe(
@@ -17,10 +17,12 @@ const morganMiddleware = morgan((tokens, req, res) =>
 
 const defaultMiddlewares = [bodyParser.json(), morganMiddleware];
 
-const useMiddlewares = app => {
-  defaultMiddlewares.forEach(middleware => app.use(middleware));
+const useMiddlewares = curry((middlewares, app) => {
+  defaultMiddlewares
+    .concat(middlewares)
+    .forEach(middleware => app.use(middleware));
 
   return app;
-};
+});
 
 export default useMiddlewares;
