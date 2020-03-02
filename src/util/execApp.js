@@ -1,9 +1,7 @@
-import invariant from 'oxium/src/util/invariant';
+import { invariant } from 'oxium';
 import { curry } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
-import { createDebug } from './debug';
-
-const debugIt = createDebug('execApp');
+import { debugIt } from './debug';
 
 const execApp = curry((items, result) => {
   debugIt('hello', result);

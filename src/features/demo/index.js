@@ -1,18 +1,15 @@
 import { pipe } from 'ramda';
-import { WEB } from '../../constants';
-import { createDebug } from '../../util/debug';
-import { DEMO } from './constants';
-import * as models from './models';
-import * as routes from './routes';
 import { setEnv, setModels } from '../../accessors/feature';
-import { setRoutes } from '../express/accessors';
-
-const debugIt = createDebug(DEMO);
+import { WEB } from '../../constants';
+import { debugIt } from '../../util/debug';
+import { addRoutes } from '../express/accessors';
+import * as models from './models';
+import routes from './routes';
 
 const Demo = async () => {
   debugIt('Demo start');
-  // const wMongo = getDefaultMongoWeave(root);
-  // debugIt('DEMO start', await wMongo(getAllDemoDocs()));
+
+  return {};
 };
 
-export default pipe(setEnv(WEB), setModels(models), setRoutes(routes))(Demo);
+export default pipe(setEnv(WEB), setModels(models), addRoutes(routes))(Demo);

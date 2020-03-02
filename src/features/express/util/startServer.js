@@ -1,7 +1,4 @@
-import { createDebug } from '../../../util/debug';
-import { EXPRESS } from '../constants';
-
-const debugIt = createDebug(`${EXPRESS}:server`);
+import { debugIt } from '../../../util/debug';
 
 const startServer = async (port, server) => {
   await new Promise((resolve, reject) => {

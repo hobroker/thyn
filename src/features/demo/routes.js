@@ -4,6 +4,8 @@ import { get } from '../express/methods';
 
 const hello = keys;
 
-export const prefix = DEMO;
-
-export const routes = [get('/', hello)];
+export default {
+  [DEMO]: {
+    '/': [get(hello)],
+  },
+};

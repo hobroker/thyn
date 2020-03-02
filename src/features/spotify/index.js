@@ -1,24 +1,24 @@
 import SpotifyApi from 'spotify-web-api-node';
 import { pipe } from 'ramda';
-import { createDebug } from '../../util/debug';
 import { SPOTIFY } from './constants';
 import * as models from './models';
-import * as routes from './routes';
+import authRoutes from './routes/auth';
+import stateRoutes from './routes/state';
 import { setModels } from '../../accessors/feature';
-import { setRoutes } from '../express/accessors';
-import weaveReader from '../../util/weaveReader';
+import { addRoutes } from '../express/accessors';
 import { getSpotifyConfig } from './accessors';
 
-// eslint-disable-next-line no-unused-vars
-const debugIt = createDebug(SPOTIFY);
-
-const Spotify = root => {
-  const config = getSpotifyConfig(root);
-  const api = new SpotifyApi(config.api);
+const Spotify = oxi => {
+  const { api } = getSpotifyConfig(oxi);
+  const spotify = new SpotifyApi(api);
 
   return {
-    spotify: weaveReader(api),
+    [SPOTIFY]: spotify,
   };
 };
 
-export default pipe(setModels(models), setRoutes(routes))(Spotify);
+export default pipe(
+  setModels(models),
+  addRoutes(authRoutes),
+  addRoutes(stateRoutes),
+)(Spotify);
