@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const schema = {
+export default {
   volumePercent: {
     type: Number,
     required: false,

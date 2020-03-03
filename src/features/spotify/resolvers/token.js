@@ -1,5 +1,5 @@
 import { findLatest } from '../../mongo/helpers';
-import { isTokenValid } from '../models/SpotifyAccessToken';
+import { isTokenValid } from '../helpers';
 
 export const saveToken = data => ({ mongo: { SpotifyAccessToken } }) =>
   SpotifyAccessToken.create(data);

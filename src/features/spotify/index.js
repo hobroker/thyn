@@ -9,8 +9,8 @@ import { addRoutes } from '../express/accessors';
 import { getSpotifyConfig } from './accessors';
 
 const Spotify = oxi => {
-  const { api } = getSpotifyConfig(oxi);
-  const spotify = new SpotifyApi(api);
+  const config = getSpotifyConfig(oxi);
+  const spotify = new SpotifyApi(config.api);
 
   return {
     [SPOTIFY]: spotify,

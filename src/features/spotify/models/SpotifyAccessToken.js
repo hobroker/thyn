@@ -1,6 +1,4 @@
-import { gt, identity, ifElse, not, pipe, prop } from 'ramda';
-
-export const schema = {
+export default {
   accessToken: {
     type: String,
     required: true,
@@ -14,9 +12,3 @@ export const schema = {
     required: true,
   },
 };
-
-export const isTokenValid = ifElse(
-  identity,
-  pipe(prop('expiresAt'), gt(new Date()), not),
-  Boolean,
-);

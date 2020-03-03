@@ -1,4 +1,4 @@
-export const schema = {
+export default {
   id: {
     type: String,
     required: true,

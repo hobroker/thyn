@@ -1,8 +1,8 @@
 import { invariant } from 'oxium';
 import { AUTH_SCOPES } from '../constants';
 import tokenFacade from '../facades/token';
-import { getLatestToken } from './db';
-import { isTokenValid } from '../models/SpotifyAccessToken';
+import { getLatestToken } from './token';
+import { isTokenValid } from '../helpers';
 
 export const generateAuthorizationUrl = redirectURI => oxi => {
   const { spotify } = oxi;

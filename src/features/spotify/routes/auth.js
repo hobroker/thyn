@@ -2,7 +2,7 @@ import { SPOTIFY } from '../constants';
 import { get } from '../../express/methods';
 import getBaseUrl from '../../express/util/getBaseUrl';
 import { generateAuthorizationUrl, getTokenByCode } from '../resolvers/auth';
-import { isLatestTokenValid, saveToken } from '../resolvers/db';
+import { isLatestTokenValid, saveToken } from '../resolvers/token';
 import { getSpotifyConfig } from '../accessors';
 
 const auth = (oxi, { req, res }) => {

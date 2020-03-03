@@ -35,6 +35,8 @@ const Express = async oxi => {
   const server = http.createServer(app);
 
   await startServer(port, server);
+
+  return {};
 };
 
 export default pipe(setEnv(WEB))(Express);
