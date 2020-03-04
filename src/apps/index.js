@@ -1,5 +1,4 @@
 import { identity } from 'ramda';
-import spotifyLog from './spotifyLog';
+import spotify from './spotifyLog';
 
-export { spotifyLog };
-export default identity;
+export { identity as web, spotify };

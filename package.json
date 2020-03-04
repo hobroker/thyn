@@ -9,7 +9,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:spotify": "npm start -- --exec spotifyLog",
+    "start:spotify": "npm start -- --exec spotify",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"

@@ -1,7 +1,6 @@
 import http from 'http';
 import express from 'express';
 import { call, chain, curry, evolve, map, objOf, pipe } from 'ramda';
-import { WEB } from '../../constants';
 import { setEnv } from '../../accessors/feature';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
@@ -9,6 +8,7 @@ import startServer from './util/startServer';
 import wrapResolver from './util/wrapResolver';
 import { getAllRoutes, getExpressConfig } from './accessors';
 import flattenRoutes from './util/flattenRoutes';
+import { WEB } from '../cli/constants';
 
 const prepareRoutes = (arg, prefix) =>
   pipe(

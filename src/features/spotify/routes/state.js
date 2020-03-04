@@ -1,9 +1,13 @@
 import { SPOTIFY } from '../constants';
 import { get } from '../../express/methods';
 import { currentState } from '../resolvers/current-activity';
-import currentPlaybackFacade from '../facades/currentPlayback';
+import { saveCurrentState } from '../resolvers/state';
 
-const state = oxi => oxi(currentState()).then(currentPlaybackFacade);
+const state = async oxi => {
+  const data = await oxi(currentState());
+
+  return oxi(saveCurrentState(data));
+};
 
 export default {
   [SPOTIFY]: {

@@ -1,5 +1,6 @@
 import { NO_CONTENT } from 'http-status-codes';
 import { ensureTokenIsValid } from './auth';
+import currentPlaybackFacade from '../facades/currentPlayback';
 
 export const currentState = () => async oxi => {
   const { spotify } = oxi;
@@ -11,5 +12,5 @@ export const currentState = () => async oxi => {
     return null;
   }
 
-  return response;
+  return currentPlaybackFacade(response);
 };
