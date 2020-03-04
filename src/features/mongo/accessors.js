@@ -1,13 +1,15 @@
-import { map, mergeAll, pipe, prop } from 'ramda';
-import { MONGO, SCHEMA } from './constants';
+import { map, mergeAll, pipe, prop, set, view } from 'ramda';
+import { MONGO } from './constants';
 import { getConfigFeatures } from '../../accessors/config';
-import { getModels } from '../../accessors/feature';
 import deepDestruct from '../../util/deepDestruct';
+import lensPropM from '../../util/lensPropM';
 
 export const getMongo = prop(MONGO);
 
-export const getSchema = prop(SCHEMA);
-
 export const getMongoConfig = pipe(getConfigFeatures, getMongo);
+
+export const modelsLens = lensPropM('models');
+export const setModels = set(modelsLens);
+export const getModels = view(modelsLens);
 
 export const getAllModels = pipe(map(pipe(getModels, deepDestruct)), mergeAll);

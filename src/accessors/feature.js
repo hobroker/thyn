@@ -1,11 +1,7 @@
 import { set, view } from 'ramda';
-import { ENV, MODELS } from '../constants';
-import lensPathM from '../util/lensPathM';
+import { ENV } from '../constants';
+import lensPropM from '../util/lensPropM';
 
-export const modelsLens = lensPathM([MODELS]);
-export const setModels = set(modelsLens);
-export const getModels = view(modelsLens);
-
-export const envLens = lensPathM([ENV]);
+export const envLens = lensPropM(ENV);
 export const setEnv = set(envLens);
 export const getEnv = view(envLens);
