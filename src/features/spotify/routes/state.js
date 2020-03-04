@@ -1,10 +1,9 @@
-import { andThen, applyTo, pipe } from 'ramda';
 import { SPOTIFY } from '../constants';
 import { get } from '../../express/methods';
 import { currentState } from '../resolvers/current-activity';
 import currentPlaybackFacade from '../facades/currentPlayback';
 
-const state = pipe(applyTo(currentState(), andThen(currentPlaybackFacade)));
+const state = oxi => oxi(currentState()).then(currentPlaybackFacade);
 
 export default {
   [SPOTIFY]: {

@@ -1,7 +1,6 @@
 import http from 'http';
-import { getMetaResult } from 'oxium';
 import express from 'express';
-import { call, chain, evolve, map, pipe } from 'ramda';
+import { call, chain, curry, evolve, map, objOf, pipe } from 'ramda';
 import { WEB } from '../../constants';
 import { setEnv } from '../../accessors/feature';
 import useMiddlewares from './util/useMiddlewares';
@@ -11,23 +10,27 @@ import wrapResolver from './util/wrapResolver';
 import { getAllRoutes, getExpressConfig } from './accessors';
 import flattenRoutes from './util/flattenRoutes';
 
-const getRoutes = oxi => {
-  const routes = getAllRoutes(oxi);
+const prepareRoutes = (arg, prefix) =>
+  pipe(
+    objOf(prefix),
+    flattenRoutes,
+    map(
+      evolve({
+        resolver: wrapResolver(arg),
+      }),
+    ),
+  );
+
+const getRoutes = curry((features, oxi) => {
+  const routes = getAllRoutes(features);
   const { prefix } = getExpressConfig(oxi);
-  const arg = getMetaResult(oxi);
-  const evolveRoute = evolve({
-    resolver: wrapResolver(arg),
-  });
 
-  return pipe(
-    chain(item => flattenRoutes({ [prefix]: item })),
-    map(evolveRoute),
-  )(routes);
-};
+  return chain(prepareRoutes(oxi, prefix), routes);
+});
 
-const Express = async oxi => {
+const Express = async (oxi, features) => {
   const { port } = getExpressConfig(oxi);
-  const routes = getRoutes(oxi);
+  const routes = oxi(getRoutes(features));
 
   const createApp = pipe(call, useMiddlewares([]), useRoutes(routes));
 

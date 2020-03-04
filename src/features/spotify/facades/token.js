@@ -1,7 +1,6 @@
 import { identity, pipe, prop, when } from 'ramda';
 import mapTo from '../../../util/mapTo';
-
-const toDate = value => new Date(value);
+import { toDate } from '../../../util/date';
 
 const tokenFacade = when(
   identity,

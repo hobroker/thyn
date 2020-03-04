@@ -3,10 +3,10 @@ import { curry } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import { debugIt } from './debug';
 
-const execApp = curry((items, result) => {
+const applyApps = curry((apps, result) => {
   debugIt('hello', result);
   const execArgv = 'default'; // TODO change this
-  const execItem = items[execArgv];
+  const execItem = apps[execArgv];
   invariant(isFunction(execItem), `execItem ${execArgv} not found`);
 
   debugIt('executing %s app', execArgv);
@@ -14,4 +14,4 @@ const execApp = curry((items, result) => {
   return execItem(result);
 });
 
-export default execApp;
+export default applyApps;

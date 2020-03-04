@@ -30,7 +30,9 @@ const onError = (error, { res }) => {
 
   debugIt('error', code, error);
 
-  return res.status(code).send(error);
+  return res.status(code).send({
+    error: error.message,
+  });
 };
 
 const wrapResolver = curry(async (arg, fn, req, res) => {

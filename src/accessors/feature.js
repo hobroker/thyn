@@ -1,6 +1,6 @@
-import { lensPathM } from 'oxium';
 import { set, view } from 'ramda';
 import { ENV, MODELS } from '../constants';
+import lensPathM from '../util/lensPathM';
 
 export const modelsLens = lensPathM([MODELS]);
 export const setModels = set(modelsLens);

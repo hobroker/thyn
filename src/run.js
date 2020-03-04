@@ -1,15 +1,15 @@
-import oxium, { assign } from 'oxium';
+import oxium from 'oxium';
 import { andThen, curry, otherwise, pipe } from 'ramda';
-import execApp from './util/execApp';
+import applyApps from './util/applyApps';
 import { debugIt } from './util/debug';
 
-const onDone = pipe(debugIt.lazy('running'));
-const onFail = err => debugIt(err);
+const onDone = () => debugIt.lazy('running');
+const onFail = error => debugIt(error);
 
 const run = curry((features, arg, apps) =>
   pipe(
     oxium(features),
-    andThen(pipe(assign(arg), onDone, execApp(apps))),
+    andThen(pipe(onDone, applyApps(apps))),
     otherwise(onFail),
   )(arg),
 );

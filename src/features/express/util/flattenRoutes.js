@@ -16,15 +16,10 @@ import concatPaths from './concatPaths';
 const prepareRoute = key =>
   pipe(ensureArray, map(pipe(call, assoc('path', concatPaths([key])))));
 
+const prependPath = key => pipe(appendFlipped([key]), concatPaths);
+
 const prepareRoutes = curry((fn, key) =>
-  pipe(
-    fn,
-    map(
-      evolve({
-        path: pipe(appendFlipped([key]), concatPaths),
-      }),
-    ),
-  ),
+  pipe(fn, map(evolve({ path: prependPath(key) }))),
 );
 
 const flattenRoutes = pipe(

@@ -1,21 +1,15 @@
 import { NO_CONTENT } from 'http-status-codes';
 import { ensureTokenIsValid } from './auth';
 
-const getMyCurrentPlaybackState = () => ({ spotify }) =>
-  spotify.getMyCurrentPlaybackState().then(response => {
-    if (response.statusCode === NO_CONTENT) {
-      return null;
-    }
-
-    return response;
-  });
-
 export const currentState = () => async oxi => {
+  const { spotify } = oxi;
+
   await oxi(ensureTokenIsValid());
-  const state = await oxi(getMyCurrentPlaybackState());
-  if (!state) {
+  const response = await spotify.getMyCurrentPlaybackState();
+
+  if (response.statusCode === NO_CONTENT) {
     return null;
   }
 
-  return state;
+  return response;
 };

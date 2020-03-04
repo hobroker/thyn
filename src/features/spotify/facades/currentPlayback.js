@@ -1,7 +1,6 @@
 import { identity, map, path, pick, pipe, prop, when } from 'ramda';
 import mapTo from '../../../util/mapTo';
-
-const toDate = value => new Date(value);
+import { toDate } from '../../../util/date';
 
 const currentPlaybackFacade = when(
   identity,
