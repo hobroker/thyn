@@ -1,6 +1,6 @@
-import { lens, path } from 'ramda';
+import { lens, prop } from 'ramda';
 import { assocM } from 'oxium';
 
-const lensPropM = key => lens(path(key), assocM([key]));
+const lensPropM = key => lens(prop(key), assocM(key));
 
 export default lensPropM;
