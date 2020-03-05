@@ -2,13 +2,15 @@ import http from 'http';
 import express from 'express';
 import { call, chain, curry, evolve, map, objOf, pipe } from 'ramda';
 import { setEnv } from '../../accessors/feature';
+import { debugIt } from '../../util/debug';
+import { WEB } from '../cli/constants';
+import { whenDying } from '../death/helpers';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
 import startServer from './util/startServer';
 import wrapResolver from './util/wrapResolver';
 import { getAllRoutes, getExpressConfig } from './accessors';
 import flattenRoutes from './util/flattenRoutes';
-import { WEB } from '../cli/constants';
 
 const prepareRoutes = (arg, prefix) =>
   pipe(
@@ -38,6 +40,14 @@ const Express = async (oxi, features) => {
   const server = http.createServer(app);
 
   await startServer(port, server);
+
+  oxi(
+    whenDying(() => {
+      debugIt('stopping');
+
+      return new Promise(server.close.bind(server));
+    }),
+  );
 
   return {};
 };
