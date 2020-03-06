@@ -65,10 +65,6 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!**/node_modules/**"
-    ],
     "testEnvironment": "node",
     "transformIgnorePatterns": [
       "/node_modules\\/(?!oxium)(.*)"
