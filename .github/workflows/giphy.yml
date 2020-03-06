@@ -2,7 +2,7 @@ name: PR Status Checks
 
 on: pull_request
 jobs:
-  pr-check-giphy:
+  giphy:
     name: PR Status Giphy
     runs-on: ubuntu-latest
     steps:

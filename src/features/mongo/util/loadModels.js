@@ -1,25 +1,24 @@
 import mongoose from 'mongoose';
-import { curry, mapObjIndexed, toPairs } from 'ramda';
+import { curry, mapObjIndexed } from 'ramda';
 import { debugIt } from '../../../util/debug';
 import createSchema from './createSchema';
 
-const createModel = (name, rest) => {
-  const model = class extends mongoose.Model {
-    static name = name;
-  };
+const createModel = name => {
+  const model = class extends mongoose.Model {};
 
-  toPairs(rest).forEach(([key, fn]) => {
-    model.prototype[key] = fn;
+  Object.defineProperty(model, 'name', {
+    value: name,
   });
 
   return model;
 };
 
 const loadModels = curry((mongo, models) =>
-  mapObjIndexed(({ default: schema, ...rest }, name) => {
-    debugIt('add', name);
+  mapObjIndexed(({ default: schema }, name) => {
+    const Model = createModel(name);
+    debugIt('add', Model.name);
 
-    return mongo.model(createModel(name, rest), createSchema(schema));
+    return mongo.model(Model, createSchema(schema));
   }, models),
 );
 
