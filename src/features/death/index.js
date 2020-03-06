@@ -6,6 +6,8 @@ const onDeath = fn => {
 
     return fn(args);
   });
+
+  return clear;
 };
 
 const Death = async () => {
