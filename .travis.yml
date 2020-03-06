@@ -1,0 +1,25 @@
+os: linux
+
+git:
+  depth: 2
+  quiet: true
+
+branches:
+  only:
+    - master
+    - next
+
+env:
+  global:
+    - NODE_ENV=production
+
+install: skip
+
+script: skip
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: scripts/deploy.sh
+  on:
+    all_branches: true

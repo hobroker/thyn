@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-process.env.DEBUG = 'oxium*,thyn*';
+process.env.DEBUG = [process.env.DEBUG || '', 'oxium*,thyn*'].join(',');
 
 require = require('esm')(module);
 

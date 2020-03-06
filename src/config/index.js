@@ -4,6 +4,10 @@ const env = dotenv.config().parsed;
 
 const config = {
   env: env.NODE_ENV,
+  vault: {
+    baseURL: env.VAULT_ADDR,
+    token: env.VAULT_TOKEN,
+  },
   features: {
     mongo: {
       connectionString: env.MONGO_CONNECTION_STRING,
@@ -13,13 +17,7 @@ const config = {
       prefix: '/api',
     },
     spotify: {
-      api: {
-        clientId: env.SPOTIFY_CLIENT_ID,
-        clientSecret: env.SPOTIFY_CLIENT_SECRET,
-      },
-      auth: {
-        redirectPath: '/api/spotify/auth/callback',
-      },
+      redirectPath: '/api/spotify/auth/callback',
     },
   },
 };
