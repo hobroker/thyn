@@ -1,8 +1,13 @@
-const createMethod = method => (path, resolver) => ({
-  method,
-  path,
-  resolver,
-});
+import { always } from 'ramda';
 
-export const get = createMethod('get');
-export const post = createMethod('post');
+const createMethod = method => resolver => always({ method, resolver });
+
+export const GET = 'get';
+export const POST = 'post';
+export const PATCH = 'patch';
+export const DELETE = 'delete';
+
+export const get = createMethod(GET);
+export const post = createMethod(POST);
+export const del = createMethod(DELETE);
+export const patch = createMethod(PATCH);

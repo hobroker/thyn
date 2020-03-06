@@ -1,8 +1,8 @@
-import { compose, join, replace } from 'ramda';
-import { trimCharsEnd } from 'ramda-adjunct';
+import { compose, join, replace, when } from 'ramda';
+import { trimCharsEnd, lengthGt } from 'ramda-adjunct';
 
 const concatPaths = compose(
-  trimCharsEnd('/'),
+  when(lengthGt(1), trimCharsEnd('/')),
   replace(/\/{2,}/g, '/'),
   join('/'),
 );

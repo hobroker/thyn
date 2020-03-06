@@ -1,26 +1,55 @@
 import http from 'http';
-import { setHandler, setId } from 'oxium';
 import express from 'express';
-import { call, pipe } from 'ramda';
-import { WEB } from '../../constants';
-import { setHandlerResult, setMetaEnv } from '../../lens/feature';
+import { call, chain, curry, evolve, map, objOf, pipe } from 'ramda';
+import { setEnv } from '../../accessors/feature';
+import { debugIt } from '../../util/debug';
+import { WEB } from '../cli/constants';
+import { whenDying } from '../death/helpers';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
 import startServer from './util/startServer';
-import { EXPRESS } from './constants';
-import { getAllRoutes, getExpressConfig } from './lens';
+import wrapResolver from './util/wrapResolver';
+import { getAllRoutes, getExpressConfig } from './accessors';
+import flattenRoutes from './util/flattenRoutes';
 
-const handler = async root => {
-  const config = getExpressConfig(root);
-  const routes = getAllRoutes(root);
-  const app = pipe(call, useMiddlewares, useRoutes(config, routes))(express);
+const prepareRoutes = (arg, prefix) =>
+  pipe(
+    objOf(prefix),
+    flattenRoutes,
+    map(
+      evolve({
+        resolver: wrapResolver(arg),
+      }),
+    ),
+  );
+
+const getRoutes = curry((features, oxi) => {
+  const routes = getAllRoutes(features);
+  const { prefix } = getExpressConfig(oxi);
+
+  return chain(prepareRoutes(oxi, prefix), routes);
+});
+
+const Express = async (oxi, features) => {
+  const { port } = getExpressConfig(oxi);
+  const routes = oxi(getRoutes(features));
+
+  const createApp = pipe(call, useMiddlewares([]), useRoutes(routes));
+
+  const app = createApp(express);
   const server = http.createServer(app);
 
-  await startServer(config, server);
+  await startServer(port, server);
 
-  return setHandlerResult(app);
+  oxi(
+    whenDying(() => {
+      debugIt('stopping');
+
+      return new Promise(server.close.bind(server));
+    }),
+  );
+
+  return {};
 };
 
-const Express = pipe(setId(EXPRESS), setMetaEnv(WEB), setHandler(handler));
-
-export default Express;
+export default pipe(setEnv(WEB))(Express);
