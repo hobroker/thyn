@@ -5,7 +5,7 @@ import {
   manyPickFindOrCreate,
 } from '../../mongo/helpers';
 
-export const saveCurrentState = state => async ({
+const saveCurrentState = state => async ({
   mongo: {
     SpotifyDevice,
     SpotifyAlbum,
@@ -40,3 +40,5 @@ export const saveCurrentState = state => async ({
 
   return entry;
 };
+
+export default saveCurrentState;

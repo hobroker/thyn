@@ -1,13 +1,9 @@
-import { SPOTIFY } from '../constants';
+import { applyTo } from 'ramda';
 import { get } from '../../express/methods';
-import { currentState } from '../resolvers/current-activity';
-import { saveCurrentState } from '../resolvers/state';
+import { SPOTIFY } from '../constants';
+import syncState from '../resolvers/syncState';
 
-const state = async oxi => {
-  const data = await oxi(currentState());
-
-  return oxi(saveCurrentState(data));
-};
+const state = applyTo(syncState());
 
 export default {
   [SPOTIFY]: {

@@ -1,20 +1,18 @@
 import SpotifyApi from 'spotify-web-api-node';
 import { pipe } from 'ramda';
-import { SPOTIFY } from './constants';
 import * as models from './models';
 import authRoutes from './routes/auth';
 import stateRoutes from './routes/state';
 import { addRoutes } from '../express/accessors';
-import { getSpotifyConfig } from './accessors';
 import { setModels } from '../mongo/accessors';
+import readSecret from '../vault/resolvers/readSecret';
+import { SPOTIFY } from './constants';
 
-const Spotify = oxi => {
-  const config = getSpotifyConfig(oxi);
-  const spotify = new SpotifyApi(config.api);
+const Spotify = async oxi => {
+  const { clientId, clientSecret } = await oxi(readSecret(SPOTIFY));
+  const spotify = new SpotifyApi({ clientId, clientSecret });
 
-  return {
-    [SPOTIFY]: spotify,
-  };
+  return { spotify };
 };
 
 export default pipe(

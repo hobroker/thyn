@@ -4,5 +4,6 @@ import Express from './express';
 import Spotify from './spotify';
 import Cli from './cli';
 import Death from './death';
+import Vault from './vault';
 
-export default [Death, Cli, Mongo, Express, Demo, Spotify];
+export default [Death, Vault, Cli, Mongo, Express, Demo, Spotify];

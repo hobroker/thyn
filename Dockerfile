@@ -11,7 +11,8 @@ COPY package*.json ./
 RUN apk add --no-cache git
 RUN npm ci
 
-COPY . .
+COPY .env ./
+COPY src ./src/
 
 EXPOSE $DOCKER_WEB_PORT
 

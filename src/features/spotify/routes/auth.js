@@ -6,8 +6,8 @@ import { isLatestTokenValid, saveToken } from '../resolvers/token';
 import { getSpotifyConfig } from '../accessors';
 
 const auth = (oxi, { req, res }) => {
-  const config = getSpotifyConfig(oxi);
-  const redirectURI = getBaseUrl(req) + config.auth.redirectPath;
+  const { redirectPath } = getSpotifyConfig(oxi);
+  const redirectURI = getBaseUrl(req) + redirectPath;
 
   const redirectUrl = oxi(generateAuthorizationUrl(redirectURI));
 
