@@ -55,7 +55,7 @@
     }
   },
   "lint-staged": {
-    "{src,example}/**/*.{js,json}": [
+    "{src,example}/**/*.js": [
       "eslint --max-warnings 0 --fix",
       "prettier --write"
     ]
