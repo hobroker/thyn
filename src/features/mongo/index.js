@@ -1,34 +1,30 @@
-import { setHandler, setId } from 'oxium';
 import mongoose from 'mongoose';
-import { compose, converge, mapObjIndexed, pipe } from 'ramda';
-import { weave } from 'ramda-adjunct';
-import { setDefaultWeave, setHandlerResult } from '../../lens/feature';
-import { getAllModels } from '../../lens/root';
-import callReader from '../../util/callReader';
-import { MONGO } from './constants';
-import { getMongoConfig, getSchema } from './lens';
+import { pipe } from 'ramda';
+import { debugIt } from '../../util/debug';
+import { whenDying } from '../death/helpers';
 import connectMongo from './util/connectMongo';
 import loadModels from './util/loadModels';
-import createSchema from './util/createSchema';
+import { getAllModels } from './accessors';
+import readSecret from '../vault/resolvers/readSecret';
+import { MONGO } from './constants';
 
 mongoose.Promise = Promise;
 
-const handler = converge(
-  async (config, models) => {
-    const { connectionString } = config;
+const Mongo = async (oxi, features) => {
+  const { connectionString } = await oxi(readSecret(MONGO));
 
-    const mongo = await connectMongo(connectionString);
-    const loadedModels = loadModels(mongo, models);
-    const wMongo = weave(callReader, loadedModels);
+  const mongo = await connectMongo(connectionString);
+  const models = pipe(getAllModels, loadModels(mongo))(features);
 
-    return compose(setDefaultWeave(wMongo), setHandlerResult(mongo));
-  },
-  [
-    getMongoConfig,
-    compose(mapObjIndexed(compose(createSchema, getSchema)), getAllModels),
-  ],
-);
+  oxi(
+    whenDying(() => {
+      debugIt('stopping');
 
-const Mongo = pipe(setId(MONGO), setHandler(handler));
+      mongo.disconnect();
+    }),
+  );
+
+  return { mongo: models };
+};
 
 export default Mongo;

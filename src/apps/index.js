@@ -1,6 +1,4 @@
 import { identity } from 'ramda';
-import { debugIt } from '../util/debug';
+import spotify from './spotify';
 
-export const cli = debugIt;
-
-export default identity;
+export { identity as web, spotify };

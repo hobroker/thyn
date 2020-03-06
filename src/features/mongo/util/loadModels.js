@@ -1,14 +1,24 @@
+import mongoose from 'mongoose';
 import { curry, mapObjIndexed } from 'ramda';
-import { createDebug } from '../../../util/debug';
-import { MONGO } from '../constants';
+import { debugIt } from '../../../util/debug';
+import createSchema from './createSchema';
 
-const debugIt = createDebug(`${MONGO}:models`);
+const createModel = name => {
+  const model = class extends mongoose.Model {};
+
+  Object.defineProperty(model, 'name', {
+    value: name,
+  });
+
+  return model;
+};
 
 const loadModels = curry((mongo, models) =>
-  mapObjIndexed((schema, name) => {
-    debugIt('add', name);
+  mapObjIndexed(({ default: schema }, name) => {
+    const Model = createModel(name);
+    debugIt('add', Model.name);
 
-    return mongo.model(name, schema);
+    return mongo.model(Model, createSchema(schema));
   }, models),
 );
 

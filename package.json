@@ -9,13 +9,15 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:cli": "npm start -- --exec cli",
+    "start:spotify": "npm start -- --exec spotify",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "death": "^1.1.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
@@ -28,6 +30,7 @@
     "oxium": "github:hobroker/oxium",
     "ramda": "^0.27.0",
     "ramda-adjunct": "^2.25.0",
+    "spotify-web-api-node": "^4.0.0",
     "yargs-parser": "^18.0.0"
   },
   "devDependencies": {
@@ -52,7 +55,7 @@
     }
   },
   "lint-staged": {
-    "{src,example}/**/*.{js,json}": [
+    "{src,example}/**/*.js": [
       "eslint --max-warnings 0 --fix",
       "prettier --write"
     ]
@@ -61,10 +64,6 @@
     "coverageDirectory": "./coverage/",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!**/node_modules/**"
     ],
     "testEnvironment": "node",
     "transformIgnorePatterns": [

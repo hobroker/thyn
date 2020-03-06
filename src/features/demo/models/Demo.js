@@ -1,4 +1,4 @@
-export const schema = {
+export default {
   name: {
     type: String,
     required: true,

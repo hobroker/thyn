@@ -1,8 +1,11 @@
+import { keys } from 'ramda';
 import { DEMO } from './constants';
 import { get } from '../express/methods';
 
-export const prefix = DEMO;
+const hello = keys;
 
-const hello = (/* root, { req, res } */) => 'hello';
-
-export const routes = [get('/', hello)];
+export default {
+  [DEMO]: {
+    '/': [get(hello)],
+  },
+};

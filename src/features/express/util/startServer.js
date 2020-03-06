@@ -1,9 +1,6 @@
-import { createDebug } from '../../../util/debug';
-import { EXPRESS } from '../constants';
+import { debugIt } from '../../../util/debug';
 
-const debugIt = createDebug(`${EXPRESS}:server`);
-
-const startServer = async ({ port }, server) => {
+const startServer = async (port, server) => {
   await new Promise((resolve, reject) => {
     server.listen(port, '0.0.0.0', resolve);
     server.on('error', reject);

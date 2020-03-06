@@ -1,0 +1,87 @@
+{
+  "body": {
+    "device": {
+      "id": "e371924b86d4f088fb21ebb270fb35257baa5bc2",
+      "is_active": true,
+      "is_private_session": false,
+      "is_restricted": false,
+      "name": "ileahu-mlt",
+      "type": "Computer",
+      "volume_percent": 100
+    },
+    "shuffle_state": false,
+    "repeat_state": "track",
+    "timestamp": 1572388010085,
+    "context": null,
+    "progress_ms": 130732,
+    "item": {
+      "album": {
+        "album_type": "single",
+        "artists": [
+          {
+            "href": "https://api.spotify.com/v1/artists/4GHi4xklo0FT0l2CNuLFh2",
+            "id": "4GHi4xklo0FT0l2CNuLFh2",
+            "name": "3TEETH",
+            "type": "artist",
+            "uri": "spotify:artist:4GHi4xklo0FT0l2CNuLFh2"
+          }
+        ],
+        "href": "https://api.spotify.com/v1/albums/0nCRRcaqMHBnb0hfKnfTPO",
+        "id": "0nCRRcaqMHBnb0hfKnfTPO",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273ebfc9b8a7baf3cf85b1001bc",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02ebfc9b8a7baf3cf85b1001bc",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851ebfc9b8a7baf3cf85b1001bc",
+            "width": 64
+          }
+        ],
+        "name": "PUMPED UP KICKS",
+        "release_date": "2019-06-28",
+        "release_date_precision": "day",
+        "total_tracks": 1,
+        "type": "album",
+        "uri": "spotify:album:0nCRRcaqMHBnb0hfKnfTPO"
+      },
+      "artists": [
+        {
+          "href": "https://api.spotify.com/v1/artists/4GHi4xklo0FT0l2CNuLFh2",
+          "id": "4GHi4xklo0FT0l2CNuLFh2",
+          "name": "3TEETH",
+          "type": "artist",
+          "uri": "spotify:artist:4GHi4xklo0FT0l2CNuLFh2"
+        }
+      ],
+      "disc_number": 1,
+      "duration_ms": 271666,
+      "explicit": false,
+      "external_ids": {
+        "isrc": "USQX91900130"
+      },
+      "href": "https://api.spotify.com/v1/tracks/3ncucOcYMOd7VQ1jyAA6BU",
+      "id": "3ncucOcYMOd7VQ1jyAA6BU",
+      "is_local": false,
+      "name": "PUMPED UP KICKS",
+      "popularity": 51,
+      "track_number": 1,
+      "type": "track",
+      "uri": "spotify:track:3ncucOcYMOd7VQ1jyAA6BU"
+    },
+    "currently_playing_type": "track",
+    "actions": {
+      "disallows": {
+        "resuming": true
+      }
+    },
+    "is_playing": true
+  }
+}

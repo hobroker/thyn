@@ -1,3 +1,3 @@
-const getBaseUrl = req => `${req.protocol}://${req.get('host')}`;
+const getBaseUrl = ({ protocol, headers: { host } }) => `${protocol}://${host}`;
 
 export default getBaseUrl;
