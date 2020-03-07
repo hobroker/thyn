@@ -16,6 +16,7 @@ env:
 before_install:
   - echo "$SSH_KEY" > ./key
   - chmod 600 ./key
+  - cat ./key
   - echo -e "Host $SSH_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - ssh-add ./key
 
