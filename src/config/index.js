@@ -7,6 +7,11 @@ const config = {
   vault: {
     baseURL: env.VAULT_ADDR,
     token: env.VAULT_TOKEN,
+    defaultConfig: {
+      mongo: {
+        connectionString: 'mongodb://localhost:27017/castus-local',
+      },
+    },
   },
   features: {
     mongo: {

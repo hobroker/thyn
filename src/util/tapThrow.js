@@ -1,6 +1,6 @@
 import { curry } from 'ramda';
 
-const tapThrow = curry((arg, fn) => {
+const tapThrow = curry((fn, arg) => {
   fn(arg);
 
   throw arg;
