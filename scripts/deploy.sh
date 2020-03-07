@@ -2,13 +2,12 @@
 
 set -e
 
-NAME="llogger"
+NAME="thyn"
 AUTHOR="hobroker"
 ENV_FILE=".env"
 TRAVIS_BRANCH=${TRAVIS_BRANCH}
 SSH_HOST=${SSH_HOST}
 SSH_USER=${SSH_USER}
-DECRYPTION_PASSWORD=${DECRYPTION_PASSWORD}
 NODE_ENV=${NODE_ENV}
 
 export VERSION=${TRAVIS_BRANCH}
@@ -35,7 +34,6 @@ __copy_env() {
 }
 
 setup_ssh_key() {
-    __decrypt .secrets/ssh_key.gpg key
     echo -e "Host ${SSH_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
     chmod 600 key
     eval "$(ssh-agent -s)"
