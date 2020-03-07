@@ -15,6 +15,7 @@ env:
 
 install: skip
 
+before_script:
   - echo -e "Host github.com\n\tHostName github.com\n\tUser git\n\tIdentityFile ~/.ssh/id_rsa\n" >> ~/.ssh/config
 
 script: skip
