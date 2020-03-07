@@ -5,7 +5,8 @@ const env = dotenv.config().parsed;
 const config = {
   env: env.NODE_ENV,
   vault: {
-    baseURL: env.VAULT_ADDR,
+    baseURL: `${env.VAULT_ADDR}/v1`,
+    path: env.VAULT_PATH,
     token: env.VAULT_TOKEN,
     defaultConfig: {
       mongo: {
@@ -15,7 +16,7 @@ const config = {
   },
   features: {
     mongo: {
-      connectionString: env.MONGO_CONNECTION_STRING,
+      connectionString: 'mongodb://mongo:27017/castus-local',
     },
     express: {
       port: env.PORT,

@@ -1,22 +1,20 @@
-import { getSecretContents } from '../accessors';
+import { curry } from 'ramda';
 import { debugIt } from '../../../util/debug';
 import tapThrow from '../../../util/tapThrow';
+import { getSecretContents } from '../accessors';
+import { getSecretPath } from '../helpers';
 
 export const onError = path =>
   tapThrow(error => {
     debugIt(`Error for secret "${path}"`);
-    debugIt(
-      'Response:',
-      error.request.path,
-      error.message,
-      error.response.data,
-    );
+    debugIt('Response:', error.request.path, error.message);
   });
 
-const readSecret = path => ({ vault }) =>
+const readSecret = curry((path, { vault, config }) =>
   vault
-    .get(path)
+    .get(getSecretPath(path, { config }))
     .then(getSecretContents)
-    .catch(onError(path));
+    .catch(onError(path)),
+);
 
 export default readSecret;

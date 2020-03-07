@@ -5,11 +5,11 @@ import authRoutes from './routes/auth';
 import stateRoutes from './routes/state';
 import { addRoutes } from '../express/accessors';
 import { setModels } from '../mongo/accessors';
-import readSecret from '../vault/resolvers/readSecret';
+import readSecretSafe from '../vault/resolvers/readSecretSafe';
 import { SPOTIFY } from './constants';
 
 const Spotify = async oxi => {
-  const { clientId, clientSecret } = await oxi(readSecret(SPOTIFY));
+  const { clientId, clientSecret } = await oxi(readSecretSafe(SPOTIFY));
   const spotify = new SpotifyApi({ clientId, clientSecret });
 
   return { spotify };
