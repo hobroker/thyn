@@ -34,6 +34,7 @@ __copy_env() {
 }
 
 prepare() {
+    ls ~/.ssh
     __remote_run_silent ls
     docker-compose down
     __copy_env
