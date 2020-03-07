@@ -21,7 +21,7 @@ if [[ ${VERSION} != "master" ]]; then
 fi
 
 __remote_run_silent() {
-    ssh ${SSH_USER}@${SSH_HOST} ${@}
+    ssh -i ./key ${SSH_USER}@${SSH_HOST} ${@}
 }
 
 # reads the value of a key in .env
@@ -34,10 +34,6 @@ __copy_env() {
 }
 
 prepare() {
-    echo -e "Host ${SSH_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    cat ~/.ssh/known_hosts
-    cat ~/.ssh/config
-    cat ~/.ssh/authorized_keys
     __remote_run_silent ls
     docker-compose down
     __copy_env

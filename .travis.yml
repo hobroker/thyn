@@ -13,6 +13,12 @@ env:
   global:
     - NODE_ENV=production
 
+before_install:
+  - echo "$SSH_KEY" > ./key
+  - chmod 600 ./key
+  - echo -e "Host $SSH_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - ssh-add ./key
+
 install: skip
 
 script: skip
