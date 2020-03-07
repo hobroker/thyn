@@ -33,13 +33,6 @@ __copy_env() {
     cp "envs/${VERSION}${ENV_FILE}" ${ENV_FILE}
 }
 
-setup_ssh_key() {
-    echo -e "Host ${SSH_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    chmod 600 key
-    eval "$(ssh-agent -s)"
-    ssh-add key
-}
-
 prepare() {
     docker-compose down
     __copy_env
@@ -66,7 +59,6 @@ info() {
     echo "✅"
 }
 
-setup_ssh_key
 prepare
 build
 start
