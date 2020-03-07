@@ -1,4 +1,13 @@
-import { always, identity, pipe, prop, tap, unless, useWith } from 'ramda';
+import {
+  always,
+  curry,
+  identity,
+  pipe,
+  prop,
+  tap,
+  unless,
+  useWith,
+} from 'ramda';
 import readSecret from './readSecret';
 import { debugIt } from '../../../util/debug';
 import throwIt from '../../../util/throwIt';
@@ -12,7 +21,8 @@ const findDefaultValue = (path, config) =>
     tap(value => debugIt('Using default value', value)),
   );
 
-const readSecretSafe = path => ({ config, vault }) =>
-  readSecret(path, { config, vault }).catch(findDefaultValue(path, config));
+const readSecretSafe = curry((path, { config, vault }) =>
+  readSecret(path, { config, vault }).catch(findDefaultValue(path, config)),
+);
 
 export default readSecretSafe;

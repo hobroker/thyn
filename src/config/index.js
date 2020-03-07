@@ -4,13 +4,15 @@ const env = dotenv.config().parsed;
 
 const config = {
   env: env.NODE_ENV,
+  github: {
+    token: env.GITHUB_TOKEN,
+  },
   vault: {
     baseURL: `${env.VAULT_ADDR}/v1`,
     path: env.VAULT_PATH,
-    token: env.VAULT_TOKEN,
     defaultConfig: {
       mongo: {
-        connectionString: 'mongodb://localhost:27017/castus-local',
+        connectionString: 'mongodb://mongo:27017/castus-local',
       },
     },
   },
