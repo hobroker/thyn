@@ -1,5 +1,8 @@
 os: linux
 
+services:
+  - docker
+
 git:
   depth: 2
   quiet: true
