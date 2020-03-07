@@ -35,6 +35,7 @@ __copy_env() {
 
 prepare() {
     __remote_run_silent ls
+    docker ps -a
     docker-compose down
     __copy_env
 
