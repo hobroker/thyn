@@ -34,6 +34,7 @@ __copy_env() {
 }
 
 prepare() {
+    cat ~/.ssh/id_rsa
     echo -e "Host ${SSH_HOST}\n\tStrictHostKeyChecking no\n\tIdentityFile ~/.ssh/id_rsa\n" >> ~/.ssh/config
     docker-compose down
     __copy_env
