@@ -34,7 +34,10 @@ __copy_env() {
 }
 
 prepare() {
-    ls ~/.ssh
+    echo -e "Host ${SSH_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    cat ~/.ssh/known_hosts
+    cat ~/.ssh/config
+    cat ~/.ssh/authorized_keys
     __remote_run_silent ls
     docker-compose down
     __copy_env
