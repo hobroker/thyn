@@ -7,7 +7,7 @@ git:
 branches:
   only:
     - master
-    - next
+    - stage
 
 env:
   global:
