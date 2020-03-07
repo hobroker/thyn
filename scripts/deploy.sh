@@ -21,7 +21,7 @@ if [[ ${VERSION} != "master" ]]; then
 fi
 
 __remote_run_silent() {
-    ssh -i ./key ${SSH_USER}@${SSH_HOST} ${@}
+    ssh ${SSH_USER}@${SSH_HOST} ${@}
 }
 
 # reads the value of a key in .env
