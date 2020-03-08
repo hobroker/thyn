@@ -3,11 +3,6 @@ os: linux
 services:
   - docker
 
-addons:
-  apt:
-    packages:
-      - docker-ce
-
 git:
   depth: 2
   quiet: true
@@ -22,6 +17,10 @@ env:
     - NODE_ENV=production
 
 before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - echo "$SSH_KEY" > ./key
   - chmod 600 ./key
   - cat ./key
