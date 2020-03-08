@@ -3,6 +3,11 @@ os: linux
 services:
   - docker
 
+addons:
+  apt:
+    packages:
+      - docker-ce
+
 git:
   depth: 2
   quiet: true
@@ -17,8 +22,6 @@ env:
     - NODE_ENV=production
 
 before_install:
-  - sudo apt update -y
-  - sudo apt install --only-upgrade docker-ce -y
   - echo "$SSH_KEY" > ./key
   - chmod 600 ./key
   - cat ./key
