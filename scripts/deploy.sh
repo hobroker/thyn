@@ -31,7 +31,11 @@ __copy_env() {
 prepare() {
     docker-compose down
     __copy_env
-    echo "GITHUB_TOKEN=${GITHUB_TOKEN}" >> ${ENV_FILE}
+    if [[ -z "${GITHUB_TOKEN}" ]]; then
+        exit "GITHUB_TOKEN is required"
+    else
+        echo "GITHUB_TOKEN=${GITHUB_TOKEN}" >> ${ENV_FILE}
+    fi
 
     export DOCKER_WEB_PORT=`__read_env DOCKER_WEB_PORT`
     export DOCKER_MONGO_PORT=`__read_env DOCKER_MONGO_PORT`

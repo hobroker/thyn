@@ -26,7 +26,7 @@
     "monet": "^0.9.1",
     "mongoose": "^5.8.12",
     "morgan": "^1.9.1",
-    "oxium": "github:hobroker/oxium#v0.1.0",
+    "oxium": "github:hobroker/oxium#v0.1.1",
     "ramda": "^0.27.0",
     "ramda-adjunct": "^2.25.0",
     "spotify-web-api-node": "^4.0.0",
