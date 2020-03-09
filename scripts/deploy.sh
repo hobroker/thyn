@@ -30,8 +30,8 @@ __copy_env() {
 
 prepare() {
     docker-compose down
-    echo "GITHUB_TOKEN=${GITHUB_TOKEN}" >> ${ENV_FILE}
     __copy_env
+    echo "GITHUB_TOKEN=${GITHUB_TOKEN}" >> ${ENV_FILE}
 
     export DOCKER_WEB_PORT=`__read_env DOCKER_WEB_PORT`
     export DOCKER_MONGO_PORT=`__read_env DOCKER_MONGO_PORT`
