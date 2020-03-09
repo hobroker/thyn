@@ -15,19 +15,10 @@ branches:
 env:
   global:
     - NODE_ENV=production
-    - DOCKER_COMPOSE_VERSION=1.25.0
 
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - echo "$SSH_KEY" > ./key
   - chmod 600 ./key
-  - cat ./key
   - echo -e "Host $SSH_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - eval `ssh-agent -s`
   - ssh-add ./key

@@ -9,9 +9,9 @@ TRAVIS_BRANCH=${TRAVIS_BRANCH}
 SSH_HOST=${SSH_HOST}
 SSH_USER=${SSH_USER}
 NODE_ENV=${NODE_ENV}
+DOCKER_HOST=${DOCKER_HOST}
 
 export VERSION=${TRAVIS_BRANCH}
-export DOCKER_HOST="ssh://${SSH_USER}@${SSH_HOST}"
 export COMPOSE_PROJECT_NAME="${NAME}_${VERSION}"
 
 export TAG="${AUTHOR}/${NAME}"
@@ -34,7 +34,6 @@ __copy_env() {
 }
 
 prepare() {
-    __remote_run_silent ls
     docker ps -a
     docker-compose down
     __copy_env
