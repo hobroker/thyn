@@ -8,6 +8,7 @@ ENV_FILE=".env"
 TRAVIS_BRANCH=${TRAVIS_BRANCH}
 NODE_ENV=${NODE_ENV}
 DOCKER_HOST=${DOCKER_HOST}
+GITHUB_TOKEN=${GITHUB_TOKEN}
 
 export VERSION=${TRAVIS_BRANCH}
 export COMPOSE_PROJECT_NAME="${NAME}_${VERSION}"
@@ -29,6 +30,7 @@ __copy_env() {
 
 prepare() {
     docker-compose down
+    echo "GITHUB_TOKEN=${GITHUB_TOKEN}" >> ${ENV_FILE}
     __copy_env
 
     export DOCKER_WEB_PORT=`__read_env DOCKER_WEB_PORT`
