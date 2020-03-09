@@ -1,6 +1,9 @@
 import dotenv from 'dotenv';
+import { debugIt } from '../util/debug';
 
 const env = dotenv.config().parsed;
+
+debugIt('env', env);
 
 const config = {
   env: env.NODE_ENV,

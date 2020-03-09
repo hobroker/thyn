@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    environment:
+      - GITHUB_TOKEN
     ports:
       - '${DOCKER_WEB_PORT:-8080}:${PORT:-8080}'
     depends_on:
