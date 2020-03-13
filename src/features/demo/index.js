@@ -6,9 +6,12 @@ import { WEB } from '../cli/constants';
 import { setModels } from '../mongo/accessors';
 import * as models from './models';
 import routes from './routes';
+import writeAndRead from './resolvers/writeAndRead';
 
-const Demo = async () => {
+const Demo = async oxi => {
   debugIt('Demo start');
+
+  await oxi(writeAndRead());
 
   return {};
 };

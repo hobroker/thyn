@@ -1,14 +1,14 @@
 import axios from 'axios';
+import updateToken from './resolvers/updateToken';
 
 const Vault = async oxi => {
   const { config } = oxi;
-  const { baseURL, token } = config.vault;
+  const { baseURL } = config.vault;
   const vault = axios.create({
     baseURL,
-    headers: {
-      'X-Vault-Token': token,
-    },
   });
+
+  await updateToken(null, { vault, config });
 
   return { vault };
 };

@@ -4,14 +4,19 @@ const env = dotenv.config().parsed;
 
 const config = {
   env: env.NODE_ENV,
+  github: {
+    token: env.GITHUB_TOKEN,
+  },
   vault: {
-    baseURL: env.VAULT_ADDR,
-    token: env.VAULT_TOKEN,
+    baseURL: `${env.VAULT_ADDR}/v1`,
+    path: env.VAULT_PATH,
+    defaultConfig: {
+      mongo: {
+        connectionString: 'mongodb://mongo:27017/castus-local',
+      },
+    },
   },
   features: {
-    mongo: {
-      connectionString: env.MONGO_CONNECTION_STRING,
-    },
     express: {
       port: env.PORT,
       prefix: '/api',
