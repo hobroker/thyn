@@ -1,9 +1,6 @@
 import dotenv from 'dotenv';
-import { debugIt } from '../util/debug';
 
 const env = dotenv.config().parsed;
-
-debugIt('env', env);
 
 const config = {
   env: env.NODE_ENV,
@@ -20,9 +17,6 @@ const config = {
     },
   },
   features: {
-    mongo: {
-      connectionString: 'mongodb://mongo:27017/castus-local',
-    },
     express: {
       port: env.PORT,
       prefix: '/api',

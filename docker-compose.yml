@@ -3,27 +3,13 @@ version: '3.7'
 services:
   web:
     image: ${TAG:-hobroker/thyn:latest}
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    build: .
     environment:
+      - NODE_ENV
       - GITHUB_TOKEN
     ports:
       - '${DOCKER_WEB_PORT:-8080}:${PORT:-8080}'
-    depends_on:
-      - mongo
-
-  mongo:
-    image: mongo
-    restart: always
-    ports:
-      - '${DOCKER_MONGO_PORT:-27017}:27017'
     volumes:
-      - '.cache/mongo-${VERSION:-latest}:/data/db'
-
+      - app:/usr/src/code
 volumes:
-  .cache:
-
-networks:
-  default:
-    name: 'thyn-${VERSION:-latest}-network'
+  app:

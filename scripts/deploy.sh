@@ -36,9 +36,6 @@ prepare() {
     else
         echo "GITHUB_TOKEN=${GITHUB_TOKEN}" >> ${ENV_FILE}
     fi
-
-    export DOCKER_WEB_PORT=`__read_env DOCKER_WEB_PORT`
-    export DOCKER_MONGO_PORT=`__read_env DOCKER_MONGO_PORT`
 }
 
 build() {
@@ -51,10 +48,9 @@ start() {
 }
 
 info() {
-    echo ""
-    echo "✅"
-    echo "✅ Server up on port: ${DOCKER_WEB_PORT}"
-    echo "✅"
+    docker ps -a
+
+    echo "✅ DONE"
 }
 
 prepare
