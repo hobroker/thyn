@@ -3,7 +3,7 @@ import { isFunction } from 'ramda-adjunct';
 import { all, applyTo, compose, curry, mergeRight, propOr } from 'ramda';
 import { debugIt } from '../../util/debug';
 import invariant from '../../util/invariant';
-import { DEFAULT_ARGV, EXEC, WEB } from './constants';
+import { DEFAULT_ARGV, ARGV_EXEC, WEB } from './constants';
 
 const getApp = curry((key, apps) => {
   const execItem = apps[key];
@@ -36,7 +36,7 @@ const getArgv = compose(mergeRight(DEFAULT_ARGV), parse);
 const Cli = async (oxi, features) => {
   const argv = getArgv(process.argv);
   debugIt('argv', argv);
-  const appName = propOr(WEB, EXEC, argv);
+  const appName = propOr(WEB, ARGV_EXEC, argv);
 
   const featuresToOmit = getFeaturesToOmit(features, argv);
 
