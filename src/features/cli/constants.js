@@ -1,8 +1,8 @@
 export const DEPENDENCIES = 'dependencies';
 export const WEB = 'web';
 
-export const EXEC = 'exec';
+export const ARGV_EXEC = 'exec';
 
 export const DEFAULT_ARGV = {
-  [EXEC]: WEB,
+  [ARGV_EXEC]: WEB,
 };
