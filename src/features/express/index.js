@@ -1,9 +1,7 @@
 import http from 'http';
 import express from 'express';
 import { call, chain, curry, evolve, map, objOf, pipe } from 'ramda';
-import { setEnv } from '../../accessors/feature';
 import { debugIt } from '../../util/debug';
-import { WEB } from '../cli/constants';
 import { whenDying } from '../death/helpers';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
@@ -11,6 +9,7 @@ import startServer from './util/startServer';
 import wrapResolver from './util/wrapResolver';
 import { getAllRoutes, getExpressConfig } from './accessors';
 import flattenRoutes from './util/flattenRoutes';
+import { ensureDependencies, isWebApp } from '../cli/accessors';
 
 const prepareRoutes = (arg, prefix) =>
   pipe(
@@ -52,4 +51,4 @@ const Express = async (oxi, features) => {
   return {};
 };
 
-export default pipe(setEnv(WEB))(Express);
+export default pipe(ensureDependencies([isWebApp]))(Express);

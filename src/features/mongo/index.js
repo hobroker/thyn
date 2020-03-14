@@ -20,7 +20,7 @@ const Mongo = async (oxi, features) => {
     whenDying(() => {
       debugIt('stopping');
 
-      mongo.disconnect();
+      return mongo.disconnect();
     }),
   );
 

@@ -9,11 +9,13 @@
   "scripts": {
     "start": "node src/index.js",
     "start:spotify": "npm start -- --exec spotify",
+    "start:daemon": "npm start -- --exec daemon",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
   },
   "dependencies": {
+    "agenda": "^3.0.0",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "death": "^1.1.0",
