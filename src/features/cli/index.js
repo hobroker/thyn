@@ -1,9 +1,18 @@
 import parse from 'yargs-parser';
 import { isFunction } from 'ramda-adjunct';
-import { all, applyTo, compose, curry, mergeRight, propOr } from 'ramda';
+import {
+  all,
+  applyTo,
+  compose,
+  curry,
+  filter,
+  mergeRight,
+  not,
+  propOr,
+} from 'ramda';
 import { debugIt } from '../../util/debug';
 import invariant from '../../util/invariant';
-import { DEFAULT_ARGV, ARGV_EXEC, WEB } from './constants';
+import { DEFAULT_ARGV, ARGV_EXEC, WEB, DEPENDENCIES } from './constants';
 
 const getApp = curry((key, apps) => {
   const execItem = apps[key];
@@ -14,22 +23,8 @@ const getApp = curry((key, apps) => {
   return execItem;
 });
 
-const getFeaturesToOmit = (features, argv) => {
-  const result = [];
-  features.forEach(feature => {
-    const { dependencies } = feature;
-    if (!dependencies) {
-      return;
-    }
-
-    const shouldKeepFeature = all(applyTo(argv), dependencies);
-    if (!shouldKeepFeature) {
-      result.push(feature);
-    }
-  });
-
-  return result;
-};
+const getFeaturesToOmit = (features, argv) =>
+  filter(compose(not, all(applyTo(argv)), propOr([], DEPENDENCIES)), features);
 
 const getArgv = compose(mergeRight(DEFAULT_ARGV), parse);
 

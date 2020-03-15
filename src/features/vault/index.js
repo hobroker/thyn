@@ -12,7 +12,9 @@ const Vault = async oxi => {
 
   await updateToken(null, { vault, config });
 
-  return { vault };
+  return {
+    vault,
+  };
 };
 
 export default Vault;
