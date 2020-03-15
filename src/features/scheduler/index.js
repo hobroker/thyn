@@ -4,7 +4,6 @@ import readSecretSafe from '../vault/resolvers/readSecretSafe';
 import { MONGO } from '../mongo/constants';
 import { whenDying } from '../death/helpers';
 import { debugIt } from '../../util/debug';
-import wait from '../../util/wait';
 import { ensureDependencies, isNotWebApp } from '../cli/accessors';
 
 const Scheduler = async oxi => {
@@ -23,10 +22,7 @@ const Scheduler = async oxi => {
     whenDying(() => {
       debugIt('stopping');
 
-      return Promise.race([
-        scheduler.stop(),
-        wait(1000).then(() => process.exit(0)),
-      ]);
+      return scheduler.stop();
     }),
   );
 

@@ -25,9 +25,7 @@ const Express = async (oxi, features) => {
     whenDying(() => {
       debugIt('stopping');
 
-      return new Promise(server.close.bind(server)).then(
-        debugIt.lazy('stopped'),
-      );
+      return new Promise(server.close.bind(server));
     }),
   );
 
