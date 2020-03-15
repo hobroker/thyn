@@ -1,33 +1,14 @@
 import http from 'http';
 import express from 'express';
-import { call, chain, curry, evolve, map, objOf, pipe } from 'ramda';
+import { call, pipe } from 'ramda';
 import { debugIt } from '../../util/debug';
 import { whenDying } from '../death/helpers';
+import { ensureDependencies, isWebApp } from '../cli/accessors';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
 import startServer from './util/startServer';
-import wrapResolver from './util/wrapResolver';
-import { getAllRoutes, getExpressConfig } from './accessors';
-import flattenRoutes from './util/flattenRoutes';
-import { ensureDependencies, isWebApp } from '../cli/accessors';
-
-const prepareRoutes = (arg, prefix) =>
-  pipe(
-    objOf(prefix),
-    flattenRoutes,
-    map(
-      evolve({
-        resolver: wrapResolver(arg),
-      }),
-    ),
-  );
-
-const getRoutes = curry((features, oxi) => {
-  const routes = getAllRoutes(features);
-  const { prefix } = getExpressConfig(oxi);
-
-  return chain(prepareRoutes(oxi, prefix), routes);
-});
+import { getExpressConfig } from './accessors';
+import getRoutes from './helpers/getRoutes';
 
 const Express = async (oxi, features) => {
   const { port } = getExpressConfig(oxi);
@@ -44,7 +25,9 @@ const Express = async (oxi, features) => {
     whenDying(() => {
       debugIt('stopping');
 
-      return new Promise(server.close.bind(server));
+      return new Promise(server.close.bind(server)).then(
+        debugIt.lazy('stopped'),
+      );
     }),
   );
 

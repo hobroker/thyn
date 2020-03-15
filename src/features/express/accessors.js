@@ -3,33 +3,25 @@ import {
   compose,
   curry,
   filter,
-  lens,
   map,
   mergeDeepRight,
   not,
   pipe,
   prop,
-  set,
-  view,
 } from 'ramda';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { getConfigFeatures } from '../../accessors/config';
 import { EXPRESS, ROUTES } from './constants';
 
-export const routesLens = lens(
-  prop(ROUTES),
-  curry((data, target) => {
-    const routes = mergeDeepRight(target[ROUTES] || {}, data);
+export const addRoutes = curry((data, target) => {
+  const routes = mergeDeepRight(target[ROUTES] || {}, data);
 
-    return assocM(ROUTES, routes, target);
-  }),
-);
-export const addRoutes = set(routesLens);
-export const getRoutes = view(routesLens);
+  return assocM(ROUTES, routes, target);
+});
 
 export const getExpressConfig = pipe(getConfigFeatures, prop(EXPRESS));
 
 export const getAllRoutes = pipe(
-  map(getRoutes),
+  map(prop(ROUTES)),
   filter(compose(not, isNilOrEmpty)),
 );
