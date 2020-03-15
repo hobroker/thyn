@@ -8,13 +8,15 @@ import {
   filter,
   mergeRight,
   not,
+  omit,
   propOr,
 } from 'ramda';
 import { debugIt } from '../../util/debug';
 import invariant from '../../util/invariant';
-import { DEFAULT_ARGV, ARGV_EXEC, WEB, DEPENDENCIES } from './constants';
+import { ARGV_EXEC, DEFAULT_ARGV, DEPENDENCIES } from './constants';
 
-const getApp = curry((key, apps) => {
+const getApp = curry((argv, apps) => {
+  const key = argv[ARGV_EXEC];
   const execItem = apps[key];
   invariant(isFunction(execItem), `app ${key} not found`);
 
@@ -26,12 +28,11 @@ const getApp = curry((key, apps) => {
 const getFeaturesToOmit = (features, argv) =>
   filter(compose(not, all(applyTo(argv)), propOr([], DEPENDENCIES)), features);
 
-const getArgv = compose(mergeRight(DEFAULT_ARGV), parse);
+const getArgv = compose(mergeRight(DEFAULT_ARGV), omit(['_']), parse);
 
 const Cli = async (oxi, features) => {
   const argv = getArgv(process.argv);
   debugIt('argv', argv);
-  const appName = propOr(WEB, ARGV_EXEC, argv);
 
   const featuresToOmit = getFeaturesToOmit(features, argv);
 
@@ -42,7 +43,7 @@ const Cli = async (oxi, features) => {
   });
 
   return {
-    cli: getApp(appName),
+    cli: getApp(argv),
   };
 };
 
