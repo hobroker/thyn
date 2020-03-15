@@ -5,5 +5,6 @@ import Spotify from './spotify';
 import Cli from './cli';
 import Death from './death';
 import Vault from './vault';
+import Scheduler from './scheduler';
 
-export default [Death, Vault, Cli, Mongo, Express, Demo, Spotify];
+export default [Death, Cli, Vault, Demo, Scheduler, Mongo, Express, Spotify];

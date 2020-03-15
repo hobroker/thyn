@@ -11,6 +11,12 @@ const onDeath = fn => {
 };
 
 const Death = async () => {
+  onDeath(() => {
+    setTimeout(() => {
+      process.exit(0);
+    }, 1000);
+  });
+
   return {
     death: onDeath,
   };
