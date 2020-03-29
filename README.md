@@ -12,6 +12,11 @@
 
 ---
 
+| Solution | Repository |
+| --- | --- |
+| MongoDB | https://github.com/hobroker/primitus |
+| Main helper | https://github.com/hobroker/oxium |
+
 ## 💬 Contributing
 
 - [Code of Conduct](CODE_OF_CONDUCT.md)
@@ -45,4 +50,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 [fossa-badge]: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhobroker%2Fthyn.svg?type=shield
 [fossa-badge-xl]: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhobroker%2Fthyn.svg?type=large
 [fossa-link]: https://app.fossa.io/projects/git%2Bgithub.com%2Fhobroker%2Fthyn
-
