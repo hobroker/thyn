@@ -39,7 +39,6 @@ prepare() {
 }
 
 build() {
-    docker volume create --name=${NAME}-${VERSION}-volume
     docker-compose build --compress --parallel
 }
 
