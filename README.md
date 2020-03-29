@@ -12,6 +12,11 @@
 
 ---
 
+| Solution | Repository |
+| --- | --- |
+| MongoDB | https://github.com/hobroker/primitus |
+| Main helper | https://github.com/hobroker/oxium |
+
 ## 💬 Contributing
 
 - [Code of Conduct](CODE_OF_CONDUCT.md)
