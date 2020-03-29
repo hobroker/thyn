@@ -12,10 +12,9 @@
 
 ---
 
-| Solution | Repository |
-| --- | --- |
-| MongoDB | https://github.com/hobroker/primitus |
-| Main helper | https://github.com/hobroker/oxium |
+**Database setup**: https://github.com/hobroker/primitus  
+**Main helper**: https://github.com/hobroker/oxium  
+**Frontend**: https://github.com/hobroker/thyn-web  
 
 ## 💬 Contributing
 
