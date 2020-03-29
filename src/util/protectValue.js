@@ -1,7 +1,7 @@
-import { always, propEq, unless } from 'ramda';
+import { always, unless } from 'ramda';
 
 const protectValue = unless(
-  () => propEq('NODE_ENV', 'development', process.env),
+  () => process.env.NODE_ENV === 'development',
   always('***'),
 );
 
