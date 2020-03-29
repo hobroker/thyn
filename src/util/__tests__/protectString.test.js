@@ -1,6 +1,6 @@
-import protectString from '../protectString';
+import protectValue from '../protectValue';
 
-describe('protectString', () => {
+describe('protectValue', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -16,13 +16,14 @@ describe('protectString', () => {
   it('should replace every character with asterisk when NOT in development', () => {
     process.env.NODE_ENV = 'production';
 
-    expect(protectString('smh')).toEqual('***');
+    expect(protectValue('smh')).toEqual('***');
+    expect(protectValue([1, 2])).toEqual('***');
   });
 
   it('should return same value when in development', () => {
     process.env.NODE_ENV = 'development';
 
-    expect(protectString('smh')).toEqual('smh');
-    expect(protectString([1, 2])).toEqual([1, 2]);
+    expect(protectValue('smh')).toEqual('smh');
+    expect(protectValue([1, 2])).toEqual([1, 2]);
   });
 });

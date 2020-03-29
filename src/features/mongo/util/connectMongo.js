@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import { MONGOOSE_CONNECT_OPTIONS } from '../constants';
 import { debugIt } from '../../../util/debug';
-import protectString from '../../../util/protectString';
+import protectValue from '../../../util/protectValue';
 
 const connectMongo = async connectionString => {
-  debugIt('connecting to %s', protectString(connectionString));
+  debugIt('connecting to %s', protectValue(connectionString));
 
   const mongo = await mongoose.connect(
     connectionString,
