@@ -28,8 +28,11 @@ __copy_env() {
     cp "envs/${VERSION}${ENV_FILE}" ${ENV_FILE}
 }
 
-prepare() {
-    docker-compose down
+down_to_hell() {
+    docker-compose down -v --remove-orphans
+}
+
+prepare_env() {
     __copy_env
     if [[ -z "${GITHUB_TOKEN}" ]]; then
         exit "GITHUB_TOKEN is required"
@@ -42,17 +45,18 @@ build() {
     docker-compose build --compress --parallel
 }
 
-start() {
+up_to_heaven() {
     docker-compose up -d --renew-anon-volumes
 }
 
-info() {
+when_its_all_over() {
     docker ps -a
 
     echo "✅ DONE"
 }
 
-prepare
+down_to_hell
+prepare_env
 build
-start
-info
+up_to_heaven
+when_its_all_over
