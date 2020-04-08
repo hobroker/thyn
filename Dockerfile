@@ -9,14 +9,13 @@ ENV GITHUB_TOKEN ${GITHUB_TOKEN}
 
 WORKDIR /usr/src/code
 COPY package*.json ./
+COPY .env ./
+COPY src ./src/
 
 RUN apk add --no-cache git=2.22.2-r0
 RUN rm -rf /var/cache/apk/*
 
 RUN npm ci
-
-COPY .env ./
-COPY src ./src/
 
 EXPOSE $DOCKER_WEB_PORT
 
