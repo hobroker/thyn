@@ -12,7 +12,17 @@ const getCurrentState = () => async oxi => {
     return null;
   }
 
-  return currentPlaybackFacade(response);
+  const { entry, device, artists, album, item } = currentPlaybackFacade(
+    response,
+  );
+
+  return {
+    ...entry,
+    item,
+    artists,
+    device,
+    album,
+  };
 };
 
 export default getCurrentState;
