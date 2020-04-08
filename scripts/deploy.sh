@@ -39,6 +39,7 @@ prepare() {
 }
 
 build() {
+    ls -la src/util
     docker-compose build --compress --parallel
 }
 
