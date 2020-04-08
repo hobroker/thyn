@@ -8,6 +8,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js",
     "start:spotify": "npm start -- --exec spotify",
     "start:daemon": "npm start -- --exec daemon",
     "test": "jest",
@@ -29,6 +30,7 @@
     "monet": "^0.9.1",
     "mongoose": "^5.9.5",
     "morgan": "^1.9.1",
+    "nodemon": "^2.0.3",
     "oxium": "github:hobroker/oxium#v0.1.1",
     "ramda": "^0.27.0",
     "ramda-adjunct": "^2.26.0",
