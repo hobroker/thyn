@@ -29,7 +29,7 @@ __copy_env() {
 }
 
 prepare() {
-    docker-compose down
+    docker-compose down -v --remove-orphans
     __copy_env
     if [[ -z "${GITHUB_TOKEN}" ]]; then
         exit "GITHUB_TOKEN is required"
