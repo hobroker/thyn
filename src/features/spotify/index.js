@@ -6,6 +6,7 @@ import readSecret from '../vault/resolvers/readSecret';
 import * as models from './models';
 import authRoutes from './routes/auth';
 import stateRoutes from './routes/state';
+import statsRoutes from './routes/stats';
 import { SPOTIFY } from './constants';
 import scheduleCurrentState from './schedules/scheduleCurrentState';
 
@@ -22,4 +23,5 @@ export default pipe(
   setModels(models),
   addRoutes(authRoutes),
   addRoutes(stateRoutes),
+  addRoutes(statsRoutes),
 )(Spotify);
