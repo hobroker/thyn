@@ -26,11 +26,11 @@
     "http-status-codes": "^1.4.0",
     "lodash": "^4.17.15",
     "monet": "^0.9.1",
-    "mongoose": "^5.9.4",
+    "mongoose": "^5.9.5",
     "morgan": "^1.9.1",
     "oxium": "github:hobroker/oxium#v0.1.1",
     "ramda": "^0.27.0",
-    "ramda-adjunct": "^2.25.0",
+    "ramda-adjunct": "^2.26.0",
     "spotify-web-api-node": "^4.0.0",
     "yargs-parser": "^18.1.1"
   },
