@@ -1,12 +1,14 @@
 import { applyTo } from 'ramda';
 import { get } from '../../express/methods';
 import { SPOTIFY } from '../constants';
-import getDataFromToday from '../resolvers/getDataFromToday';
+import todaySummary from '../resolvers/stats/todaySummary';
 
-const stats = applyTo(getDataFromToday());
+const today = applyTo(todaySummary());
 
 export default {
   [SPOTIFY]: {
-    stats: get(stats),
+    stats: {
+      today: get(today),
+    },
   },
 };
