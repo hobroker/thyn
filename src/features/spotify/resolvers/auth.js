@@ -23,9 +23,8 @@ export const ensureTokenIsValid = () => async oxi => {
 
   invariant(token, 'manual auth required');
 
-  spotify.setRefreshToken(token.refreshToken);
-
   if (!isTokenValid(token)) {
+    spotify.setRefreshToken(token.refreshToken);
     const { accessToken, expiresAt } = await spotify
       .refreshAccessToken()
       .then(tokenFacade);

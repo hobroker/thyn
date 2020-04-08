@@ -1,16 +1,14 @@
 import { always } from 'ramda';
-import { debugIt } from '../../../util/debug';
 import { whenSchedulerExists } from '../../scheduler/helpers';
+import syncState from '../resolvers/syncState';
 
 const scheduleCurrentState = always(
-  whenSchedulerExists(async ({ scheduler }) => {
-    scheduler.define('test', () => {
-      debugIt('here');
+  whenSchedulerExists(async oxi => {
+    const { scheduler } = oxi;
 
-      return 'ok';
-    });
+    scheduler.define('test', () => oxi(syncState()));
 
-    return scheduler.every('10 seconds', 'test');
+    return scheduler.every('1 minute', 'test');
   }),
 );
 

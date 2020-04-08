@@ -34,11 +34,19 @@ export default {
     required: false,
   },
   device: {
-    type: Schema.Types.ObjectId,
-    ref: 'SpotifyDevice',
+    type: Schema.Types.Mixed,
+    required: true,
   },
   item: {
-    type: Schema.Types.ObjectId,
-    ref: 'SpotifyItem',
+    type: Schema.Types.Mixed,
+    required: true,
+  },
+  album: {
+    type: Schema.Types.Mixed,
+    required: true,
+  },
+  artists: {
+    type: [Schema.Types.Mixed],
+    required: true,
   },
 };

@@ -1,5 +1,5 @@
 import getCurrentState from './getCurrentState';
-import saveCurrentState from './saveCurrentState';
+import createSpotifyEntry from './createSpotifyEntry';
 
 const syncState = () => async oxi => {
   const data = await oxi(getCurrentState());
@@ -8,7 +8,7 @@ const syncState = () => async oxi => {
     return null;
   }
 
-  return oxi(saveCurrentState(data));
+  return oxi(createSpotifyEntry(data));
 };
 
 export default syncState;
