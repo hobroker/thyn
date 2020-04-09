@@ -15,7 +15,7 @@ services:
   scheduler:
     image: node:12.13-alpine
     working_dir: /usr/src/code
-    command: ls -la
+    command: npm run start:scheduler
     depends_on:
       - "web"
     environment:
