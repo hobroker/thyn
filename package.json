@@ -10,7 +10,7 @@
     "start": "node src/index.js",
     "start:dev": "nodemon src/index.js",
     "start:spotify": "npm start -- --exec spotify",
-    "start:daemon": "npm start -- --exec daemon",
+    "start:scheduler": "npm start -- --exec daemon",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint src src --ext .js --max-warnings 0 --fix"
