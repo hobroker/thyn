@@ -1,4 +1,6 @@
+import { applyTo } from 'ramda';
 import { SUMMARY } from './constants';
+import resolveObjectWith from '../../util/resolveObjectWith';
 import { get } from '../express/methods';
 
 const summaries = async oxi => {
@@ -7,15 +9,7 @@ const summaries = async oxi => {
 
   await Promise.all(
     Object.entries(summary.fns).map(async ([featureKey, items]) => {
-      const sub = {};
-
-      await Promise.all(
-        Object.entries(items).map(async ([key, fn]) => {
-          sub[key] = await fn(oxi);
-        }),
-      );
-
-      data[featureKey] = sub;
+      data[featureKey] = await resolveObjectWith(applyTo(oxi), items);
     }),
   );
 

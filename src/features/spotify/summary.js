@@ -1,10 +1,22 @@
-import { andThen, compose, map, prop } from 'ramda';
+import { andThen, compose, map, omit, path, prop } from 'ramda';
+import mapTo from '../../util/mapTo';
 import minutesToday from './resolvers/stats/minutesToday';
-import artistsToday from './resolvers/stats/artistsToday';
-import albumsToday from './resolvers/stats/albumsToday';
+import getLatestState from './resolvers/getLatestState';
 
 export default {
-  'minutes-today': minutesToday(),
-  'artists-today': compose(andThen(map(prop('name'))), artistsToday()),
-  'albums-today': compose(andThen(map(prop('name'))), albumsToday()),
+  default: compose(
+    andThen(value => `${value} minutes today`),
+    minutesToday(),
+  ),
+  'latest-entry': compose(
+    andThen(
+      mapTo({
+        name: path(['item', 'name']),
+        device: compose(omit(['id']), prop('device')),
+        artists: compose(map(prop('name')), prop('artists')),
+        album: compose(prop('name'), prop('album')),
+      }),
+    ),
+    getLatestState(),
+  ),
 };
