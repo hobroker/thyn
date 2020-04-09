@@ -1,8 +1,8 @@
 import { AUTH_SCOPES } from '../constants';
 import tokenFacade from '../facades/token';
 import { getLatestToken } from './token';
-import { isTokenValid } from '../helpers';
 import invariant from '../../../util/invariant';
+import isTokenValid from '../util/isTokenValid';
 
 export const generateAuthorizationUrl = redirectURI => oxi => {
   const { spotify } = oxi;

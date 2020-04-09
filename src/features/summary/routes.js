@@ -6,8 +6,16 @@ const summaries = async oxi => {
   const data = {};
 
   await Promise.all(
-    [...summary].map(async ([key, fn]) => {
-      data[key] = await fn(oxi);
+    Object.entries(summary.fns).map(async ([featureKey, items]) => {
+      const sub = {};
+
+      await Promise.all(
+        Object.entries(items).map(async ([key, fn]) => {
+          sub[key] = await fn(oxi);
+        }),
+      );
+
+      data[featureKey] = sub;
     }),
   );
 

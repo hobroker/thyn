@@ -9,12 +9,16 @@ import stateRoutes from './routes/state';
 import statsRoutes from './routes/stats';
 import { SPOTIFY } from './constants';
 import scheduleCurrentState from './schedules/scheduleCurrentState';
+import spotifySummary from './summary';
 
 const Spotify = async oxi => {
+  const { summary } = oxi;
   const { clientId, clientSecret } = await oxi(readSecret(SPOTIFY));
   const spotify = new SpotifyApi({ clientId, clientSecret });
 
   await oxi(scheduleCurrentState());
+
+  summary.set(SPOTIFY, spotifySummary);
 
   return { spotify };
 };

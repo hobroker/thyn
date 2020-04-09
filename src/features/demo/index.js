@@ -10,9 +10,9 @@ import { DEMO } from './constants';
 const Demo = async ({ summary }) => {
   debugIt('Demo start');
 
-  summary.set(DEMO, always("I'm the demo"));
-
-  return {};
+  summary.set(DEMO, {
+    default: always('I am the demo'),
+  });
 };
 
 export default pipe(
