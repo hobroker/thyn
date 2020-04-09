@@ -1,17 +1,18 @@
-import { pipe } from 'ramda';
+import { always, pipe } from 'ramda';
 import { debugIt } from '../../util/debug';
 import { addRoutes } from '../express/accessors';
 import { setModels } from '../mongo/accessors';
 import * as models from './models';
 import routes from './routes';
 import { ensureDependencies, isWebApp } from '../cli/accessors';
+import { DEMO } from './constants';
 // import writeAndRead from './resolvers/writeAndRead';
 
 // eslint-disable-next-line no-unused-vars
-const Demo = async oxi => {
+const Demo = async ({ summary }) => {
   debugIt('Demo start');
 
-  // await oxi(writeAndRead());
+  summary.set(DEMO, always("I'm the demo"));
 
   return {};
 };
