@@ -6,5 +6,16 @@ import Cli from './cli';
 import Death from './death';
 import Vault from './vault';
 import Scheduler from './scheduler';
+import Summary from './summary';
 
-export default [Death, Cli, Vault, Demo, Scheduler, Mongo, Express, Spotify];
+export default [
+  Summary,
+  Death,
+  Cli,
+  Vault,
+  Demo,
+  Scheduler,
+  Mongo,
+  Express,
+  Spotify,
+];
