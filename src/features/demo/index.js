@@ -6,9 +6,7 @@ import * as models from './models';
 import routes from './routes';
 import { ensureDependencies, isWebApp } from '../cli/accessors';
 import { DEMO } from './constants';
-// import writeAndRead from './resolvers/writeAndRead';
 
-// eslint-disable-next-line no-unused-vars
 const Demo = async ({ summary }) => {
   debugIt('Demo start');
 
