@@ -1,9 +1,10 @@
 import getDataFromToday from '../getDataFromToday';
+import countMinutes from '../../util/countMinutes';
 
 const todaySummary = () => async oxi => {
-  const data = await oxi(getDataFromToday());
+  const list = await oxi(getDataFromToday());
 
-  return data;
+  return countMinutes(list);
 };
 
 export default todaySummary;
