@@ -15,7 +15,7 @@ services:
   scheduler:
     image: node:12.13-alpine
     working_dir: /usr/src/code
-    command: npm run start:scheduler
+    command: ls -la
     environment:
       - NODE_ENV
     volumes:
