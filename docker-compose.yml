@@ -11,10 +11,13 @@ services:
       - '${DOCKER_WEB_PORT:-8080}:${PORT:-8080}'
     volumes:
       - app:/usr/src/code
+
   scheduler:
     image: node:12.13-alpine
     working_dir: /usr/src/code
     command: npm run start:scheduler
+    depends_on:
+      - "web"
     environment:
       - NODE_ENV
     volumes:
