@@ -1,5 +1,6 @@
 import { differenceInMinutes, parseISO } from 'date-fns';
 import { compose, length, prop, useWith } from 'ramda';
+import { subtractNum } from 'ramda-adjunct';
 
 const makeDateFromItem = compose(parseISO, prop('createdAt'));
 
@@ -23,7 +24,7 @@ const getDiffInMinutes = list => {
 };
 
 // expecting records to be 1 minute apart
-const countMinutes = compose(length, getDiffInMinutes);
+const countMinutes = compose(subtractNum(1), length);
 
 export { getDiffInMinutes };
 
