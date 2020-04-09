@@ -16,6 +16,8 @@ services:
     image: node:12.13-alpine
     working_dir: /usr/src/code
     command: ls -la
+    depends_on:
+      - "web"
     environment:
       - NODE_ENV
     volumes:
