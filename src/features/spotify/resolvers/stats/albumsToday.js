@@ -1,5 +1,5 @@
 import { compose, map, omit, path, prop, uniqBy } from 'ramda';
-import getDataFromToday from '../getDataFromToday';
+import getTodayPlayableEntries from '../getTodayPlayableEntries';
 
 const mapAlbum = compose(
   map(omit(['type', 'id', 'releaseDate', 'totalTracks'])),
@@ -8,7 +8,7 @@ const mapAlbum = compose(
 );
 
 const albumsToday = () => async oxi => {
-  const list = await oxi(getDataFromToday());
+  const list = await oxi(getTodayPlayableEntries());
 
   return mapAlbum(list);
 };

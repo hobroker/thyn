@@ -1,7 +1,7 @@
 import { andThen, compose, map, omit, path, prop } from 'ramda';
 import mapTo from '../../util/mapTo';
 import minutesToday from './resolvers/stats/minutesToday';
-import getLatestState from './resolvers/getLatestState';
+import getLatestPlayableState from './resolvers/getLatestPlayableState';
 
 export default {
   default: compose(
@@ -17,6 +17,6 @@ export default {
         album: compose(prop('name'), prop('album')),
       }),
     ),
-    getLatestState(),
+    getLatestPlayableState(),
   ),
 };

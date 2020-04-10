@@ -5,10 +5,6 @@ export default {
     type: Number,
     required: false,
   },
-  isPrivateSession: {
-    type: Boolean,
-    required: false,
-  },
   shuffleState: {
     type: Boolean,
     required: false,

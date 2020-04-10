@@ -2,10 +2,10 @@ import { applyTo } from 'ramda';
 import { get } from '../../express/methods';
 import { SPOTIFY } from '../constants';
 import syncState from '../resolvers/syncState';
-import getLatestState from '../resolvers/getLatestState';
+import getLatestPlayableState from '../resolvers/getLatestPlayableState';
 
 const state = applyTo(syncState());
-const latestState = applyTo(getLatestState());
+const latestState = applyTo(getLatestPlayableState());
 
 export default {
   [SPOTIFY]: {
