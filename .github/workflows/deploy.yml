@@ -11,6 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy script
-        run: >
-          ls scripts
-          bash ./scripts/deploy.sh
+        working-directory: scripts
+        run: bash ./scripts/deploy.sh
