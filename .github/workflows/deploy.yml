@@ -10,5 +10,5 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Deplo\y script
-        run: bash scripts/deploy.sh
+      - name: Deploy script
+        run: bash ./scripts/deploy.sh
