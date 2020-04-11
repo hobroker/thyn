@@ -7,8 +7,9 @@ on:
       - stage
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
       - name: Deploy script
         run: ls
