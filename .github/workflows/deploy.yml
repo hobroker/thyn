@@ -11,5 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Make executable
+        run: chmod +x scripts/deploy,sh
       - name: Deploy script
-        run: sh scripts/deploy,sh
+        run: ./scripts/deploy,sh
