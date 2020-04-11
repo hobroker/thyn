@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Deploy script
-        run: ls
+        run: sh scripts/deploy,sh
