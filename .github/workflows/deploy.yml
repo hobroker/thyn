@@ -15,7 +15,7 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Make tag
-        run: echo "##[set-output name=tag;]$(echo ${BASE_TAG//:master/})"
+        run: echo "##[set-output name=tag;]$(echo ${BASE_TAG//:stage/})"
         id: make_tag
         env:
           BASE_TAG: hobroker/thyn:${{ steps.extract_branch.outputs.branch }}
