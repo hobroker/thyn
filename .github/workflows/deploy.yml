@@ -24,9 +24,7 @@ jobs:
 #      - name: Build
 #        run: docker-compose build --compress --parallel
       - name: Up to heaven
-        run: |
-          export COMPOSE_PROJECT_NAME="thyn_${{ steps.version.outputs.branch }}"
-          echo $COMPOSE_PROJECT_NAME
+        run: echo $COMPOSE_PROJECT_NAME
         env:
           COMPOSE_PROJECT_NAME: thyn_${{ steps.version.outputs.branch }}
 #          docker-compose up -d --renew-anon-volumes
