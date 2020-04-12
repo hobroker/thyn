@@ -23,6 +23,7 @@ const Express = async (oxi, features) => {
   const server = http.createServer(app);
 
   await startServer(port, server);
+  debugIt('baseURL', baseURL);
 
   oxi(
     whenDying(() => {
