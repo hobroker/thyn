@@ -10,8 +10,9 @@ import {
   tap,
   unless,
   useWith,
+  when,
 } from 'ramda';
-import { isNotUndefined } from 'ramda-adjunct';
+import { isNotUndefined, isFunction } from 'ramda-adjunct';
 import readSecret from './readSecret';
 import { debugIt } from '../../../util/debug';
 import throwIt from '../../../util/throwIt';
@@ -21,7 +22,7 @@ const getDefaultSecretValue = useWith(prop, [
   path(['vault', 'defaultConfig']),
 ]);
 const getOverrideSecretValue = compose(
-  applyTo(undefined),
+  when(isFunction, applyTo(undefined)),
   useWith(prop, [identity, path(['vault', 'overrideConfig'])]),
 );
 

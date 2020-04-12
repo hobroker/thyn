@@ -6,7 +6,7 @@ const startServer = async (port, server) => {
     server.on('error', reject);
   });
 
-  debugIt('listening on http://localhost:%s/', port);
+  debugIt('listening on port', port);
 
   return server;
 };

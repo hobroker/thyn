@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
+import { always, when } from 'ramda';
 import { MONGO } from '../features/mongo/constants';
 import { EXPRESS } from '../features/express/constants';
 import { SPOTIFY } from '../features/spotify/constants';
+import isDevelopment from '../util/isDevelopment';
 
 const env = dotenv.config().parsed;
 
@@ -13,7 +15,14 @@ const config = {
   vault: {
     baseURL: `${env.VAULT_ADDR}/v1`,
     path: env.VAULT_PATH,
-    overrideConfig: {},
+    overrideConfig: {
+      [EXPRESS]: when(
+        isDevelopment,
+        always({
+          baseURL: `http://localhost:${env.PORT}`,
+        }),
+      ),
+    },
     defaultConfig: {
       [MONGO]: {
         connectionString: 'mongodb://mongo:27017/castus-local',
