@@ -14,7 +14,8 @@ jobs:
       - name: Prepare .env
         run: |
           cp "envs/${GITHUB_REF##*/}.env" .env
-          ls -la
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
 #      - name: Down to hell
 #        run: docker-compose down -v --remove-orphans
     env:
