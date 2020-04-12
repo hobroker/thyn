@@ -17,6 +17,9 @@ jobs:
       - name: Make tag
         run: |
           TAG="${BASE_TAG}:${BRANCH}"
+          echo $TAG
+          echo ${TAG//:stage/}
+          echo ${TAG//:master/}
           echo "##[set-output name=tag;]$(echo ${TAG//:master/})"
         id: make_tag
         env:
