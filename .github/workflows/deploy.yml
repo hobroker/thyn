@@ -1,0 +1,38 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+      - stage
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Extract branch name
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Make tag
+        run: echo "##[set-output name=tag;]$(echo ${BASE_TAG//:master/})"
+        id: make_tag
+        env:
+          BASE_TAG: hobroker/thyn:${{ steps.extract_branch.outputs.branch }}
+      - name: Prepare .env
+        run: |
+          echo $COMPOSE_PROJECT_NAME
+          cp "envs/${GITHUB_REF##*/}.env" .env
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
+      - name: Down
+        run: docker-compose down -v --remove-orphans
+      - name: Build
+        run: docker-compose build --compress --parallel
+      - name: Up
+        run: docker-compose up -d --renew-anon-volumes
+        env:
+          COMPOSE_PROJECT_NAME: thyn_${{ steps.extract_branch.outputs.branch }}
+          TAG: ${{ steps.make_tag.outputs.tag }}
+    env:
+      DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
+      NODE_ENV: production
