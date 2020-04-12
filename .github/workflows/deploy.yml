@@ -23,7 +23,7 @@ jobs:
       - name: Up to heaven
         run: |
           export "thyn_${GITHUB_REF##*/}"
-          docker-compose up -d --renew-anon-volumes
+#          docker-compose up -d --renew-anon-volumes
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
       NODE_ENV: production
