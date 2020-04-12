@@ -32,7 +32,7 @@ jobs:
 #        run: docker-compose build --compress --parallel
       - name: Up to heaven
         run: |
-          echo $COMPOSE_PROJECT_NAME
+          echo ${{ steps.base.outputs.branch }}
           echo $TAG
         env:
           COMPOSE_PROJECT_NAME: thyn_${{ steps.base.outputs.branch }}
