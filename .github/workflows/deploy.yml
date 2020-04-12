@@ -11,11 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: set environment variables
+        uses: allenevans/set-env@v1.0.0
+        with:
+          MY_ENV_VAR: 'my value'
+          MY_ENV_VAR2: ${GITHUB_REF#refs/heads/}
+
+      - name: Printenv
+        run: |
+          echo "MY_ENV_VAR=${MY_ENV_VAR}"
+          echo "MY_ENV_VAR2=${MY_ENV_VAR2}"
+          printenv
       - name: Extract branch name
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Make tag
-        run: echo "##[set-output name=tag;]$(echo ${BASE_TAG//:stage/})"
+        run: echo "##[set-output name=tag;]$(echo ${BASE_TAG//:master/})"
         id: make_tag
         env:
           BASE_TAG: hobroker/thyn:${{ steps.extract_branch.outputs.branch }}
@@ -24,18 +35,15 @@ jobs:
           echo $COMPOSE_PROJECT_NAME
           cp "envs/${GITHUB_REF##*/}.env" .env
           echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
-#      - name: Down to hell
-#        run: docker-compose down -v --remove-orphans
-#      - name: Build
-#        run: docker-compose build --compress --parallel
+      - name: Down to hell
+        run: docker-compose down -v --remove-orphans
+      - name: Build
+        run: docker-compose build --compress --parallel
       - name: Up to heaven
-        run: |
-          echo $COMPOSE_PROJECT_NAME
-          echo $TAG
+        run: docker-compose up -d --renew-anon-volumes
         env:
           COMPOSE_PROJECT_NAME: thyn_${{ steps.extract_branch.outputs.branch }}
           TAG: ${{ steps.make_tag.outputs.tag }}
-#          docker-compose up -d --renew-anon-volumes
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
       NODE_ENV: production
