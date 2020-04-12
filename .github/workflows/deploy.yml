@@ -35,8 +35,8 @@ jobs:
           echo $COMPOSE_PROJECT_NAME
           echo $TAG
         env:
-          COMPOSE_PROJECT_NAME: thyn_${{ steps.version.outputs.branch }}
-          TAG: ${{ steps.version.outputs.tag }}
+          COMPOSE_PROJECT_NAME: thyn_${{ steps.base.outputs.branch }}
+          TAG: ${{ steps.base.outputs.tag }}
 #          docker-compose up -d --renew-anon-volumes
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
