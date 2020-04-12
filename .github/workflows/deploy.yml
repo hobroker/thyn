@@ -24,9 +24,15 @@ jobs:
 #      - name: Build
 #        run: docker-compose build --compress --parallel
       - name: Up to heaven
-        run: echo $COMPOSE_PROJECT_NAME
+        run: |
+          echo $COMPOSE_PROJECT_NAME
+          if [[ ${VERSION} != "master" ]]; then
+              export TAG="${TAG}:${{ steps.version.outputs.branch }}"
+          fi
+          echo $TAG
         env:
           COMPOSE_PROJECT_NAME: thyn_${{ steps.version.outputs.branch }}
+          TAG: hobroker/thyn
 #          docker-compose up -d --renew-anon-volumes
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
