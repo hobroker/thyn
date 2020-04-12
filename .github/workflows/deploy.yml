@@ -13,10 +13,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Prepare .env
         run: >
-          echo $VERSION
+          echo $GITHUB_HEAD_REF
 #          cp "envs/${VERSION}${ENV_FILE}" ${ENV_FILE}
 #      - name: Down to hell
 #        run: docker-compose down -v --remove-orphans
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
-      VERSION: ${{ secrets.GITHUB_HEAD_REF }}
