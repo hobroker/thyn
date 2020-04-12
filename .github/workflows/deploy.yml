@@ -19,4 +19,4 @@ jobs:
 #        run: docker-compose down -v --remove-orphans
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
-      VERSION: ${{ GITHUB_HEAD_REF }}
+      VERSION: ${{ secrets.GITHUB_HEAD_REF }}
