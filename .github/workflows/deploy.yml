@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Make executable
-        run: ls scripts
-      - name: Deploy script
-        run: ./scripts/deploy,sh
+      - name: Docker ps
+        run: docker ps -a
+    env:
+      DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
