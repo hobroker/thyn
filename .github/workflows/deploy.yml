@@ -20,8 +20,10 @@ jobs:
 #        run: docker-compose down -v --remove-orphans
 #      - name: Build
 #        run: docker-compose build --compress --parallel
-#      - name: Up to heaven
-#        run: docker-compose up -d --renew-anon-volumes
+      - name: Up to heaven
+        run: |
+          export "thyn_${GITHUB_REF##*/}"
+          docker-compose up -d --renew-anon-volumes
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
       NODE_ENV: production
