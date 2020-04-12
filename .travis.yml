@@ -10,7 +10,7 @@ git:
 branches:
   only:
     - master
-    - stage
+#    - stage
 
 env:
   global:
