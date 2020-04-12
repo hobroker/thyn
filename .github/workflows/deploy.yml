@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Prepare .env
-        run: >
+        run: |
           cp "envs/${GITHUB_REF##*/}.env" .env
           ls -la
 #      - name: Down to hell
