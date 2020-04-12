@@ -1,4 +1,7 @@
 import dotenv from 'dotenv';
+import { MONGO } from '../features/mongo/constants';
+import { EXPRESS } from '../features/express/constants';
+import { SPOTIFY } from '../features/spotify/constants';
 
 const env = dotenv.config().parsed;
 
@@ -10,8 +13,9 @@ const config = {
   vault: {
     baseURL: `${env.VAULT_ADDR}/v1`,
     path: env.VAULT_PATH,
+    overrideConfig: {},
     defaultConfig: {
-      mongo: {
+      [MONGO]: {
         connectionString: 'mongodb://mongo:27017/castus-local',
       },
       express: {
@@ -20,11 +24,11 @@ const config = {
     },
   },
   features: {
-    express: {
+    [EXPRESS]: {
       port: env.PORT,
       prefix: '/api',
     },
-    spotify: {
+    [SPOTIFY]: {
       redirectPath: '/api/spotify/auth/callback',
     },
   },
