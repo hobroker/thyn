@@ -14,6 +14,9 @@ const config = {
       mongo: {
         connectionString: 'mongodb://mongo:27017/castus-local',
       },
+      express: {
+        baseURL: `http://localhost:${env.PORT}`,
+      },
     },
   },
   features: {
