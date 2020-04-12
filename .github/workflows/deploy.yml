@@ -27,6 +27,8 @@ jobs:
         run: |
           export COMPOSE_PROJECT_NAME="thyn_${{ steps.version.outputs.branch }}"
           echo $COMPOSE_PROJECT_NAME
+        env:
+          COMPOSE_PROJECT_NAME: thyn_${{ steps.version.outputs.branch }}
 #          docker-compose up -d --renew-anon-volumes
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
