@@ -12,8 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Prepare .env
-        run: echo running on branch ${GITHUB_REF##*/}
-#          cp "envs/${VERSION}${ENV_FILE}" ${ENV_FILE}
+        run: cp "envs/${GITHUB_REF##*/}.env" .env
 #      - name: Down to hell
 #        run: docker-compose down -v --remove-orphans
     env:
