@@ -22,7 +22,8 @@ jobs:
 #        run: docker-compose build --compress --parallel
       - name: Up to heaven
         run: |
-          export "thyn_${GITHUB_REF##*/}"
+          export COMPOSE_PROJECT_NAME="thyn_${GITHUB_REF##*/}"
+          echo $COMPOSE_PROJECT_NAME
 #          docker-compose up -d --renew-anon-volumes
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
