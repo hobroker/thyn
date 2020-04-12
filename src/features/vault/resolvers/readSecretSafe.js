@@ -1,5 +1,7 @@
 import {
   always,
+  applyTo,
+  compose,
   curry,
   identity,
   path,
@@ -18,10 +20,10 @@ const getDefaultSecretValue = useWith(prop, [
   identity,
   path(['vault', 'defaultConfig']),
 ]);
-const getOverrideSecretValue = useWith(prop, [
-  identity,
-  path(['vault', 'overrideConfig']),
-]);
+const getOverrideSecretValue = compose(
+  applyTo(undefined),
+  useWith(prop, [identity, path(['vault', 'overrideConfig'])]),
+);
 
 const findDefaultValue = (configPath, config) =>
   pipe(
