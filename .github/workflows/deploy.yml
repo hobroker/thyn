@@ -15,15 +15,10 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Make tag
-        run: |
-          TAG="${BASE_TAG}:${BRANCH}"
-          echo $TAG
-          echo ${TAG//:stage/}
-          echo ${TAG//:master/}
-          echo "##[set-output name=tag;]$(echo ${TAG//:master/})"
+        run: echo "##[set-output name=tag;]$(echo ${BASE_TAG//:master/})"
         id: make_tag
         env:
-          BASE_TAG: hobroker/thyn
+          BASE_TAG: hobroker/thyn:${{ steps.extract_branch.outputs.branch }}
       - name: Prepare .env
         run: |
           echo $COMPOSE_PROJECT_NAME
