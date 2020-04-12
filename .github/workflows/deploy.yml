@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Extract branch name
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: version
       - name: Prepare .env
         run: |
           echo $COMPOSE_PROJECT_NAME
@@ -22,7 +25,7 @@ jobs:
 #        run: docker-compose build --compress --parallel
       - name: Up to heaven
         run: |
-          export COMPOSE_PROJECT_NAME="thyn_${GITHUB_REF##*/}"
+          export COMPOSE_PROJECT_NAME="thyn_${{ steps.version.outputs.branch }}"
           echo $COMPOSE_PROJECT_NAME
 #          docker-compose up -d --renew-anon-volumes
     env:
