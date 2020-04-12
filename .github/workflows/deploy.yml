@@ -26,7 +26,7 @@ jobs:
       - name: Up to heaven
         run: |
           echo $COMPOSE_PROJECT_NAME
-          if [[ ${VERSION} != "master" ]]; then
+          if [[ ${VERSION} == "master" ]]; then
               export TAG="${TAG}:${{ steps.version.outputs.branch }}"
           fi
           echo $TAG
