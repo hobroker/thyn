@@ -25,4 +25,4 @@ jobs:
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
       NODE_ENV: production
-      COMPOSE_PROJECT_NAME: "thyn_${GITHUB_REF##*/}"
+      COMPOSE_PROJECT_NAME: thyn_${{ GITHUB_REF##*/}}
