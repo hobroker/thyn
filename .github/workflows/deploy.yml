@@ -11,7 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Docker ps
-        run: docker ps -a
+      - name: Prepare .env
+        run: >
+          echo ${{ GITHUB_HEAD_REF }}
+          cp "envs/${VERSION}${ENV_FILE}" ${ENV_FILE}
+#      - name: Down to hell
+#        run: docker-compose down -v --remove-orphans
     env:
       DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
