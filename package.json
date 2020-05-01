@@ -13,7 +13,9 @@
     "start:scheduler": "npm start -- --exec daemon",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "lint": "eslint src src --ext .js --max-warnings 0 --fix"
+    "lint": "eslint src src --ext .js --max-warnings 0 --fix",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "agenda": "^3.0.0",
@@ -35,7 +37,8 @@
     "ramda": "^0.27.0",
     "ramda-adjunct": "^2.26.0",
     "spotify-web-api-node": "^4.0.0",
-    "yargs-parser": "^18.1.1"
+    "yargs-parser": "^18.1.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -81,5 +84,6 @@
         }
       ]
     }
-  }
+  },
+  "snyk": true
 }
