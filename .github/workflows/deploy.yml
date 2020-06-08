@@ -24,7 +24,7 @@ jobs:
           docker login https://docker.pkg.github.com --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
         env:
           DOCKER_USERNAME: hobroker
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_PACKAGES_TOKEN }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build
         run: |
           docker build . -t ${TAG}
