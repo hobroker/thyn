@@ -28,7 +28,7 @@
     "http-status-codes": "^1.4.0",
     "lodash": "^4.17.15",
     "monet": "^0.9.1",
-    "mongoose": "^5.9.5",
+    "mongoose": "^5.9.6",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.3",
     "oxium": "github:hobroker/oxium#v0.1.1",
