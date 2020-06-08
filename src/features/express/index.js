@@ -4,17 +4,14 @@ import { call, pipe } from 'ramda';
 import { debugIt } from '../../util/debug';
 import { whenDying } from '../death/helpers';
 import { ensureDependencies, isWebApp } from '../cli/accessors';
-import readSecretSafe from '../vault/resolvers/readSecretSafe';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
 import startServer from './util/startServer';
 import getRoutes from './helpers/getRoutes';
 import { getExpressConfig } from './accessors';
-import { EXPRESS } from './constants';
 
 const Express = async (oxi, features) => {
-  const { port } = getExpressConfig(oxi);
-  const { baseURL } = await oxi(readSecretSafe(EXPRESS));
+  const { baseURL, port } = getExpressConfig(oxi);
   const routes = oxi(getRoutes(features));
 
   const createApp = pipe(call, useMiddlewares([]), useRoutes(routes));
