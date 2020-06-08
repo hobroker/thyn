@@ -16,22 +16,8 @@ jobs:
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
           BASE_TAG="docker.pkg.github.com/hobroker/thyn:${BRANCH_NAME}"
           echo ::set-env name=BRANCH_NAME::${BRANCH_NAME}
-          echo ::set-env name=TAG::$(echo ${BASE_TAG//:stage/})
-      - name: Prepare .env
-        run: |
-          echo $BRANCH_NAME
-          echo $TAG
-#          cp "envs/${GITHUB_REF##*/}.env" .env
-#          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
-#      - name: Down
-#        run: docker-compose down -v --remove-orphans
-#      - name: Build
-#        run: docker-compose build --compress --parallel
-#      - name: Up
-#        run: docker-compose up -d --renew-anon-volumes
-#        env:
-#          COMPOSE_PROJECT_NAME: thyn_${{ steps.extract_branch.outputs.branch }}
-#          TAG: ${{ steps.make_tag.outputs.tag }}
-    env:
-      DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
-      NODE_ENV: production
+          echo ::set-env name=TAG::$(echo ${BASE_TAG//:master/})
+      - name: Build
+        run: docker build . -t ${TAG}
+      - name: Push
+        run: docker images
