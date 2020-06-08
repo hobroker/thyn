@@ -1,41 +1,25 @@
 import dotenv from 'dotenv';
-import { always, when } from 'ramda';
 import { MONGO } from '../features/mongo/constants';
 import { EXPRESS } from '../features/express/constants';
 import { SPOTIFY } from '../features/spotify/constants';
-import isDevelopment from '../util/isDevelopment';
 
 const env = dotenv.config().parsed;
 
 const config = {
   env: env.NODE_ENV,
-  github: {
-    token: env.GITHUB_TOKEN,
-  },
-  vault: {
-    baseURL: `${env.VAULT_ADDR}/v1`,
-    path: env.VAULT_PATH,
-    overrideConfig: {
-      [EXPRESS]: when(
-        isDevelopment,
-        always({
-          baseURL: `http://localhost:${env.PORT}`,
-        }),
-      ),
-    },
-    defaultConfig: {
-      [MONGO]: {
-        connectionString: 'mongodb://mongo:27017/castus-local',
-      },
-    },
-  },
   features: {
     [EXPRESS]: {
       port: env.PORT,
       prefix: '/api',
+      baseURL: env.BASE_URL,
     },
     [SPOTIFY]: {
       redirectPath: '/api/spotify/auth/callback',
+      clientId: env.SPOTIFY_CLIENT_ID,
+      clientSecret: env.SPOTIFY_CLIENT_SECRET,
+    },
+    [MONGO]: {
+      connectionString: env.MONGO_CONNECTION_STRING,
     },
   },
 };

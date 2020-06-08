@@ -4,14 +4,12 @@ import { debugIt } from '../../util/debug';
 import { whenDying } from '../death/helpers';
 import connectMongo from './util/connectMongo';
 import loadModels from './util/loadModels';
-import { getAllModels } from './accessors';
-import readSecretSafe from '../vault/resolvers/readSecretSafe';
-import { MONGO } from './constants';
+import { getAllModels, getMongoConfig } from './accessors';
 
 mongoose.Promise = Promise;
 
 const Mongo = async (oxi, features) => {
-  const { connectionString } = await oxi(readSecretSafe(MONGO));
+  const { connectionString } = oxi(getMongoConfig);
 
   const mongo = await connectMongo(connectionString);
   const models = pipe(getAllModels, loadModels(mongo))(features);
