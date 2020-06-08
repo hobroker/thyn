@@ -16,7 +16,7 @@ jobs:
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
           BASE_TAG="docker.pkg.github.com/hobroker/thyn:${BRANCH_NAME}"
           echo ::set-env name=BRANCH_NAME::${BRANCH_NAME}
-          echo ::set-env name=TAG::$(echo ${BASE_TAG//:master/})
+          echo ::set-env name=TAG::$(echo ${BASE_TAG//:stage/})
       - name: Prepare .env
         run: |
           echo $BRANCH_NAME
