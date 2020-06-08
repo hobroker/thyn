@@ -20,4 +20,5 @@ jobs:
       - name: Build
         run: docker build . -t ${TAG}
       - name: Push
-        run: docker images
+        run: |
+          cat "${{ secrets.GITHUB_TOKEN }}" | docker login https://docker.pkg.github.com -u USERNAME --password-stdin
