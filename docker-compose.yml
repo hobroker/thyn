@@ -3,14 +3,11 @@ version: '3.7'
 services:
   web:
     image: ${TAG:-hobroker/thyn:latest}
-    build: .
-    environment:
-      - NODE_ENV
-      - GITHUB_TOKEN
     ports:
       - '${DOCKER_WEB_PORT:-8080}:${PORT:-8080}'
     volumes:
       - app:/usr/src/code
+      - ./.env:/usr/src/code/.env
 
   scheduler:
     image: node:12.13-alpine
