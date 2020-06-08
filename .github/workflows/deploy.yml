@@ -17,13 +17,15 @@ jobs:
           BASE_TAG="docker.pkg.github.com/hobroker/thyn:${BRANCH_NAME}"
           echo ::set-env name=BRANCH_NAME::${BRANCH_NAME}
           echo ::set-env name=TAG::$(echo ${BASE_TAG//:master/})
-      - name: Build
-        run: docker build . -t ${TAG}
       - name: Login to GitHub Docker Registry
-        run: docker login https://docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+        run: |
+          echo ${DOCKER_USERNAME}
+          echo ${DOCKER_PASSWORD}
         env:
           DOCKER_USERNAME: ${{ secrets.GITHUB_ACTOR }}
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: docker build . -t ${TAG}
       - name: Push
         run: |
           docker push ${TAG}
