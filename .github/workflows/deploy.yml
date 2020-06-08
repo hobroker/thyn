@@ -31,4 +31,4 @@ jobs:
           docker tag ${TAG} ${PUBLIC_TAG}
       - name: Push
         run: |
-          docker push ${TAG}
+          docker push ${PUBLIC_TAG}
