@@ -11,17 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Extract branch name
-        run: echo ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})
-        id: extract_branch
-      - name: Make tag
-        run: echo "##[set-output name=tag;]$(echo ${BASE_TAG//:master/})"
-        id: make_tag
-        env:
-          BASE_TAG: docker.pkg.github.com/hobroker/thyn:${{ steps.extract_branch.outputs.branch }}
+      - name: Prepare environment variables
+        run:  |
+          BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
+          BASE_TAG="docker.pkg.github.com/hobroker/thyn:${BRANCH_NAME}"
+          echo ::set-env name=BRANCH_NAME::${BRANCH_NAME}
+          echo ::set-env name=TAG::$(echo ${BASE_TAG//:master/})
       - name: Prepare .env
         run: |
           echo $BRANCH_NAME
+          echo $TAG
 #          cp "envs/${GITHUB_REF##*/}.env" .env
 #          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
 #      - name: Down
