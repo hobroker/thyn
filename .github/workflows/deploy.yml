@@ -19,10 +19,9 @@ jobs:
           echo ::set-env name=TAG::$(echo ${BASE_TAG//:master/})
       - name: Login to GitHub Docker Registry
         run: |
-          echo ${DOCKER_USERNAME}
-          echo ${DOCKER_PASSWORD}
+          docker login https://docker.pkg.github.com --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
         env:
-          DOCKER_USERNAME: ${{ secrets.GITHUB_ACTOR }}
+          DOCKER_USERNAME: hobroker
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         run: docker build . -t ${TAG}
