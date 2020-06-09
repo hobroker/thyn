@@ -5,18 +5,15 @@ jobs:
     steps:
       - run:
           name: Docker login
-          command: |
-            TAG="docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
-            TAG=$(echo ${TAG//:master/})
-            echo $TAG
+          command:
             docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - checkout
       - run:
-          name: Build
-          command: docker build . -t ${TAG}
-      - run:
-          name: Publish
-          command: docker build . -t ${TAG}
+          name: Build and push
+          command: |
+            IMAGE_TAG="docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
+            IMAGE_TAG=$(echo ${IMAGE_TAG//:master/})
+            docker build . -t ${IMAGE_TAG}
 
   deploy: &deploy
     machine: true
