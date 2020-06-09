@@ -1,6 +1,18 @@
 version: 2
 
 jobs:
+  test:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Install packages
+          command: npm ci
+      - run:
+          name: Run Tests with coverage
+          command: npm run test:coverage
+
   publish:
     machine: true
     steps:
@@ -68,18 +80,19 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - publish
-      - deploy-stage:
-          requires:
-            - publish
-          filters:
-            branches:
-              only: stage
-          context: thyn-stage
-      - deploy-prod:
-          requires:
-            - publish
-          filters:
-            branches:
-              only: master
-          context: thyn-prod
+      - test
+#      - publish
+#      - deploy-stage:
+#          requires:
+#            - publish
+#          filters:
+#            branches:
+#              only: stage
+#          context: thyn-stage
+#      - deploy-prod:
+#          requires:
+#            - publish
+#          filters:
+#            branches:
+#              only: master
+#          context: thyn-prod
