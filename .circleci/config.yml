@@ -1,5 +1,16 @@
 version: 2
 jobs:
+  publish:
+    machine: true
+    steps:
+      - run:
+          name: Docker login
+          command: |
+            TAG="docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
+            TAG=$(echo ${BASE_TAG//:master/})
+            echo $TAG
+            docker login https://docker.pkg.github.com --username ${DOCKER_USERNAME} --password ${GITHUB_PACKAGES_TOKEN}
+
   deploy: &deploy
     machine: true
     steps:
@@ -34,13 +45,14 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - deploy-stage:
-          filters:
-            branches:
-              only: stage
-          context: thyn-stage
-      - deploy-prod:
-          filters:
-            branches:
-              only: master
-          context: thyn-prod
+      - publish
+#      - deploy-stage:
+#          filters:
+#            branches:
+#              only: stage
+#          context: thyn-stage
+#      - deploy-prod:
+#          filters:
+#            branches:
+#              only: master
+#          context: thyn-prod
