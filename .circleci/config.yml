@@ -6,9 +6,8 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - run:
-          name: Install packages
-          command: npm ci
+      - node/install-packages:
+          cache-path: ~/project/node_modules
       - run:
           name: Run Tests with coverage
           command: npm run test
