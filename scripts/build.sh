@@ -2,4 +2,4 @@
 
 set -e
 
-docker build docker.pkg.github.com/hobroker/thyn/thyn:latest
+echo ${$(echo "docker.pkg.github.com/hobroker/thyn/thyn:master")//:master/}
