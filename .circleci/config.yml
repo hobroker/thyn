@@ -19,9 +19,9 @@ jobs:
             echo "MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING}" >> .env
             echo "SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}" >> .env
             echo "SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}" >> .env
-            scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
+            scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${TAG}
             ssh $SSH_USER@$SSH_HOST << EOF
-              cd /root/apps/thyn-stage
+              cd /root/apps/thyn-${TAG}
               docker-compose down -v --remove-orphans
               docker-compose up -d --renew-anon-volumes
             EOF
