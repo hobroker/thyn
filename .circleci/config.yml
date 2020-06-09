@@ -9,6 +9,7 @@ jobs:
       - run:
           name: fix host authenticity
           command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+      - checkout
       - run:
           command: |
             touch .env
