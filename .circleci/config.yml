@@ -6,13 +6,13 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "1f:ce:18:d8:ea:61:84:e2:bc:0a:cb:e5:45:6c:a7:03"
-      - checkout
       - run:
           command: |
             echo "host"
             echo $SSH_HOST
             ls -la
             pwd
+            ssh $SSH_USER@$SSH_HOST ls
 
 workflows:
   version: 2
