@@ -14,6 +14,7 @@ jobs:
             IMAGE_TAG="docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
             IMAGE_TAG=$(echo ${IMAGE_TAG//:master/})
             docker build . -t ${IMAGE_TAG}
+            docker push ${IMAGE_TAG}
 
   deploy: &deploy
     machine: true
