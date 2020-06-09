@@ -5,8 +5,7 @@ jobs:
     steps:
       - run:
           name: Docker login
-          command:
-            docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
+          command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - checkout
       - run:
           name: Build and push
@@ -51,13 +50,13 @@ workflows:
   deploy:
     jobs:
       - publish
-#      - deploy-stage:
-#          filters:
-#            branches:
-#              only: stage
-#          context: thyn-stage
-#      - deploy-prod:
-#          filters:
-#            branches:
-#              only: master
-#          context: thyn-prod
+      - deploy-stage:
+          filters:
+            branches:
+              only: stage
+          context: thyn-stage
+      - deploy-prod:
+          filters:
+            branches:
+              only: master
+          context: thyn-prod
