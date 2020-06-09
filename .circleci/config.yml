@@ -90,6 +90,7 @@ workflows:
   deploy:
     jobs:
       - test
+      - linter
 #      - publish
 #      - deploy-stage:
 #          requires:
