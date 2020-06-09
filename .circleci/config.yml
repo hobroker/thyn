@@ -7,6 +7,9 @@ jobs:
           fingerprints:
             - "1f:ce:18:d8:ea:61:84:e2:bc:0a:cb:e5:45:6c:a7:03"
       - run:
+          name: fix host authenticity
+          command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+      - run:
           command: |
             echo "host"
             echo $SSH_HOST
