@@ -11,7 +11,7 @@ jobs:
           command: npm ci
       - run:
           name: Run Tests with coverage
-          command: npm run test:coverage
+          command: npm run test
 
   publish:
     machine: true
