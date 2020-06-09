@@ -20,7 +20,11 @@ jobs:
             echo "SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}" >> .env
             scp .env $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
             scp docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
-            ssh $SSH_USER@$SSH_HOST cat /root/apps/thyn-stage/docker-compose.yml
+            ssh $SSH_USER@$SSH_HOST << EOF
+              cd /root/apps/thyn-stage
+              ls -la
+              cat docker-compose.yml
+            EOF
   deploy-stage:
     <<: *deploy
   deploy-prod:
