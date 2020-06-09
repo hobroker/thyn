@@ -1,14 +1,11 @@
 version: 2
 jobs:
-  deploy-job:
+  test:
+    machine: true
     steps:
       - add_ssh_keys:
           fingerprints:
             - "1f:ce:18:d8:ea:61:84:e2:bc:0a:cb:e5:45:6c:a7:03"
-  test:
-    docker:
-      - image: circleci/node:12
-    steps:
       - checkout
       - run: ls -la
 
@@ -16,5 +13,4 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - deploy-job
       - test
