@@ -13,17 +13,17 @@ jobs:
       - run:
           command: |
             touch .env
+            echo "TAG=${TAG}" >> .env
             echo "DOCKER_WEB_PORT=${DOCKER_WEB_PORT}" >> .env
             echo "BASE_URL=${BASE_URL}" >> .env
             echo "MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING}" >> .env
             echo "SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}" >> .env
             echo "SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}" >> .env
-            scp .env $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
-            scp docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
+            scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
             ssh $SSH_USER@$SSH_HOST << EOF
               cd /root/apps/thyn-stage
-              ls -la
-              cat docker-compose.yml
+              docker-compose down -v --remove-orphans
+              docker-compose up -d --renew-anon-volumes
             EOF
   deploy-stage:
     <<: *deploy
