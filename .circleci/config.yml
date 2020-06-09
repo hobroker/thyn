@@ -8,12 +8,14 @@ jobs:
           command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - checkout
       - run:
-          name: Build and push
-          command: |
-            IMAGE_TAG="docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
-            IMAGE_TAG=$(echo ${IMAGE_TAG//:master/})
-            docker build . -t ${IMAGE_TAG}
-            docker push ${IMAGE_TAG}
+          name: Create image name
+          command: IMAGE_TAG="docker.pkg.github.com/hobroker/thyn/thyn:${TAG}"
+      - run:
+          name: Build
+          command: docker build . -t ${IMAGE_TAG}
+      - run:
+          name: Push
+          command: docker push ${IMAGE_TAG}
 
   deploy: &deploy
     machine: true
@@ -22,10 +24,11 @@ jobs:
           fingerprints:
             - "10:a5:de:e3:e5:36:b2:d7:46:15:96:63:93:cb:a6:3b"
       - run:
-          name: fix host authenticity
+          name: Fix host authenticity
           command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
       - checkout
       - run:
+          name: Create .env
           command: |
             touch .env
             echo "TAG=${TAG}" >> .env
@@ -34,7 +37,12 @@ jobs:
             echo "MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING}" >> .env
             echo "SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}" >> .env
             echo "SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}" >> .env
-            scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${TAG}
+      - run:
+          name: Copy .env to the server
+          command: scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${TAG}
+      - run:
+          name: Deploy
+          command: |
             ssh $SSH_USER@$SSH_HOST << EOF
               cd /root/apps/thyn-${TAG}
               docker-compose down -v --remove-orphans
@@ -51,11 +59,15 @@ workflows:
     jobs:
       - publish
       - deploy-stage:
+          requires:
+            - publish
           filters:
             branches:
               only: stage
           context: thyn-stage
       - deploy-prod:
+          requires:
+            - publish
           filters:
             branches:
               only: master
