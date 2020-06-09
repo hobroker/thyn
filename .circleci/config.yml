@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  prepare:
     machine: true
     steps:
       - add_ssh_keys:
@@ -15,13 +15,13 @@ jobs:
             echo $SSH_HOST
             ls -la
             pwd
-            ssh $SSH_USER@$SSH_HOST ls
+            ssh -v $SSH_USER@$SSH_HOST ls
 
 workflows:
   version: 2
-  build_and_test:
+  deploy:
     jobs:
-      - test:
+      - prepare:
           filters:
             branches:
               only: stage
