@@ -6,6 +6,7 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
+      - node/install-packages
       - run:
           name: Run linter
           command: npm run lint
@@ -15,9 +16,7 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - run:
-          name: Install packages
-          command: npm ci
+      - node/install-packages
       - run:
           name: Run Tests with coverage
           command: npm run test:coverage
@@ -91,18 +90,22 @@ workflows:
     jobs:
       - test
       - linter
-#      - publish
-#      - deploy-stage:
-#          requires:
-#            - publish
-#          filters:
-#            branches:
-#              only: stage
-#          context: thyn-stage
-#      - deploy-prod:
-#          requires:
-#            - publish
-#          filters:
-#            branches:
-#              only: master
-#          context: thyn-prod
+      - publish
+      - deploy-stage:
+          requires:
+            - linter
+            - test
+            - publish
+          filters:
+            branches:
+              only: stage
+          context: thyn-stage
+      - deploy-prod:
+          requires:
+            - linter
+            - test
+            - publish
+          filters:
+            branches:
+              only: master
+          context: thyn-prod
