@@ -2,8 +2,7 @@ FROM node:12.13-alpine AS base
 LABEL maintainer="igor.leahu24@gmail.com"
 
 ARG DOCKER_WEB_PORT=8080
-ARG NODE_ENV=production
-ENV NODE_ENV ${NODE_ENV}
+ENV NODE_ENV production
 
 WORKDIR /usr/src/code
 COPY package*.json ./
