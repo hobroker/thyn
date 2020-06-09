@@ -12,13 +12,14 @@ jobs:
       - run:
           command: |
             touch .env
-            echo "PORT=${PORT}" >> .env
             echo "DOCKER_WEB_PORT=${DOCKER_WEB_PORT}" >> .env
             echo "BASE_URL=${BASE_URL}" >> .env
             echo "MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING}" >> .env
             echo "SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}" >> .env
             echo "SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}" >> .env
-            cat .env
+            scp .env $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
+            scp docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-stage
+            ssh $SSH_USER@$SSH_HOST cat /root/apps/thyn-stage/docker-compose.yml
   deploy-stage:
     <<: *deploy
   deploy-prod:
