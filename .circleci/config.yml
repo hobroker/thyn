@@ -100,8 +100,6 @@ workflows:
             - test
       - deploy-stage:
           requires:
-            - linter
-            - test
             - publish
           filters:
             branches:
@@ -109,8 +107,6 @@ workflows:
           context: thyn-stage
       - deploy-prod:
           requires:
-            - linter
-            - test
             - publish
           filters:
             branches:
