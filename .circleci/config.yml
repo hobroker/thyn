@@ -2,12 +2,13 @@ version: 2
 
 jobs:
   test:
-    executor:
-      name: node/default
-      tag: '12'
+    docker:
+      - image: circleci/node:12
     steps:
       - checkout
-      - node/install-packages
+      - run:
+          name: Install packages
+          command: npm ci
       - run:
           name: Run linter
           command: npm run lint
@@ -17,7 +18,9 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - node/install-packages
+      - run:
+          name: Install packages
+          command: npm ci
       - run:
           name: Run Tests with coverage
           command: npm run test:coverage
