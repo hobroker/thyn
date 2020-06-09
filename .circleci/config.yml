@@ -7,9 +7,16 @@ jobs:
           name: Docker login
           command: |
             TAG="docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
-            TAG=$(echo ${BASE_TAG//:master/})
+            TAG=$(echo ${TAG//:master/})
             echo $TAG
             docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
+      - checkout
+      - run:
+          name: Build
+          command: docker build . -t ${TAG}
+      - run:
+          name: Publish
+          command: docker build . -t ${TAG}
 
   deploy: &deploy
     machine: true
