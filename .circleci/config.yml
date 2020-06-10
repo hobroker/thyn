@@ -2,7 +2,7 @@ version: 2
 
 commands:
   prepare:
-    description: Install node_modules
+    description: "Install node_modules"
     steps:
       - checkout
       - restore_cache:
