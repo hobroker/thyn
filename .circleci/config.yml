@@ -4,7 +4,7 @@ orbs:
   codecov: codecov/codecov@1.0.2
 
 jobs:
-  test:
+  linter:
     docker:
       - image: circleci/node:12
     steps:
@@ -16,7 +16,7 @@ jobs:
           name: Run linter
           command: npm run lint
 
-  linter:
+  test:
     docker:
       - image: circleci/node:12
     steps:
