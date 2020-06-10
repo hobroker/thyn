@@ -1,14 +1,25 @@
 version: 2
 
+commands:
+  prepare:
+    description: Install node_modules
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - &npmCacheKey {{ checksum "package-lock.json" }}
+      - run: 'if [ ! -d "node_modules" ]; then npm ci; else echo Restored from cache; fi'
+      - save_cache:
+          key: *npmCacheKey
+          paths:
+            - node_modules
+
 jobs:
   linter:
     docker:
       - image: circleci/node:12
     steps:
-      - checkout
-      - run:
-          name: Install packages
-          command: npm ci
+      - prepare
       - run:
           name: Run linter
           command: npm run lint
@@ -17,10 +28,7 @@ jobs:
     docker:
       - image: circleci/node:12
     steps:
-      - checkout
-      - run:
-          name: Install packages
-          command: npm ci
+      - prepare
       - run:
           name: Run Tests with coverage
           command: npm run test:coverage
