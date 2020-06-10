@@ -1,13 +1,9 @@
 version: 2
 
-executors:
-  node12:
-    docker:
-      - image: node:12.13
-
 jobs:
   linter:
-    executor: node12
+    docker:
+      - image: circleci/node:12
     steps:
       - checkout
       - run:
@@ -18,7 +14,8 @@ jobs:
           command: npm run lint
 
   test:
-    executor: node12
+    docker:
+      - image: circleci/node:12
     steps:
       - checkout
       - run:
