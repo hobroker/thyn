@@ -22,12 +22,12 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - install-packages
       - run:
           name: test
           command: |
             node config/build-config.js
             cat .env2
+      - install-packages
       - run:
           name: Run linter
           command: npm run lint
@@ -112,6 +112,8 @@ workflows:
     jobs:
       - test
       - linter
+        requires:
+          context: thyn-stage
       - publish:
           requires:
             - linter
