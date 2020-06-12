@@ -1,15 +1,20 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@3.0.0
   codecov: codecov/codecov@1.1.0
 
 commands:
   install-packages:
     description: "Install/restore packages"
     steps:
-      - node/install-packages:
-          cache-path: ~/project/node_modules
+      - restore_cache:
+          keys:
+            - &npmCacheKey node_modules-{{ checksum "package-lock.json" }}
+      - run: 'if [ ! -d "node_modules" ]; then npm ci; else echo Restored from cache; fi'
+      - save_cache:
+          key: *npmCacheKey
+          paths:
+            - node_modules
 
 jobs:
   linter:
