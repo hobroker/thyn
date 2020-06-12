@@ -15,12 +15,25 @@ commands:
           key: *npmCacheKey
           paths:
             - node_modules
+  run-ssh:
+    description: "Run SSH command"
+    parameters:
+      command:
+        description: The command to run
+        type: string
+        default: ls
+    steps:
+      - run:
+          name: is -> << parameters.command >>
+          command: echo << parameters.command >>
 
 jobs:
   linter:
     docker:
       - image: circleci/node:12
     steps:
+      - run-ssh
+          command: something
       - checkout
       - install-packages
       - run:
@@ -41,10 +54,10 @@ jobs:
   publish:
     machine: true
     steps:
-      - run:
-          name: Docker login
-          command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - checkout
+      - run:
+        name: Docker login
+        command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - run:
           name: Build and push
           command: |
