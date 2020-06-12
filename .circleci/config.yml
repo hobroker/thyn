@@ -33,7 +33,7 @@ jobs:
       - image: circleci/node:12
     steps:
       - run-ssh
-          command: something
+          command: "something"
       - checkout
       - install-packages
       - run:
