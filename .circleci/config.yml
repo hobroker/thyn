@@ -77,14 +77,14 @@ jobs:
       - run:
           name: Down
           command: |
-            ssh $SSH_USER@$SSH_HOST << EOF
+            ssh $SSH_USER@$SSH_HOST \<< EOF
               cd /root/apps/thyn-${TAG}
               docker-compose down -v --remove-orphans
             EOF
       - run:
           name: Up
           command: |
-            ssh $SSH_USER@$SSH_HOST << EOF
+            ssh $SSH_USER@$SSH_HOST \<< EOF
               cd /root/apps/thyn-${TAG}
               docker-compose up -d --renew-anon-volumes
             EOF
