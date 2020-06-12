@@ -38,11 +38,7 @@ commands:
     steps:
       - run:
           name: << parameters.desc >>
-          command: |
-            ssh $SSH_USER@$SSH_HOST \<< EOF
-              cd /root/apps/thyn-${CIRCLE_BRANCH}
-              << parameters.command >>
-            EOF
+          command: "cd /root/apps/thyn-${CIRCLE_BRANCH} && << parameters.command >>"
   scp:
     description: "Copy file to server"
     parameters:
@@ -103,9 +99,6 @@ jobs:
       - run:
           name: Create .env
           command: node config/build-config.js
-      - run:
-          name: Copy .env to the server
-          command: scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${CIRCLE_BRANCH}
       - scp:
           desc: Copy .env to the server
           file: ".env docker-compose.yml"
