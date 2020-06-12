@@ -38,7 +38,11 @@ commands:
     steps:
       - run:
           name: << parameters.desc >>
-          command: "cd /root/apps/thyn-${CIRCLE_BRANCH} && << parameters.command >>"
+          command: |
+            ssh $SSH_USER@$SSH_HOST \<< EOF
+              cd /root/apps/thyn-${CIRCLE_BRANCH}
+              << parameters.command >>
+            EOF
   scp:
     description: "Copy file to server"
     parameters:
