@@ -56,8 +56,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Docker login
-        command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
+          name: Docker login
+          command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - run:
           name: Build and push
           command: |
