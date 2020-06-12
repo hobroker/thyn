@@ -32,7 +32,7 @@ jobs:
     docker:
       - image: circleci/node:12
     steps:
-      - run-ssh
+      - run-ssh:
           command: "something"
       - checkout
       - install-packages
