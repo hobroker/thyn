@@ -28,7 +28,7 @@ commands:
         default: ls
     steps:
       - run:
-          name: << parameters.name >>
+          name: << parameters.desc >>
           command: |
             ssh $SSH_USER@$SSH_HOST \<< EOF
               cd /root/apps/thyn-${CIRCLE_BRANCH}
