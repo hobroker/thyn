@@ -18,14 +18,14 @@ commands:
   run-ssh:
     description: "Run SSH command"
     parameters:
+      desc:
+        description: The name of the command
+        type: string
+        default: "Run command through SSH"
       command:
         description: The command to run
         type: string
         default: ls
-      name:
-        description: The name of the command
-        type: string
-        default: "Run command through SSH"
     steps:
       - run:
           name: << parameters.name >>
@@ -41,7 +41,7 @@ jobs:
       - image: circleci/node:12
     steps:
       - run-ssh:
-          name: "something"
+          desc: "something"
           command: "ls -la"
       - checkout
       - install-packages
