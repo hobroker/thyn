@@ -24,6 +24,11 @@ jobs:
       - checkout
       - install-packages
       - run:
+          name: test
+          command: |
+            node config/build-config.js
+            cat .env2
+      - run:
           name: Run linter
           command: npm run lint
 

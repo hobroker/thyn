@@ -1,0 +1,10 @@
+{
+  "master": {
+    "tag": "latest",
+    "DOCKER_WEB_PORT": 3100
+  },
+  "stage": {
+    "tag": "stage",
+    "DOCKER_WEB_PORT": 3101
+  }
+}
