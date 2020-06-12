@@ -22,10 +22,18 @@ commands:
         description: The command to run
         type: string
         default: ls
+      name:
+        description: The name of the command
+        type: string
+        default: "Run command through SSH"
     steps:
       - run:
-          name: is -> << parameters.command >>
-          command: echo << parameters.command >>
+          name: << parameters.name >>
+          command: |
+            ssh $SSH_USER@$SSH_HOST \<< EOF
+              cd /root/apps/thyn-${CIRCLE_BRANCH}
+              << parameters.command >>
+            EOF
 
 jobs:
   linter:
@@ -33,7 +41,8 @@ jobs:
       - image: circleci/node:12
     steps:
       - run-ssh:
-          command: "something"
+          name: "something"
+          command: "ls -la"
       - checkout
       - install-packages
       - run:
