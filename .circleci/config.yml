@@ -46,9 +46,6 @@ jobs:
     docker:
       - image: circleci/node:12
     steps:
-      - run-ssh:
-          desc: "something"
-          command: "ls -la"
       - checkout
       - install-packages
       - run:
@@ -97,20 +94,12 @@ jobs:
       - run:
           name: Copy .env to the server
           command: scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${CIRCLE_BRANCH}
-      - run:
-          name: Down
-          command: |
-            ssh $SSH_USER@$SSH_HOST \<< EOF
-              cd /root/apps/thyn-${CIRCLE_BRANCH}
-              docker-compose down -v --remove-orphans
-            EOF
-      - run:
-          name: Up
-          command: |
-            ssh $SSH_USER@$SSH_HOST \<< EOF
-              cd /root/apps/thyn-${CIRCLE_BRANCH}
-              docker-compose up -d --renew-anon-volumes
-            EOF
+      - run-ssh:
+          desc: "Down"
+          command: "docker-compose down -v --remove-orphans"
+      - run-ssh:
+          desc: "Up"
+          command: "docker-compose up -d --renew-anon-volumes"
   deploy-stage:
     <<: *deploy
   deploy-prod:

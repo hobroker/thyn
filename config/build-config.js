@@ -1,20 +1,19 @@
 const fs = require('fs');
 const path = require('path');
-const { defaultTo, compose, prop } = require('ramda');
 
 const defaultBranch = 'stage';
 const finalEnvFilename = '.env';
 const templateFilename = 'template.env';
 const parametersFilename = 'parameters.json';
 
-const branch = defaultTo(defaultBranch, process.env.CIRCLE_BRANCH);
+const branch = process.env.CIRCLE_BRANCH || defaultBranch;
 const read = filename => fs.readFileSync(filename, 'utf8');
 
 const finalEnvPath = path.join(__dirname, '..', finalEnvFilename);
 const templatePath = path.join(__dirname, templateFilename);
 const parametersPath = path.join(__dirname, parametersFilename);
 const template = read(templatePath);
-const parameters = compose(prop(branch), JSON.parse, read)(parametersPath);
+const parameters = JSON.parse(read(parametersPath))[branch];
 
 if (parameters === undefined) {
   throw new Error(`no parameters for branch ${branch}`);
