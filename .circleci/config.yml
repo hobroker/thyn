@@ -36,7 +36,6 @@ commands:
         type: string
         default: ls
     steps:
-      - prepare-ssh
       - run:
           name: << parameters.desc >>
           command: |
@@ -55,7 +54,6 @@ commands:
         description: The file
         type: string
     steps:
-      - prepare-ssh
       - run:
           name: << parameters.desc >>
           command: scp << parameters.file >> $SSH_USER@$SSH_HOST:/root/apps/thyn-${CIRCLE_BRANCH}
@@ -100,12 +98,7 @@ jobs:
   deploy: &deploy
     machine: true
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "10:a5:de:e3:e5:36:b2:d7:46:15:96:63:93:cb:a6:3b"
-      - run:
-          name: Fix host authenticity
-          command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+      - prepare-ssh
       - checkout
       - run:
           name: Create .env
