@@ -22,11 +22,6 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - run:
-          name: test
-          command: |
-            node config/build-config.js
-            cat .env2
       - install-packages
       - run:
           name: Run linter
@@ -70,35 +65,22 @@ jobs:
       - checkout
       - run:
           name: Create .env
-          command: |
-            declare -a env_vars=(
-              "BASE_URL"
-              "DOCKER_WEB_PORT"
-              "MONGO_CONNECTION_STRING"
-              "SPOTIFY_CLIENT_ID"
-              "SPOTIFY_CLIENT_SECRET"
-              "TAG"
-            )
-
-            touch .env
-            for env_var_name in "${env_vars[@]}"; do
-              echo "${!env_var_name}" >> .env
-            done
+          command: node config/build-config.js
       - run:
           name: Copy .env to the server
-          command: scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${TAG}
+          command: scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${CIRCLE_BRANCH}
       - run:
           name: Down
           command: |
             ssh $SSH_USER@$SSH_HOST \<< EOF
-              cd /root/apps/thyn-${TAG}
+              cd /root/apps/thyn-${CIRCLE_BRANCH}
               docker-compose down -v --remove-orphans
             EOF
       - run:
           name: Up
           command: |
             ssh $SSH_USER@$SSH_HOST \<< EOF
-              cd /root/apps/thyn-${TAG}
+              cd /root/apps/thyn-${CIRCLE_BRANCH}
               docker-compose up -d --renew-anon-volumes
             EOF
   deploy-stage:
@@ -111,8 +93,7 @@ workflows:
   deploy:
     jobs:
       - test
-      - linter:
-          context: thyn-stage
+      - linter
       - publish:
           requires:
             - linter

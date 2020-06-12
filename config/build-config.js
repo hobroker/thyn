@@ -3,9 +3,7 @@ const path = require('path');
 
 const branch = process.env.CIRCLE_BRANCH;
 
-console.log(process.env);
-
-const finalEnvPath = path.join(__dirname, '../.env2');
+const finalEnvPath = path.join(__dirname, '../.env');
 const templatePath = path.join(__dirname, '.template.env');
 const parametersPath = path.join(__dirname, 'parameters.json');
 const template = fs.readFileSync(templatePath, 'utf8');
