@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  node: circleci/node@3.0.0
 
 jobs:
   linter:
@@ -6,9 +9,8 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - run:
-          name: Install packages
-          command: npm ci
+      - node/install-packages:
+          cache-path: ~/project/node_modules
       - run:
           name: Run linter
           command: npm run lint
