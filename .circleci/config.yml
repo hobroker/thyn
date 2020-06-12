@@ -112,22 +112,22 @@ workflows:
     jobs:
       - test
       - linter:
-        context: thyn-stage
+          context: thyn-stage
       - publish:
-        requires:
-          - linter
-          - test
+          requires:
+            - linter
+            - test
       - deploy-stage:
-        requires:
-          - publish
-        filters:
-          branches:
-            only: stage
-        context: thyn-stage
+          requires:
+            - publish
+          filters:
+            branches:
+              only: stage
+          context: thyn-stage
       - deploy-prod:
-        requires:
-          - publish
-        filters:
-          branches:
-            only: master
-        context: thyn-prod
+          requires:
+            - publish
+          filters:
+            branches:
+              only: master
+          context: thyn-prod
