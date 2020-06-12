@@ -1,10 +1,12 @@
 {
   "master": {
     "tag": "latest",
-    "DOCKER_WEB_PORT": 3100
+    "DOCKER_WEB_PORT": 3100,
+    "BASE_URL": "https://thyn.lucy.hobroker.com/"
   },
   "stage": {
     "tag": "stage",
-    "DOCKER_WEB_PORT": 3101
+    "DOCKER_WEB_PORT": 3101,
+    "BASE_URL": "https://thyn-stage.lucy.hobroker.com/"
   }
 }

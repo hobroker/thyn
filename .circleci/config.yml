@@ -112,7 +112,6 @@ workflows:
     jobs:
       - test
       - linter
-        requires:
           context: thyn-stage
       - publish:
           requires:
