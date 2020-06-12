@@ -15,6 +15,15 @@ commands:
           key: *npmCacheKey
           paths:
             - node_modules
+  prepare-ssh:
+    description: "Prepare SSH"
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "10:a5:de:e3:e5:36:b2:d7:46:15:96:63:93:cb:a6:3b"
+      - run:
+          name: Fix host authenticity
+          command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
   run-ssh:
     description: "Run SSH command"
     parameters:
@@ -27,12 +36,7 @@ commands:
         type: string
         default: ls
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "10:a5:de:e3:e5:36:b2:d7:46:15:96:63:93:cb:a6:3b"
-      - run:
-          name: Fix host authenticity
-          command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+      - prepare-ssh
       - run:
           name: << parameters.desc >>
           command: |
@@ -40,6 +44,21 @@ commands:
               cd /root/apps/thyn-${CIRCLE_BRANCH}
               << parameters.command >>
             EOF
+  scp:
+    description: "Copy file to server"
+    parameters:
+      desc:
+        description: The file(s) to copy
+        type: string
+        default: "Copy file to server"
+      file:
+        description: The file
+        type: string
+    steps:
+      - prepare-ssh
+      - run:
+          name: << parameters.desc >>
+          command: scp << parameters.file >> $SSH_USER@$SSH_HOST:/root/apps/thyn-${CIRCLE_BRANCH}
 
 jobs:
   linter:
@@ -94,6 +113,9 @@ jobs:
       - run:
           name: Copy .env to the server
           command: scp .env docker-compose.yml $SSH_USER@$SSH_HOST:/root/apps/thyn-${CIRCLE_BRANCH}
+      - scp:
+          desc: Copy .env to the server
+          file: ".env docker-compose.yml"
       - run-ssh:
           desc: "Down"
           command: "docker-compose down -v --remove-orphans"
