@@ -111,7 +111,7 @@ workflows:
   deploy:
     jobs:
       - test
-      - linter
+      - linter:
         context: thyn-stage
       - publish:
         requires:
