@@ -76,7 +76,7 @@ jobs:
           command: npm run test:coverage
       - codecov/upload
 
-  publish:
+  publish: &publish
     machine: true
     steps:
       - checkout
@@ -114,6 +114,10 @@ jobs:
     <<: *deploy
   deploy-prod:
     <<: *deploy
+  publish-stage:
+    <<: *publish
+  publish-prod:
+    <<: *publish
 
 workflows:
   version: 2
@@ -121,10 +125,22 @@ workflows:
     jobs:
       - test
       - linter
-      - publish:
+      - publish-stage:
           requires:
-            - linter
             - test
+            - linter
+          filters:
+            branches:
+              only: stage
+          context: thyn-stage
+      - publish-prod:
+          requires:
+            - test
+            - linter
+          filters:
+            branches:
+              only: master
+          context: thyn-prod
       - deploy-stage:
           requires:
             - publish
