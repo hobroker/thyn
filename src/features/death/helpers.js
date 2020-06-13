@@ -1,3 +1,3 @@
-import { applyTo, pipe, prop } from 'ramda';
+import { applyTo, compose, prop } from 'ramda';
 
-export const whenDying = fn => pipe(prop('death'), applyTo(fn));
+export const whenDying = fn => compose(applyTo(fn), prop('death'));

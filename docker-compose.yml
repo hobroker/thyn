@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   web:
-    image: ${TAG:-hobroker/thyn:latest}
+    image: 'docker.pkg.github.com/hobroker/thyn/thyn:${VERSION:-latest}'
     ports:
       - '${DOCKER_WEB_PORT:-8080}:${PORT:-8080}'
     volumes:
@@ -19,5 +19,6 @@ services:
       - NODE_ENV
     volumes:
       - app:/usr/src/code
+      - ./.env:/usr/src/code/.env
 volumes:
   app:

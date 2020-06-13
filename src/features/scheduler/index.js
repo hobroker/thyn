@@ -7,6 +7,7 @@ import { getMongoConfig } from '../mongo/accessors';
 
 const Scheduler = async oxi => {
   const { connectionString } = oxi(getMongoConfig);
+  debugIt('connectionString', connectionString);
   debugIt('creating agenda');
   const scheduler = new Agenda({
     db: {
@@ -30,5 +31,4 @@ const Scheduler = async oxi => {
   };
 };
 
-// export default Scheduler;
 export default pipe(ensureDependencies([isNotWebApp]))(Scheduler);
