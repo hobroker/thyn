@@ -6,6 +6,7 @@
 ![GitHub top language][top-lang-badge]
 [![GitHub issues][github-issues-badge]][github-issues-link]
 
+[![CircleCI](https://circleci.com/gh/hobroker/thyn.svg?style=shield)](https://circleci.com/gh/hobroker/thyn)
 [![Coverage on Codecov][codecov-badge]][codecov-link]
 [![Snyk Vulnerabilities][snyk-badge]][snyk-link]
 [![LGTM][lgtm-badge]][lgtm-link]
