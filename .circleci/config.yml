@@ -143,14 +143,14 @@ workflows:
           context: thyn-prod
       - deploy-stage:
           requires:
-            - publish
+            - publish-stage
           filters:
             branches:
               only: stage
           context: thyn-stage
       - deploy-prod:
           requires:
-            - publish
+            - publish-prod
           filters:
             branches:
               only: master
