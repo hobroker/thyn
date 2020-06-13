@@ -84,12 +84,11 @@ jobs:
           name: Docker login
           command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - run:
-          name: Build and push
-          command: |
-            IMAGE_TAG="docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
-            IMAGE_TAG=$(echo ${IMAGE_TAG//:master/})
-            docker build . -t ${IMAGE_TAG}
-            docker push ${IMAGE_TAG}
+          name: Build
+          command: docker build . -t docker.pkg.github.com/hobroker/thyn/thyn:${VERSION}
+      - run:
+          name: Push
+          command: docker push docker.pkg.github.com/hobroker/thyn/thyn:${VERSION}
 
   deploy: &deploy
     machine: true
@@ -102,6 +101,9 @@ jobs:
       - scp:
           desc: Copy .env to the server
           file: ".env docker-compose.yml"
+      - run-ssh:
+          desc: "Pull latest image"
+          command: "docker pull docker.pkg.github.com/hobroker/thyn/thyn:${VERSION}"
       - run-ssh:
           desc: "Down"
           command: "docker-compose down -v --remove-orphans"

@@ -19,5 +19,6 @@ services:
       - NODE_ENV
     volumes:
       - app:/usr/src/code
+      - ./.env:/usr/src/code/.env
 volumes:
   app:
