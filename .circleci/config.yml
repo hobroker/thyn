@@ -85,10 +85,10 @@ jobs:
           command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
       - run:
           name: Build
-          command: docker build . -t "docker.pkg.github.com/hobroker/thyn/thyn:${VERSION}"
+          command: docker build . -t "docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
       - run:
           name: Push
-          command: docker push "docker.pkg.github.com/hobroker/thyn/thyn:${VERSION}"
+          command: docker push "docker.pkg.github.com/hobroker/thyn/thyn:${CIRCLE_BRANCH}"
 
   deploy: &deploy
     machine: true
