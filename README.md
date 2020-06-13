@@ -6,7 +6,7 @@
 ![GitHub top language][top-lang-badge]
 [![GitHub issues][github-issues-badge]][github-issues-link]
 
-[![CircleCI](https://circleci.com/gh/hobroker/thyn.svg?style=shield)](https://circleci.com/gh/hobroker/thyn)
+[![CircleCI][circle-badge]][circle-link]
 [![Coverage on Codecov][codecov-badge]][codecov-link]
 [![Snyk Vulnerabilities][snyk-badge]][snyk-link]
 [![LGTM][lgtm-badge]][lgtm-link]
@@ -38,8 +38,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 [package-license-badge]: https://img.shields.io/github/license/hobroker/thyn
 [github-issues-badge]: https://img.shields.io/github/issues/hobroker/thyn?logo=github
 [github-issues-link]: https://github.com/hobroker/thyn/issues
-[maintained-badge]: http://isitmaintained.com/badge/resolution/hobroker/thyn.svg
-[maintained-link]: http://isitmaintained.com/project/hobroker/thyn
 [top-lang-badge]: https://img.shields.io/github/languages/top/hobroker/thyn?logo=javascript
 [snyk-badge]: https://img.shields.io/snyk/vulnerabilities/github/hobroker/thyn?logo=snyk
 [snyk-link]: https://snyk.io/test/github/hobroker/thyn
@@ -50,3 +48,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 [fossa-badge]: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhobroker%2Fthyn.svg?type=shield
 [fossa-badge-xl]: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhobroker%2Fthyn.svg?type=large
 [fossa-link]: https://app.fossa.io/projects/git%2Bgithub.com%2Fhobroker%2Fthyn
+[circle-badge]: https://circleci.com/gh/hobroker/thyn.svg?style=shield
+[circle-link]: https://circleci.com/gh/hobroker/thyn
