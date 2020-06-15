@@ -76,10 +76,13 @@ jobs:
           command: npm run test:coverage
       - codecov/upload
 
-  publish: &publish
+  publish:
     machine: true
     steps:
       - checkout
+      - run:
+          name: Export environment variables
+          command: bash config/print_params.sh --export >> $BASH_ENV
       - run:
           name: Docker login
           command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
@@ -97,7 +100,7 @@ jobs:
       - checkout
       - run:
           name: Create .env
-          command: node config/build-config.js
+          command: node config/build-env.js > .env
       - scp:
           desc: Copy .env to the server
           file: ".env docker-compose.yml"
@@ -114,10 +117,6 @@ jobs:
     <<: *deploy
   deploy-prod:
     <<: *deploy
-  publish-stage:
-    <<: *publish
-  publish-prod:
-    <<: *publish
 
 workflows:
   version: 2
@@ -125,32 +124,20 @@ workflows:
     jobs:
       - test
       - linter
-      - publish-stage:
+      - publish:
           requires:
             - test
             - linter
-          filters:
-            branches:
-              only: stage
-          context: thyn-stage
-      - publish-prod:
-          requires:
-            - test
-            - linter
-          filters:
-            branches:
-              only: master
-          context: thyn-prod
       - deploy-stage:
           requires:
-            - publish-stage
+            - publish
           filters:
             branches:
               only: stage
           context: thyn-stage
       - deploy-prod:
           requires:
-            - publish-prod
+            - publish
           filters:
             branches:
               only: master
