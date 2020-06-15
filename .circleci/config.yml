@@ -107,7 +107,7 @@ jobs:
           name: Create .env
           command: bash config/extract_params.sh --env > .env
       - scp:
-          desc: Copy .env to the server
+          desc: Copy .env and docker-compose.yml to the server
           file: ".env docker-compose.yml"
       - run-ssh:
           desc: "Pull latest image"
