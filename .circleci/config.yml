@@ -15,6 +15,12 @@ commands:
           key: *npmCacheKey
           paths:
             - node_modules
+  export-params:
+    description: "Export environment parameters"
+    steps:
+      - run:
+          name: Pick and export environment parameters
+          command: bash config/extract_params.sh --export >> $BASH_ENV
   prepare-ssh:
     description: "Prepare SSH"
     steps:
@@ -76,10 +82,11 @@ jobs:
           command: npm run test:coverage
       - codecov/upload
 
-  publish: &publish
+  publish:
     machine: true
     steps:
       - checkout
+      - export-params
       - run:
           name: Docker login
           command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
@@ -95,11 +102,12 @@ jobs:
     steps:
       - prepare-ssh
       - checkout
+      - export-params
       - run:
           name: Create .env
-          command: node config/build-config.js
+          command: bash config/extract_params.sh --env > .env
       - scp:
-          desc: Copy .env to the server
+          desc: Copy .env and docker-compose.yml to the server
           file: ".env docker-compose.yml"
       - run-ssh:
           desc: "Pull latest image"
@@ -114,10 +122,6 @@ jobs:
     <<: *deploy
   deploy-prod:
     <<: *deploy
-  publish-stage:
-    <<: *publish
-  publish-prod:
-    <<: *publish
 
 workflows:
   version: 2
@@ -125,32 +129,20 @@ workflows:
     jobs:
       - test
       - linter
-      - publish-stage:
+      - publish:
           requires:
             - test
             - linter
-          filters:
-            branches:
-              only: stage
-          context: thyn-stage
-      - publish-prod:
-          requires:
-            - test
-            - linter
-          filters:
-            branches:
-              only: master
-          context: thyn-prod
       - deploy-stage:
           requires:
-            - publish-stage
+            - publish
           filters:
             branches:
               only: stage
           context: thyn-stage
       - deploy-prod:
           requires:
-            - publish-prod
+            - publish
           filters:
             branches:
               only: master
