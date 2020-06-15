@@ -82,7 +82,7 @@ jobs:
       - checkout
       - run:
           name: Export environment variables
-          command: bash config/print_params.sh --export >> $BASH_ENV
+          command: bash config/extract_params.sh --export >> $BASH_ENV
       - run:
           name: Docker login
           command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
@@ -100,7 +100,7 @@ jobs:
       - checkout
       - run:
           name: Create .env
-          command: node config/build-env.js > .env
+          command: bash config/extract_params.sh --env > .env
       - scp:
           desc: Copy .env to the server
           file: ".env docker-compose.yml"
