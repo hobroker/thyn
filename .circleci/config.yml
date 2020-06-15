@@ -15,6 +15,12 @@ commands:
           key: *npmCacheKey
           paths:
             - node_modules
+  export-params:
+    description: "Export environment parameters"
+    steps:
+      - run:
+          name: Pick and export environment parameters
+          command: bash config/extract_params.sh --export >> $BASH_ENV
   prepare-ssh:
     description: "Prepare SSH"
     steps:
@@ -80,9 +86,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run:
-          name: Export environment variables
-          command: bash config/extract_params.sh --export >> $BASH_ENV
+      - export-params
       - run:
           name: Docker login
           command: docker login https://docker.pkg.github.com --username hobroker --password ${GITHUB_PACKAGES_TOKEN}
@@ -98,6 +102,7 @@ jobs:
     steps:
       - prepare-ssh
       - checkout
+      - export-params
       - run:
           name: Create .env
           command: bash config/extract_params.sh --env > .env
