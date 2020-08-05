@@ -1,9 +1,16 @@
 import { compose, equals, not, prop } from 'ramda';
 import { assocM } from 'oxium';
-import { DEPENDENCIES, ARGV_EXEC, WEB } from './constants';
+import { ARGV_EXEC, CLI, DEPENDENCIES, WEB } from './constants';
+import { DAEMON } from '../scheduler/constants';
 
 export const ensureDependencies = assocM(DEPENDENCIES);
 
-export const isWebApp = compose(equals(WEB), prop(ARGV_EXEC));
+export const getCli = prop(CLI);
 
+export const getArgvExec = prop(ARGV_EXEC);
+
+export const isWebApp = compose(equals(WEB), getArgvExec);
 export const isNotWebApp = compose(not, isWebApp);
+
+export const getCliAppName = compose(prop('name'), getCli);
+export const isOnSchedulerApp = compose(equals(DAEMON), getCliAppName);

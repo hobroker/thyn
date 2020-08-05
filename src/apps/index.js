@@ -1,5 +1,11 @@
 import { identity } from 'ramda';
 import spotify from './spotify';
 import daemon from './daemon';
+import gqlSchema from './gqlSchema';
 
-export { identity as web, spotify, daemon };
+export default {
+  web: identity,
+  spotify,
+  daemon,
+  gqlSchema,
+};
