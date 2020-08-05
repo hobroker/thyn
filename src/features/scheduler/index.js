@@ -1,5 +1,5 @@
 import Agenda from 'agenda';
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import { whenDying } from '../death/helpers';
 import { debugIt } from '../../util/debug';
 import { ensureDependencies, isNotWebApp } from '../cli/accessors';
@@ -7,7 +7,6 @@ import { getMongoConfig } from '../mongo/accessors';
 
 const Scheduler = async oxi => {
   const { connectionString } = oxi(getMongoConfig);
-  debugIt('connectionString', connectionString);
   debugIt('creating agenda');
   const scheduler = new Agenda({
     db: {
@@ -17,6 +16,7 @@ const Scheduler = async oxi => {
       },
     },
   });
+  debugIt('agenda started');
 
   oxi(
     whenDying(() => {
@@ -31,4 +31,4 @@ const Scheduler = async oxi => {
   };
 };
 
-export default pipe(ensureDependencies([isNotWebApp]))(Scheduler);
+export default compose(ensureDependencies([isNotWebApp]))(Scheduler);

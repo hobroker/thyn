@@ -32,6 +32,7 @@ const Express = async (oxi, features) => {
 
   return {
     express: {
+      app,
       baseURL,
     },
   };
