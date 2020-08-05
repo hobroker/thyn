@@ -1,3 +1,4 @@
+export const CLI = 'cli';
 export const DEPENDENCIES = 'dependencies';
 export const WEB = 'web';
 

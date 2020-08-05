@@ -13,10 +13,11 @@ import {
 } from 'ramda';
 import { debugIt } from '../../util/debug';
 import invariant from '../../util/invariant';
-import { ARGV_EXEC, DEFAULT_ARGV, DEPENDENCIES } from './constants';
+import { DEFAULT_ARGV, DEPENDENCIES } from './constants';
+import { getArgvExec } from './accessors';
 
 const getApp = curry((argv, apps) => {
-  const key = argv[ARGV_EXEC];
+  const key = getArgvExec(argv);
   const execItem = apps[key];
   invariant(isFunction(execItem), `app ${key} not found`);
 
@@ -36,14 +37,22 @@ const Cli = async (oxi, features) => {
 
   const featuresToOmit = getFeaturesToOmit(features, argv);
 
-  features.forEach((feature, idx) => {
+  for (let idx = 0; idx < features.length; ) {
+    const feature = features[idx];
     if (featuresToOmit.includes(feature)) {
       features.splice(idx, 1);
+    } else {
+      idx += 1;
     }
-  });
+  }
+
+  const name = getArgvExec(argv);
 
   return {
-    cli: getApp(argv),
+    cli: {
+      getApp: getApp(argv),
+      name,
+    },
   };
 };
 

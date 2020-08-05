@@ -133,6 +133,11 @@ workflows:
           requires:
             - test
             - linter
+          filters:
+            branches:
+              only:
+                - master
+                - stage
       - deploy-stage:
           requires:
             - publish
