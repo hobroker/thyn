@@ -1,3 +1,5 @@
+import { Schema } from 'mongoose';
+
 export default {
   accessToken: {
     type: String,
@@ -10,5 +12,9 @@ export default {
   expiresAt: {
     type: Date,
     required: true,
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
 };

@@ -4,8 +4,9 @@ import { generateAuthorizationUrl, getTokenByCode } from '../resolvers/auth';
 import { isLatestTokenValid, saveToken } from '../resolvers/token';
 import { getSpotifyConfig } from '../accessors';
 import { getExpressConfig } from '../../express/accessors';
+import { syncSpotifyUser } from '../resolvers/user';
 
-const auth = (oxi, { res }) => {
+export const auth = (oxi, { res }) => {
   const { redirectPath } = getSpotifyConfig(oxi);
   const { baseURL } = getExpressConfig(oxi);
   const redirectURI = baseURL + redirectPath;
@@ -15,15 +16,20 @@ const auth = (oxi, { res }) => {
   return res.redirect(redirectUrl);
 };
 
-const authCallback = async (oxi, { req }) => {
+export const authCallback = async (oxi, { req }) => {
   const { code } = req.query;
 
   const data = await oxi(getTokenByCode(code));
+  const user = await oxi(syncSpotifyUser(data));
+  const token = {
+    ...data,
+    userId: user._id,
+  };
 
-  return oxi(saveToken(data));
+  return oxi(saveToken(token));
 };
 
-const ping = ({ mongo }) => mongo(isLatestTokenValid());
+export const ping = ({ mongo }) => mongo(isLatestTokenValid());
 
 export default {
   [SPOTIFY]: {

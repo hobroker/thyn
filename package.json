@@ -75,15 +75,7 @@
     ],
     "testEnvironment": "node",
     "transformIgnorePatterns": [
-      "/node_modules\\/(?!oxium)(.*)"
-    ],
-    "transform": {
-      "\\.js$": [
-        "babel-jest",
-        {
-          "rootMode": "upward"
-        }
-      ]
-    }
+      "/node_modules/(?!oxium).+\\.js$"
+    ]
   }
 }
