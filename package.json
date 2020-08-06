@@ -38,7 +38,6 @@
     "oxium": "github:hobroker/oxium#v0.1.1",
     "ramda": "^0.27.1",
     "ramda-adjunct": "^2.27.0",
-    "redux": "^4.0.5",
     "spotify-web-api-node": "^4.0.0",
     "yargs-parser": "^18.1.3"
   },
