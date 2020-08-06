@@ -7,9 +7,11 @@ import Death from './death';
 import Scheduler from './scheduler';
 import Summary from './summary';
 import Apollo from './apollo';
+import Store from './store';
 
 export default [
   Summary,
+  Store,
   Death,
   Cli,
   Demo,

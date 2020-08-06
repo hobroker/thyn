@@ -3,7 +3,7 @@ import express from 'express';
 import { call, pipe } from 'ramda';
 import { debugIt } from '../../util/debug';
 import { whenDying } from '../death/helpers';
-import { ensureDependencies, isWebApp } from '../cli/accessors';
+import { ensureIsWebApp } from '../cli/accessors';
 import useMiddlewares from './util/useMiddlewares';
 import useRoutes from './util/useRoutes';
 import startServer from './util/startServer';
@@ -31,11 +31,8 @@ const Express = async (oxi, features) => {
   );
 
   return {
-    express: {
-      app,
-      baseURL,
-    },
+    express: app,
   };
 };
 
-export default pipe(ensureDependencies([isWebApp]))(Express);
+export default ensureIsWebApp(Express);

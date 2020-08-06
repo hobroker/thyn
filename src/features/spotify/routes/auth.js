@@ -1,13 +1,14 @@
 import { SPOTIFY } from '../constants';
 import { get } from '../../express/methods';
-import getBaseURL from '../../express/resolvers/getBaseURL';
 import { generateAuthorizationUrl, getTokenByCode } from '../resolvers/auth';
 import { isLatestTokenValid, saveToken } from '../resolvers/token';
 import { getSpotifyConfig } from '../accessors';
+import { getExpressConfig } from '../../express/accessors';
 
 const auth = (oxi, { res }) => {
   const { redirectPath } = getSpotifyConfig(oxi);
-  const redirectURI = oxi(getBaseURL()) + redirectPath;
+  const { baseURL } = getExpressConfig(oxi);
+  const redirectURI = baseURL + redirectPath;
 
   const redirectUrl = oxi(generateAuthorizationUrl(redirectURI));
 

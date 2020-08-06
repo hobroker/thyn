@@ -4,13 +4,15 @@ import { isNilOrEmpty } from 'ramda-adjunct';
 import { getConfigFeatures } from '../../accessors/config';
 import { EXPRESS, ROUTES } from './constants';
 
+export const getExpress = prop(EXPRESS);
+
 export const addRoutes = curry((data, target) => {
   const routes = mergeDeepRight(target[ROUTES] || {}, data);
 
   return assocM(ROUTES, routes, target);
 });
 
-export const getExpressConfig = compose(prop(EXPRESS), getConfigFeatures);
+export const getExpressConfig = compose(getExpress, getConfigFeatures);
 
 export const getAllRoutes = compose(
   filter(compose(not, isNilOrEmpty)),
