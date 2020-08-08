@@ -5,7 +5,7 @@ import { setModels } from '../mongo/accessors';
 import * as models from './models';
 import routes from './routes';
 
-const User = async () => {
+const User = () => {
   debugIt('User start');
 };
 

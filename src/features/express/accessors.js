@@ -1,8 +1,8 @@
-import { assocM } from 'oxium';
 import { compose, curry, filter, map, mergeDeepRight, not, prop } from 'ramda';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { getConfigFeatures } from '../../accessors/config';
 import { EXPRESS, ROUTES } from './constants';
+import { assocM } from '../../util/mutable';
 
 export const getExpress = prop(EXPRESS);
 

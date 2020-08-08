@@ -1,7 +1,7 @@
 import { getLatestToken } from '../../resolvers/token';
 import getLatestState from '../../resolvers/getLatestState';
 import { withResolver } from '../../../apollo/helpers';
-import getLatestPlayableState from '../../resolvers/getLatestPlayableState';
+import { getLatestPlayableState } from '../../resolvers/state';
 
 export default {
   Query: {

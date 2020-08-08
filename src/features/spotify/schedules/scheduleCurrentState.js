@@ -1,5 +1,5 @@
 import { always, compose } from 'ramda';
-import syncState from '../resolvers/syncState';
+import { syncState } from '../resolvers/state';
 
 const JOB_NAME = 'spotify state';
 

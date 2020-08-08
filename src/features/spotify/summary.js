@@ -1,7 +1,7 @@
 import { andThen, compose, map, omit, path, prop } from 'ramda';
 import mapTo from '../../util/mapTo';
 import minutesToday from './resolvers/stats/minutesToday';
-import getLatestPlayableState from './resolvers/getLatestPlayableState';
+import { getLatestPlayableState } from './resolvers/state';
 
 export default {
   default: compose(

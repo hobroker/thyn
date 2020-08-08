@@ -7,6 +7,13 @@ export const saveToken = data => ({ mongo: { SpotifyAccessToken } }) =>
 export const getLatestToken = () => async ({ mongo: { SpotifyAccessToken } }) =>
   findLatest(SpotifyAccessToken);
 
+export const getLatestTokenByUserId = ({ user: { _id } }) => async ({
+  mongo: { SpotifyAccessToken },
+}) =>
+  findLatest(SpotifyAccessToken, {
+    userId: _id,
+  });
+
 export const isLatestTokenValid = () => async oxi => {
   const token = await oxi(getLatestToken());
 

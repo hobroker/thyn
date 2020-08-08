@@ -14,10 +14,11 @@ const Spotify = async oxi => {
   const { summary } = oxi;
   const { clientId, clientSecret } = oxi(getSpotifyConfig);
   const spotify = new SpotifyApi({ clientId, clientSecret });
+  const createSpotify = () => new SpotifyApi({ clientId, clientSecret });
 
   summary.set(SPOTIFY, spotifySummary);
 
-  return { spotify };
+  return { spotify, createSpotify };
 };
 
 export default pipe(

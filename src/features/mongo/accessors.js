@@ -8,6 +8,7 @@ export const modelsLens = lensPropM('models');
 export const setModels = set(modelsLens);
 export const getModels = view(modelsLens);
 
-export const getMongoConfig = compose(prop(MONGO), getConfigFeatures);
+export const getMongo = prop(MONGO);
+export const getMongoConfig = compose(getMongo, getConfigFeatures);
 
 export const getAllModels = pipe(map(pipe(getModels, deepDestruct)), mergeAll);

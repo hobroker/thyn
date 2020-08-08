@@ -16,7 +16,7 @@ const syncSpotifyUser = ({ accessToken }) => async oxi => {
   const { id } = await oxi(getCurrentSpotifyUser());
   const user = await oxi(
     findUser({
-      id,
+      spotifyId: id,
     }),
   );
 

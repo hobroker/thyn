@@ -5,6 +5,7 @@ import { MONGO } from '../features/mongo/constants';
 import { EXPRESS } from '../features/express/constants';
 import { SPOTIFY } from '../features/spotify/constants';
 import { APOLLO } from '../features/apollo/constants';
+import { USER } from '../features/user/constants';
 
 const env = dotenv.config().parsed;
 
@@ -20,7 +21,7 @@ const config = {
       baseURL: env.BASE_URL,
     },
     [SPOTIFY]: {
-      redirectPath: '/api/spotify/auth/callback',
+      redirectURL: `${env.BASE_URL}/api/spotify/auth/callback`,
       clientId: env.SPOTIFY_CLIENT_ID,
       clientSecret: env.SPOTIFY_CLIENT_SECRET,
     },
@@ -29,6 +30,9 @@ const config = {
     },
     [APOLLO]: {
       schemaFilename: 'schema.graphql',
+    },
+    [USER]: {
+      jwtSecret: defaultTo('something', env.JWT_SECRET),
     },
   },
 };

@@ -1,6 +1,6 @@
 import { compose, equals, not, prop } from 'ramda';
-import { assocM } from 'oxium';
 import { ARGV_EXEC, CLI, DEPENDENCIES, WEB } from './constants';
+import { assocM } from '../../util/mutable';
 
 export const ensureDependencies = assocM(DEPENDENCIES);
 

@@ -1,12 +1,10 @@
 import { always, identity, T } from 'ramda';
 import { auth, authCallback, ping } from '../auth';
 import { mockOxi } from '../../../../../test';
-import { generateAuthorizationUrl, getTokenByCode } from '../../resolvers/auth';
-import { syncSpotifyUser } from '../../resolvers/user';
-import { isLatestTokenValid, saveToken } from '../../resolvers/token';
+import { getAuthorizeURL, spotifyLogin } from '../../resolvers/auth';
+import { isLatestTokenValid } from '../../resolvers/token';
 
 jest.mock('../../../spotify/resolvers/auth');
-jest.mock('../../resolvers/user');
 jest.mock('../../resolvers/token');
 
 const oxi = mockOxi();
@@ -15,33 +13,26 @@ describe('auth', () => {
     const redirect = jest.fn();
     const res = { redirect };
 
-    generateAuthorizationUrl.mockReturnValue(always('/redirect'));
+    getAuthorizeURL.mockReturnValue(always('/somewhere'));
 
     auth(oxi, { res });
 
-    expect(redirect).toHaveBeenCalledWith('/redirect');
+    expect(getAuthorizeURL).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('authCallback', () => {
   it('should redirect to the expected url', async () => {
     const code = 'some';
-    const token = { accessToken: 'one' };
     const req = { query: { code } };
+    const generatedToken = { token: '123qwe' };
 
-    getTokenByCode.mockReturnValue(always(token));
-    syncSpotifyUser.mockReturnValue(always({ _id: '1' }));
-    saveToken.mockReturnValue(always(null));
+    spotifyLogin.mockReturnValue(always(generatedToken));
 
     const result = await authCallback(oxi, { req });
 
-    expect(result).toBeNull();
-    expect(getTokenByCode).toHaveBeenCalledWith(code);
-    expect(syncSpotifyUser).toHaveBeenCalledWith(token);
-    expect(saveToken).toHaveBeenCalledWith({
-      accessToken: 'one',
-      userId: '1',
-    });
+    expect(result).toBe(generatedToken);
+    expect(spotifyLogin).toHaveBeenCalledWith({ code });
   });
 });
 
