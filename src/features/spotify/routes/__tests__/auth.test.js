@@ -1,11 +1,9 @@
-import { always, identity, T } from 'ramda';
-import { auth, authCallback, ping } from '../auth';
+import { always } from 'ramda';
+import { auth, authCallback } from '../auth';
 import { mockOxi } from '../../../../../test';
 import { getAuthorizeURL, spotifyLogin } from '../../resolvers/auth';
-import { isLatestTokenValid } from '../../resolvers/token';
 
 jest.mock('../../../spotify/resolvers/auth');
-jest.mock('../../resolvers/token');
 
 const oxi = mockOxi();
 describe('auth', () => {
@@ -33,19 +31,5 @@ describe('authCallback', () => {
 
     expect(result).toBe(generatedToken);
     expect(spotifyLogin).toHaveBeenCalledWith({ code });
-  });
-});
-
-describe('ping', () => {
-  it('should work as expected', async () => {
-    const mongo = jest.fn().mockImplementation(identity);
-
-    isLatestTokenValid.mockImplementation(T);
-
-    const result = ping({ mongo });
-
-    expect(result).toEqual(true);
-    expect(isLatestTokenValid).toHaveBeenCalledTimes(1);
-    expect(mongo).toHaveBeenCalledTimes(1);
   });
 });

@@ -8,7 +8,7 @@ const scheduleCurrentState = always(async oxi => {
 
   scheduler.define(JOB_NAME, compose(oxi, syncState));
 
-  return scheduler.every('10 seconds', JOB_NAME);
+  return scheduler.every('1 minute', JOB_NAME);
 });
 
 export default scheduleCurrentState;

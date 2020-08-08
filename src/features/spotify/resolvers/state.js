@@ -1,6 +1,6 @@
 import { NO_CONTENT } from 'http-status-codes';
 import { path } from 'ramda';
-import { ensureTokenIsValid } from './auth';
+import { ensureTokenIsValid } from './token';
 import currentPlaybackFacade from '../facades/currentPlayback';
 import { debugIt } from '../../../util/debug';
 import createSpotifyEntry from './createSpotifyEntry';

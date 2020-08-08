@@ -1,7 +1,5 @@
 import tokenFacade from '../facades/token';
-import { getLatestToken, saveToken } from './token';
-import invariant from '../../../util/invariant';
-import isTokenValid from '../util/isTokenValid';
+import { saveToken } from './token';
 import { getSpotify, getSpotifyConfig } from '../accessors';
 import { AUTH_SCOPES } from '../constants';
 import { syncSpotifyUser } from './user';
@@ -15,26 +13,8 @@ export const getAuthorizeURL = () => oxi => {
   return spotify.createAuthorizeURL(AUTH_SCOPES);
 };
 
-export const getTokenByCode = code => ({ spotify }) =>
+const getTokenByCode = code => ({ spotify }) =>
   spotify.authorizationCodeGrant(code).then(tokenFacade);
-
-export const ensureTokenIsValid = () => async oxi => {
-  const { spotify } = oxi;
-  const token = await oxi(getLatestToken());
-
-  invariant(token, 'manual auth required');
-
-  if (!isTokenValid(token)) {
-    spotify.setRefreshToken(token.refreshToken);
-    const { accessToken, expiresAt } = await spotify
-      .refreshAccessToken()
-      .then(tokenFacade);
-    await token.updateOne({ accessToken, expiresAt });
-    spotify.setAccessToken(accessToken);
-  } else {
-    spotify.setAccessToken(token.accessToken);
-  }
-};
 
 export const spotifyLogin = ({ code }) => async oxi => {
   const data = await oxi(getTokenByCode(code));
