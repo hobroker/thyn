@@ -1,4 +1,4 @@
-import { always, anyPass, cond, curry, objOf, propEq, T, when } from 'ramda';
+import { always, anyPass, cond, curry, objOf, prop, T, when } from 'ramda';
 import {
   isBoolean,
   isNull,
@@ -6,7 +6,7 @@ import {
   isString,
   isUndefined,
 } from 'ramda-adjunct';
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OK } from 'http-status-codes';
+import { INTERNAL_SERVER_ERROR, OK } from 'http-status-codes';
 import { debugIt } from '../../../util/debug';
 
 const formatOkResponse = when(
@@ -15,7 +15,7 @@ const formatOkResponse = when(
 );
 
 const getHttpErrorCode = cond([
-  [propEq('name', 'ValidationError'), always(BAD_REQUEST)],
+  [prop('code'), prop('code')],
   [T, always(INTERNAL_SERVER_ERROR)],
 ]);
 
@@ -28,10 +28,12 @@ const onSuccess = (data, { res }) => {
 const onError = (error, { res }) => {
   const code = getHttpErrorCode(error);
 
-  debugIt('error', code, error);
+  debugIt(error);
 
   return res.status(code).send({
-    error: error.message,
+    error: {
+      message: error.message,
+    },
   });
 };
 

@@ -1,4 +1,13 @@
-import { compose, curry, filter, map, mergeDeepRight, not, prop } from 'ramda';
+import {
+  compose,
+  curry,
+  filter,
+  map,
+  mergeDeepRight,
+  not,
+  nthArg,
+  prop,
+} from 'ramda';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { getConfigFeatures } from '../../accessors/config';
 import { EXPRESS, ROUTES } from './constants';
@@ -18,3 +27,5 @@ export const getAllRoutes = compose(
   filter(compose(not, isNilOrEmpty)),
   map(prop(ROUTES)),
 );
+
+export const getResolverReq = compose(prop('req'), nthArg(1));

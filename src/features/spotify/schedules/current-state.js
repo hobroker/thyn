@@ -1,12 +1,12 @@
 import { always, compose } from 'ramda';
-import { syncState } from '../resolvers/state';
+import syncAllUsers from '../resolvers/syncAllUsers';
 
 const JOB_NAME = 'spotify state';
 
 const scheduleCurrentState = always(async oxi => {
   const { scheduler } = oxi;
 
-  scheduler.define(JOB_NAME, compose(oxi, syncState));
+  scheduler.define(JOB_NAME, compose(oxi, syncAllUsers));
 
   return scheduler.every('1 minute', JOB_NAME);
 });

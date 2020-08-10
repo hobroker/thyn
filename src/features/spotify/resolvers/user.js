@@ -1,33 +1,10 @@
-import { getSpotify } from '../accessors';
 import { createUser, findUser } from '../../user/resolvers/user';
-import profileFacade from '../facades/user';
 
-export const getCurrentSpotifyUser = () => async oxi => {
-  const spotify = getSpotify(oxi);
-  const response = await spotify.getMe();
+const syncSpotifyUser = ({ spotifyId, userId }) => async oxi => {
+  const filter = userId ? { userId } : { spotifyId };
+  const user = await oxi(findUser(filter));
 
-  return profileFacade(response);
-};
-
-const syncSpotifyUser = ({ accessToken }) => async oxi => {
-  const spotify = getSpotify(oxi);
-  spotify.setAccessToken(accessToken);
-
-  const { id } = await oxi(getCurrentSpotifyUser());
-  const user = await oxi(
-    findUser({
-      spotifyId: id,
-    }),
-  );
-
-  return (
-    user ||
-    oxi(
-      createUser({
-        spotifyId: id,
-      }),
-    )
-  );
+  return user || oxi(createUser({ spotifyId }));
 };
 
 export { syncSpotifyUser };

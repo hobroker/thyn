@@ -4,3 +4,7 @@ import { USER } from './constants';
 
 export const getUserConfig = compose(prop(USER), getConfigFeatures);
 export const getJwtSecret = compose(prop('jwtSecret'), getUserConfig);
+
+const getUser = prop('user');
+
+export const getReqUserId = compose(prop('_id'), getUser);

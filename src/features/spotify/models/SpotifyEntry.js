@@ -45,4 +45,8 @@ export default {
     type: [Schema.Types.Mixed],
     required: true,
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
 };

@@ -1,10 +1,10 @@
 import { ApolloServer } from 'apollo-server-express';
+import { always, applySpec, path } from 'ramda';
 import getSchema from './helpers/getSchemas';
 import { OPTIONS } from './constants';
 import { debugIt } from '../../util/debug';
 import { ensureIsWebApp } from '../cli/accessors';
 import { getExpress, getExpressConfig } from '../express/accessors';
-import gqlContext from './helpers/gqlContext';
 
 const Apollo = async (oxi, features) => {
   const { baseURL } = oxi(getExpressConfig);
@@ -15,7 +15,10 @@ const Apollo = async (oxi, features) => {
     ...OPTIONS,
     schema,
     introspection: true,
-    context: gqlContext(oxi),
+    context: applySpec({
+      oxi: always(oxi),
+      user: path(['req', 'user']),
+    }),
   });
 
   apollo.applyMiddleware({

@@ -30,6 +30,7 @@ export default gql`
 
   type SpotifyEntry {
     id: String
+    user: [User]
     volumePercent: Int
     shuffleState: Boolean
     repeatState: String

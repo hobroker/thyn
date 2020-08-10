@@ -6,22 +6,34 @@ import { getLatestPlayableState, syncState } from '../../resolvers/state';
 jest.mock('../../resolvers/state');
 
 const oxi = mockOxi();
+
+afterEach(() => {
+  syncState.mockClear();
+  getLatestPlayableState.mockClear();
+});
+
 describe('state', () => {
-  it('should call syncState()', () => {
-    syncState.mockReturnValue(always(null));
+  it(`should return result from syncState`, async () => {
+    const data = { one: 1 };
+    syncState.mockReturnValueOnce(always(Promise.resolve(data)));
 
-    expect(state(oxi)).toBeNull();
+    const req = { user: { _id: 'uno' } };
+    const result = await state(oxi, { req });
 
-    expect(syncState).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(data);
+    expect(syncState).toHaveBeenCalledWith({ userId: 'uno' });
   });
 });
 
 describe('latestState', () => {
-  it('should call getLatestPlayableState()', () => {
-    getLatestPlayableState.mockReturnValue(always(null));
+  it('should return result from getLatestPlayableState', async () => {
+    const data = { one: 1 };
+    getLatestPlayableState.mockReturnValueOnce(always(Promise.resolve(data)));
 
-    expect(latestState(oxi)).toBeNull();
+    const req = { user: { _id: 'uno' } };
+    const result = await latestState(oxi, { req });
 
-    expect(getLatestPlayableState).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(data);
+    expect(getLatestPlayableState).toHaveBeenCalledWith({ userId: 'uno' });
   });
 });

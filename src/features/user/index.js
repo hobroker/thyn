@@ -1,12 +1,15 @@
 import { compose } from 'ramda';
-import { debugIt } from '../../util/debug';
 import { addRoutes } from '../express/accessors';
 import { setModels } from '../mongo/accessors';
 import * as models from './models';
 import routes from './routes';
+import { addSchema } from '../apollo/accessors';
+import schema from './schema';
 
-const User = () => {
-  debugIt('User start');
-};
+const User = () => {};
 
-export default compose(setModels(models), addRoutes(routes))(User);
+export default compose(
+  addSchema(schema),
+  setModels(models),
+  addRoutes(routes),
+)(User);

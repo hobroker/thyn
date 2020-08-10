@@ -1,10 +1,10 @@
-import { debugIt } from '../util/debug';
-import { syncState } from '../features/spotify/resolvers/state';
+import { exitGracefully } from '../features/death/helpers';
+import syncAllUsers from '../features/spotify/resolvers/syncAllUsers';
 
 const spotify = async oxi => {
-  const data = await oxi(syncState());
+  await oxi(syncAllUsers());
 
-  debugIt(data);
+  exitGracefully();
 };
 
 export default spotify;

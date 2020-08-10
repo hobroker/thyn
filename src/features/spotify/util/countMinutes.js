@@ -2,11 +2,11 @@ import { differenceInMinutes, parseISO } from 'date-fns';
 import { compose, length, prop, useWith } from 'ramda';
 import { subtractNum } from 'ramda-adjunct';
 
-const makeDateFromItem = compose(parseISO, prop('createdAt'));
+const getCreatedAtAsDate = compose(parseISO, prop('createdAt'));
 
 const diffBetweenTwoItems = compose(
   Math.abs,
-  useWith(differenceInMinutes, [makeDateFromItem, makeDateFromItem]),
+  useWith(differenceInMinutes, [getCreatedAtAsDate, getCreatedAtAsDate]),
 );
 
 const getDiffInMinutes = list => {
