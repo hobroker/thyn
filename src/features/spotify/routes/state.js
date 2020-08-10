@@ -1,8 +1,7 @@
 import { get } from '../../express/methods';
 import { SPOTIFY } from '../constants';
 import { getLatestPlayableState, syncState } from '../resolvers/state';
-import { getReqUserId } from '../../user/accessors';
-import { withAuthorization } from '../../user/addUserMiddleware';
+import { getReqUserId, withAuthorization } from '../../user/accessors';
 
 export const state = (oxi, { req }) => {
   const userId = getReqUserId(req);
