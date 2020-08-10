@@ -1,5 +1,17 @@
 import oxi from 'oxium/src/util/oxi';
+import { always } from 'ramda';
 import config from '../src/config';
+
+jest.mock('dotenv', () => ({
+  __esModule: true,
+  default: {
+    config: always({
+      parsed: {
+        NODE_ENV: 'test',
+      },
+    }),
+  },
+}));
 
 export const mockOxi = (data = {}) =>
   oxi({
