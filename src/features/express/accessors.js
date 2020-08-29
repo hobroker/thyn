@@ -1,5 +1,4 @@
 import {
-  chain,
   compose,
   curry,
   filter,
