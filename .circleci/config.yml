@@ -107,9 +107,6 @@ jobs:
       - checkout
       - export-params
       - run:
-          name: echo
-          command: echo $WORKING_DIR
-      - run:
           name: Create .env
           command: bash config/extract_params.sh --env > .env
       - scp:
@@ -146,7 +143,7 @@ workflows:
                 - stage
       - deploy-stage:
           requires:
-#            - publish
+            - publish
           filters:
             branches:
               only: stage
