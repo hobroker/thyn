@@ -1,3 +1,4 @@
+import { always } from 'ramda';
 import { get } from '../../express/methods';
 import { SPOTIFY } from '../constants';
 import { getLatestPlayableState, syncState } from '../resolvers/state';
@@ -19,5 +20,12 @@ export default {
   [SPOTIFY]: {
     state: get(withAuthorization(state)),
     latest: get(withAuthorization(latestState)),
+    example: get(
+      always({
+        user: {
+          id: 'one',
+        },
+      }),
+    ),
   },
 };

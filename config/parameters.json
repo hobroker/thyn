@@ -2,11 +2,13 @@
   "master": {
     "VERSION": "latest",
     "DOCKER_WEB_PORT": 3100,
-    "BASE_URL": "https://thyn.lucy.hobroker.com"
+    "BASE_URL": "https://thyn.lucy.hobroker.com",
+    "WORKING_DIR": "~/apps/thyn-prod"
   },
   "stage": {
     "VERSION": "stage",
     "DOCKER_WEB_PORT": 3101,
-    "BASE_URL": "https://thyn-stage.lucy.hobroker.com"
+    "BASE_URL": "https://thyn-stage.lucy.hobroker.com",
+    "WORKING_DIR": "/home/amy/apps/thyn-stage"
   }
 }
