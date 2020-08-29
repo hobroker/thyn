@@ -1,4 +1,5 @@
 import {
+  chain,
   compose,
   curry,
   filter,
@@ -10,7 +11,7 @@ import {
 } from 'ramda';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { getConfigFeatures } from '../../accessors/config';
-import { EXPRESS, ROUTES } from './constants';
+import { EXPRESS, MIDDLEWARES, ROUTES } from './constants';
 import { assocM } from '../../util/mutable';
 
 export const getExpress = prop(EXPRESS);
@@ -20,6 +21,8 @@ export const addRoutes = curry((data, target) => {
 
   return assocM(ROUTES, routes, target);
 });
+
+export const addMiddlewares = assocM(MIDDLEWARES);
 
 export const getExpressConfig = compose(getExpress, getConfigFeatures);
 

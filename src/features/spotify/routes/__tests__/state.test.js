@@ -1,39 +1,38 @@
 import { always } from 'ramda';
-import { mockOxi } from '../../../../../test';
-import { latestState, state } from '../state';
+import request from 'supertest';
+import { OK } from 'http-status-codes';
+import { mockExpress, mockFindToken } from '../../../../../test';
 import { getLatestPlayableState, syncState } from '../../resolvers/state';
 
 jest.mock('../../resolvers/state');
 
-const oxi = mockOxi();
+mockFindToken({ user: { _id: 'uno' } });
 
 afterEach(() => {
   syncState.mockClear();
   getLatestPlayableState.mockClear();
 });
 
-describe('state', () => {
-  it(`should return result from syncState`, async () => {
+const app = mockExpress();
+
+describe('spotify/state', () => {
+  it('should return result from syncState', async () => {
     const data = { one: 1 };
     syncState.mockReturnValueOnce(always(Promise.resolve(data)));
 
-    const req = { user: { _id: 'uno' } };
-    const result = await state(oxi, { req });
+    await request(app).get('/api/spotify/state').expect(OK, data);
 
-    expect(result).toEqual(data);
-    expect(syncState).toHaveBeenCalledWith({ userId: 'uno' });
+    expect(syncState).toBeCalledWith({ userId: 'uno' });
   });
 });
 
 describe('latestState', () => {
   it('should return result from getLatestPlayableState', async () => {
     const data = { one: 1 };
-    getLatestPlayableState.mockReturnValueOnce(always(Promise.resolve(data)));
+    getLatestPlayableState.mockReturnValueOnce(always(data));
 
-    const req = { user: { _id: 'uno' } };
-    const result = await latestState(oxi, { req });
+    await request(app).get('/api/spotify/latest').expect(OK, data);
 
-    expect(result).toEqual(data);
     expect(getLatestPlayableState).toHaveBeenCalledWith({ userId: 'uno' });
   });
 });

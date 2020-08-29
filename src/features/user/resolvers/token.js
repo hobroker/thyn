@@ -13,5 +13,5 @@ export const generateToken = ({ userId }) => async oxi => {
   });
 };
 
-export const getUserByToken = token => ({ mongo: { Token } }) =>
+export const findTokenWithUser = token => ({ mongo: { Token } }) =>
   token ? Token.findOne({ token }).populate('user') : null;
