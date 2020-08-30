@@ -1,6 +1,4 @@
 import { withResolver } from '../../apollo/helpers';
-// import { getLatestToken } from '../resolvers/token';
-
 import { registerWithToken } from '../resolvers/auth';
 
 export default {
