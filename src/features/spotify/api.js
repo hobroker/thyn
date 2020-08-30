@@ -96,8 +96,12 @@ class SpotifyClient {
     };
   }
 
-  setToken({ accessToken, refreshToken }) {
+  setAccessToken(accessToken) {
     this.api.setAccessToken(accessToken);
+  }
+
+  setToken({ accessToken, refreshToken }) {
+    this.setAccessToken(accessToken);
     this.api.setRefreshToken(refreshToken);
   }
 }

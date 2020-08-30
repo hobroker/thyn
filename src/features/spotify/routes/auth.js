@@ -1,12 +1,11 @@
-import { compose, converge, prop, useWith } from 'ramda';
+import { compose } from 'ramda';
 import { SPOTIFY } from '../constants';
-import { get } from '../../express/methods';
-import { spotifyLogin } from '../resolvers/auth';
+import { get, post } from '../../express/methods';
+import { registerWithToken, spotifyLogin } from '../resolvers/auth';
 import { getReqUserId } from '../../user/accessors';
 import SpotifyClient from '../api';
 import { getCallbackHtmlContent } from '../accessors';
 import { readFile } from '../../../util/file';
-import { OK } from 'http-status-codes';
 
 export const auth = (oxi, { res, req }) => {
   const spotify = new SpotifyClient(oxi);
@@ -22,6 +21,12 @@ export const authCallback = (oxi, { req: { query } }) => {
   return oxi(spotifyLogin({ code, state }));
 };
 
+export const registerWithSpotify = (oxi, { req: { body } }) => {
+  const { accessToken } = body;
+
+  return oxi(registerWithToken({ accessToken }));
+};
+
 const callback2 = compose(readFile, getCallbackHtmlContent);
 
 export default {
@@ -29,6 +34,7 @@ export default {
     auth: {
       '/': get(auth),
       callback: get(authCallback),
+      register: post(registerWithSpotify),
       callback2: get(callback2),
     },
   },

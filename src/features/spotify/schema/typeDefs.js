@@ -1,6 +1,12 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+  type SpotifyAccessToken {
+    accessToken: String
+    refreshToken: String
+    expiresAt: String
+  }
+
   type SpotifyImage {
     height: Int
     width: Int
@@ -43,5 +49,9 @@ export default gql`
     artists: [SpotifyArtist]
     createdAt: Date
     updatedAt: Date
+  }
+
+  extend type Mutation {
+    connectWithSpotify(accessToken: String): Token
   }
 `;

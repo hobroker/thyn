@@ -5,4 +5,9 @@ export default gql`
     _id: String
     spotifyId: String
   }
+
+  type Token {
+    token: String
+    user: User
+  }
 `;

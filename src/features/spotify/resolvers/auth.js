@@ -25,3 +25,17 @@ export const spotifyLogin = ({ code, state }) => async oxi => {
 
   return oxi(generateToken({ userId }));
 };
+
+export const registerWithToken = ({ accessToken }) => async oxi => {
+  const spotify = new SpotifyClient(oxi);
+  spotify.setAccessToken(accessToken);
+  const { id: spotifyId } = await spotify.fetchMe();
+  const user = await oxi(
+    syncSpotifyUser({
+      spotifyId,
+    }),
+  );
+  const userId = user._id;
+
+  return oxi(generateToken({ userId }));
+};
