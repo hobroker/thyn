@@ -37,5 +37,8 @@ export const registerWithToken = ({ accessToken }) => async oxi => {
   );
   const userId = user._id;
 
-  return oxi(generateToken({ userId }));
+  const token = await oxi(generateToken({ userId }));
+  token.user = user;
+
+  return token;
 };
