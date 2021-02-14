@@ -1,14 +1,13 @@
 import { findLatest } from '../../mongo/helpers';
-import isTokenValid from '../util/isTokenValid';
+import { MONGO } from '../../mongo/constants';
 
-export const saveToken = data => ({ mongo: { SpotifyAccessToken } }) =>
+export const createToken = data => ({ [MONGO]: { SpotifyAccessToken } }) =>
   SpotifyAccessToken.create(data);
 
-export const getLatestToken = () => async ({ mongo: { SpotifyAccessToken } }) =>
-  findLatest(SpotifyAccessToken);
+export const getLatestToken = () => async ({
+  [MONGO]: { SpotifyAccessToken },
+}) => findLatest(SpotifyAccessToken);
 
-export const isLatestTokenValid = () => async oxi => {
-  const token = await oxi(getLatestToken());
-
-  return isTokenValid(token);
-};
+export const findSpotifyAccessToken = filter => async ({
+  [MONGO]: { SpotifyAccessToken },
+}) => findLatest(SpotifyAccessToken, filter);

@@ -1,22 +1,23 @@
 import { ApolloServer } from 'apollo-server-express';
-import { always, applySpec, compose } from 'ramda';
+import { always, applySpec, path } from 'ramda';
 import getSchema from './helpers/getSchemas';
 import { OPTIONS } from './constants';
-import { EXPRESS } from '../express/constants';
 import { debugIt } from '../../util/debug';
-import isDevelopment from '../../util/isDevelopment';
-import { ensureDependencies, isWebApp } from '../cli/accessors';
+import { ensureIsWebApp } from '../cli/accessors';
+import { getExpress, getExpressConfig } from '../express/accessors';
 
 const Apollo = async (oxi, features) => {
-  const { baseURL, app } = oxi[EXPRESS];
+  const { baseURL } = oxi(getExpressConfig);
+  const app = oxi(getExpress);
   const schema = getSchema(features);
 
   const apollo = new ApolloServer({
     ...OPTIONS,
     schema,
-    introspection: isDevelopment(),
+    introspection: true,
     context: applySpec({
       oxi: always(oxi),
+      user: path(['req', 'user']),
     }),
   });
 
@@ -31,4 +32,4 @@ const Apollo = async (oxi, features) => {
   };
 };
 
-export default compose(ensureDependencies([isWebApp]))(Apollo);
+export default ensureIsWebApp(Apollo);

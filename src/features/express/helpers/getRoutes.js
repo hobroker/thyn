@@ -3,13 +3,13 @@ import flattenRoutes from '../util/flattenRoutes';
 import wrapResolver from '../util/wrapResolver';
 import { getAllRoutes, getExpressConfig } from '../accessors';
 
-const prepareRoutes = (arg, prefix) =>
+const prepareRoutes = (oxi, prefix) =>
   pipe(
     objOf(prefix),
     flattenRoutes,
     map(
       evolve({
-        resolver: wrapResolver(arg),
+        resolver: wrapResolver(oxi),
       }),
     ),
   );

@@ -1,14 +1,17 @@
-import each from 'jest-each';
 import concatPaths from '../concatPaths';
 
 describe('concatPaths', () => {
-  each([
+  const cases = [
     [['/'], '/'],
     [['/', '/one'], '/one'],
     [['one', 'two'], 'one/two'],
     [['/one', 'two'], '/one/two'],
     [['/one', '/two/'], '/one/two'],
-  ]).it('should convert "%s" to "%s"', (input, expected) => {
-    expect(concatPaths(input)).toBe(expected);
+  ];
+
+  cases.forEach(([input, output]) => {
+    it(`should convert "${input}" to "${output}"`, () => {
+      expect(concatPaths(input)).toBe(output);
+    });
   });
 });

@@ -31,6 +31,7 @@
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "http-status-codes": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
     "monet": "^0.9.1",
     "mongoose": "^5.9.27",
     "morgan": "^1.10.0",
@@ -53,9 +54,9 @@
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.2.5",
     "jest": "^26.2.2",
-    "jest-each": "^26.2.0",
     "lint-staged": "^10.2.11",
-    "prettier": "2.0.5"
+    "prettier": "2.0.5",
+    "supertest": "^4.0.2"
   },
   "husky": {
     "hooks": {
@@ -75,15 +76,7 @@
     ],
     "testEnvironment": "node",
     "transformIgnorePatterns": [
-      "/node_modules\\/(?!oxium)(.*)"
-    ],
-    "transform": {
-      "\\.js$": [
-        "babel-jest",
-        {
-          "rootMode": "upward"
-        }
-      ]
-    }
+      "/node_modules/(?!oxium).+\\.js$"
+    ]
   }
 }

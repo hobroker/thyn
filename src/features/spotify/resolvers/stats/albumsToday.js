@@ -1,5 +1,5 @@
 import { compose, map, omit, path, prop, uniqBy } from 'ramda';
-import getTodayPlayableEntries from '../getTodayPlayableEntries';
+import { getTodayPlayableEntries } from '../entries';
 
 const mapAlbum = compose(
   map(omit(['type', 'id', 'releaseDate', 'totalTracks'])),

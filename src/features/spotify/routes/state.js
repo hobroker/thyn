@@ -1,15 +1,31 @@
-import { applyTo } from 'ramda';
+import { always } from 'ramda';
 import { get } from '../../express/methods';
 import { SPOTIFY } from '../constants';
-import syncState from '../resolvers/syncState';
-import getLatestPlayableState from '../resolvers/getLatestPlayableState';
+import { getLatestPlayableState, syncState } from '../resolvers/state';
+import { getReqUserId, withAuthorization } from '../../user/accessors';
 
-const state = applyTo(syncState());
-const latestState = applyTo(getLatestPlayableState());
+export const state = (oxi, { req }) => {
+  const userId = getReqUserId(req);
+
+  return oxi(syncState({ userId }));
+};
+
+export const latestState = (oxi, { req }) => {
+  const userId = getReqUserId(req);
+
+  return oxi(getLatestPlayableState({ userId }));
+};
 
 export default {
   [SPOTIFY]: {
-    state: get(state),
-    latest: get(latestState),
+    state: get(withAuthorization(state)),
+    latest: get(withAuthorization(latestState)),
+    example: get(
+      always({
+        user: {
+          id: 'one',
+        },
+      }),
+    ),
   },
 };

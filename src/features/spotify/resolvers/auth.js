@@ -1,36 +1,44 @@
-import { AUTH_SCOPES } from '../constants';
-import tokenFacade from '../facades/token';
-import { getLatestToken } from './token';
-import invariant from '../../../util/invariant';
-import isTokenValid from '../util/isTokenValid';
+import { createToken } from './token';
+import { syncSpotifyUser } from './user';
+import { generateToken } from '../../user/resolvers/token';
+import SpotifyClient from '../api';
 
-export const generateAuthorizationUrl = redirectURI => oxi => {
-  const { spotify } = oxi;
+export const spotifyLogin = ({ code, state }) => async oxi => {
+  const spotify = new SpotifyClient(oxi);
+  const data = await spotify.fetchTokenByCode(code);
+  spotify.setToken(data);
+  const { id: spotifyId } = await spotify.fetchMe();
+  const user = await oxi(
+    syncSpotifyUser({
+      spotifyId,
+      userId: state,
+    }),
+  );
+  const userId = user._id;
 
-  spotify.setRedirectURI(redirectURI);
+  await oxi(
+    createToken({
+      ...data,
+      userId,
+    }),
+  );
 
-  const url = spotify.createAuthorizeURL(AUTH_SCOPES, 'null', false);
-
-  return url;
+  return oxi(generateToken({ userId }));
 };
 
-export const getTokenByCode = code => ({ spotify }) =>
-  spotify.authorizationCodeGrant(code).then(tokenFacade);
+export const registerWithToken = ({ accessToken }) => async oxi => {
+  const spotify = new SpotifyClient(oxi);
+  spotify.setAccessToken(accessToken);
+  const { id: spotifyId } = await spotify.fetchMe();
+  const user = await oxi(
+    syncSpotifyUser({
+      spotifyId,
+    }),
+  );
+  const userId = user._id;
 
-export const ensureTokenIsValid = () => async oxi => {
-  const { spotify } = oxi;
-  const token = await oxi(getLatestToken());
+  const token = await oxi(generateToken({ userId }));
+  token.user = user;
 
-  invariant(token, 'manual auth required');
-
-  if (!isTokenValid(token)) {
-    spotify.setRefreshToken(token.refreshToken);
-    const { accessToken, expiresAt } = await spotify
-      .refreshAccessToken()
-      .then(tokenFacade);
-    await token.updateOne({ accessToken, expiresAt });
-    spotify.setAccessToken(accessToken);
-  } else {
-    spotify.setAccessToken(token.accessToken);
-  }
+  return token;
 };

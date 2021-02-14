@@ -1,35 +1,41 @@
+import { compose } from 'ramda';
 import { SPOTIFY } from '../constants';
-import { get } from '../../express/methods';
-import getBaseURL from '../../express/resolvers/getBaseURL';
-import { generateAuthorizationUrl, getTokenByCode } from '../resolvers/auth';
-import { isLatestTokenValid, saveToken } from '../resolvers/token';
-import { getSpotifyConfig } from '../accessors';
+import { get, post } from '../../express/methods';
+import { registerWithToken, spotifyLogin } from '../resolvers/auth';
+import { getReqUserId } from '../../user/accessors';
+import SpotifyClient from '../api';
+import { getCallbackHtmlContent } from '../accessors';
+import { readFile } from '../../../util/file';
 
-const auth = (oxi, { res }) => {
-  const { redirectPath } = getSpotifyConfig(oxi);
-  const redirectURI = oxi(getBaseURL()) + redirectPath;
-
-  const redirectUrl = oxi(generateAuthorizationUrl(redirectURI));
+export const auth = (oxi, { res, req }) => {
+  const spotify = new SpotifyClient(oxi);
+  const userId = getReqUserId(req);
+  const redirectUrl = spotify.generateAuthorizeURL({ userId });
 
   return res.redirect(redirectUrl);
 };
 
-const authCallback = async (oxi, { req }) => {
-  const { code } = req.query;
+export const authCallback = (oxi, { req: { query } }) => {
+  const { code, state } = query;
 
-  const data = await oxi(getTokenByCode(code));
-
-  return oxi(saveToken(data));
+  return oxi(spotifyLogin({ code, state }));
 };
 
-const ping = ({ mongo }) => mongo(isLatestTokenValid());
+export const registerWithSpotify = (oxi, { req: { body } }) => {
+  const { accessToken } = body;
+
+  return oxi(registerWithToken({ accessToken }));
+};
+
+const callback2 = compose(readFile, getCallbackHtmlContent);
 
 export default {
   [SPOTIFY]: {
     auth: {
       '/': get(auth),
       callback: get(authCallback),
-      ping: get(ping),
+      register: post(registerWithSpotify),
+      callback2: get(callback2),
     },
   },
 };

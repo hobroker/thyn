@@ -26,7 +26,7 @@ commands:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "10:a5:de:e3:e5:36:b2:d7:46:15:96:63:93:cb:a6:3b"
+            - "42:5c:be:1c:e4:41:7a:b4:75:84:9e:ba:cb:42:45:0c"
       - run:
           name: Fix host authenticity
           command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
@@ -43,10 +43,13 @@ commands:
         default: ls
     steps:
       - run:
+          name: Create directory
+          command: ssh $SSH_USER@$SSH_HOST "mkdir -p $WORKING_DIR"
+      - run:
           name: << parameters.desc >>
-          command: ssh $SSH_USER@$SSH_HOST "cd /root/apps/thyn-${CIRCLE_BRANCH} && << parameters.command >>"
+          command: ssh $SSH_USER@$SSH_HOST "cd $WORKING_DIR && << parameters.command >>"
   scp:
-    description: "Copy file to server"
+    description: "Copy file to the project folder"
     parameters:
       desc:
         description: The file(s) to copy
@@ -58,7 +61,7 @@ commands:
     steps:
       - run:
           name: << parameters.desc >>
-          command: scp << parameters.file >> $SSH_USER@$SSH_HOST:/root/apps/thyn-${CIRCLE_BRANCH}
+          command: scp << parameters.file >> $SSH_USER@$SSH_HOST:$WORKING_DIR
 
 jobs:
   linter:

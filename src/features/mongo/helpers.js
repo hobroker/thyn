@@ -2,8 +2,8 @@ import { curry, difference, keys, map, prop } from 'ramda';
 
 export const getId = prop('_id');
 
-export const findLatest = Model =>
-  Model.findOne().sort({
+export const findLatest = (Model, filter) =>
+  Model.findOne(filter).sort({
     createdAt: 'desc',
   });
 

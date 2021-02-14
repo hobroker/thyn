@@ -1,5 +1,5 @@
-import getTodayPlayableEntries from '../getTodayPlayableEntries';
 import countMinutes from '../../util/countMinutes';
+import { getTodayPlayableEntries } from '../entries';
 
 const minutesToday = () => async oxi => {
   const list = await oxi(getTodayPlayableEntries());

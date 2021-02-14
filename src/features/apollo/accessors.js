@@ -1,11 +1,11 @@
 import path from 'path';
-import { assocM } from 'oxium';
 import { compose, converge, prop } from 'ramda';
 import { APOLLO, SCHEMA } from './constants';
 import {
   getConfigAppRootPath,
   getConfigFeatures,
 } from '../../accessors/config';
+import { assocM } from '../../util/mutable';
 
 export const addSchema = assocM(SCHEMA);
 export const getApollo = prop(APOLLO);
